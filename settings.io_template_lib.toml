@@ -1,0 +1,5 @@
+[default]
+check_value = "default"
+is_verbose = true
+[test]
+check_value = "test"
