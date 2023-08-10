@@ -37,13 +37,13 @@ export PYTHONPATH=${MODULE} scripts
 ##                                                                            .
 ## =============================================================================
 ## IO-TEMPLATE-LIB - IO Aero Template Library - make Documentation.
-##                   -------------------------------------------------------------
-##                   The purpose of this Makefile is to support the whole software
-##                   development process for io-template-lib. It contains also the
-##                   necessary tools for the CI activities.
-##                   -------------------------------------------------------------
+##                   -----------------------------------------------------------
+##                   The purpose of this Makefile is to support the whole
+##                   software development process for io-template-lib. It
+##                   contains also the necessary tools for the CI activities.
+##                   -----------------------------------------------------------
 ##                   The available make commands are:
-## ------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 ## help:               Show this help.
 ## -----------------------------------------------------------------------------
 ## everything:         Do everything precheckin
@@ -54,8 +54,7 @@ dev: format lint tests
 dist: docs source-dist dist-copy
 ## docs:               Check the API documentation, create and upload the user documentation.
 docs: pydocstyle sphinx
-## final:              Format, lint and test the code, create a ddl, the documentation,
-##                     a test upload to PyPI and create a ddl.
+## final:              Format, lint and test the code, create the documentation and a ddl.
 final: format lint docs tests nuitka
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
@@ -357,13 +356,13 @@ sphinx-api:
 # twine: Collection of utilities for publishing packages on io-aero-pypi.
 # https://pypi.org/project/twine/
 upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
-	@echo Info **********  Start: twine prod **********************************
+	@echo Info **********  Start: twine prod ***********************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
 	@echo PYTHON     =${PYTHON}
 	${PYTHON} -m build --version
 	${PYTHON} -m twine --version
-	@echo ---------------------------------------------------------------------
+	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m build
