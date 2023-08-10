@@ -11,9 +11,9 @@ setlocal EnableDelayedExpansion
 set ERRORLEVEL=
 
 if ["!ENV_FOR_DYNACONF!"] EQU [""] (
-    set ENV_FOR_DYNACONF=dev
+    set ENV_FOR_DYNACONF=prod
 )
-set PYTHONPATH=
+set PYTHONPATH=.
 
 echo.
 echo Script %0 is now running
@@ -33,9 +33,9 @@ echo -----------------------------------------------------------------------
 echo:| TIME
 echo =======================================================================
 
-pipenv run python src\launcher.py
+pipenv run python scripts\launcher.py
 if ERRORLEVEL 1 (
-    echo Processing of the script: %0 - step: 'python src\launcher.py was aborted
+    echo Processing of the script: %0 - step: 'python scripts\launcher.py was aborted
 )
 
 echo.

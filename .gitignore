@@ -3,6 +3,8 @@
 /.mypy_cache/
 /.pytest_cache/
 /build/
+/dist/iotemplatelib-*-py3-none-any.whl
+/dist/iotemplatelib-*.tar.gz
 /docs/build/.doctrees/
 /docs/build/doctrees/
 /docs/build/pdf/.doctrees/
