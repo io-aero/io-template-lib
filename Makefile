@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := help
 
 ifeq ($(OS),Windows_NT)
-	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=src\\iotemplatelib src\\iotemplatelib\\tools src\\iotemplatelib\\lidar tests
-	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=src\\iotemplatelib\\*.py src\\iotemplatelib\\tools\\*.py src\\iotemplatelib\\lidar\\*.py
+	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
+	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
 	export CONDA_PYTHON=~\\miniconda3\\bin\\python
 	export CREATE_DIST=if not exist dist mkdir dist
 	export DELETE_DIST=if exist dist rd /s /q dist
@@ -15,8 +15,8 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_PIPFILE_LOCK=del /f /q Pipfile.lock
 	export IO_LIBS_DIR=C:/0-io-libs/io-vector
 else
-	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=src/iotemplatelib tests
-	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=src/iotemplatelib/*.py
+	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
+	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
 	export CONDA_PYTHON=~/miniconda3/bin/python
 	export CREATE_DIST=mkdir -p dist
 	export DELETE_DIST=rm -rf dist
@@ -56,7 +56,7 @@ dist: docs source-dist dist-copy
 docs: pydocstyle sphinx
 ## final:              Format, lint and test the code, create a ddl, the documentation,
 ##                     a test upload to PyPI and create a ddl.
-final: format lint docs tests upload-io-aero nuitka
+final: format lint docs tests nuitka
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
