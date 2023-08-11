@@ -5,6 +5,7 @@
 /build/
 /dist/iotemplatelib-*-py3-none-any.whl
 /dist/iotemplatelib-*.tar.gz
+/dist/iotemplatelib.build/
 /docs/build/.doctrees/
 /docs/build/doctrees/
 /docs/build/pdf/.doctrees/
