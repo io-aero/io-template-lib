@@ -27,28 +27,15 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: Install dev dependencies
         run: make pipenv-dev
-      - name: Install Step - Necessary system software (incl. GDAL & Rasterio)
-        run: |
-            sudo add-apt-repository ppa:ubuntugis/ppa
-            sudo apt-get update -y
-            sudo apt-get install -y gdal-bin \
-                                    libgdal-dev \
-                                    python-numpy
-            python3 -m pipenv run pip install templateio
-            python3 -m pipenv run pip freeze
       - name: Run the whole software quality chain
-        run: make format lint docs tests
-      - name: Publish the code coverage to coveralls.io
-        run: |
-            echo "::echo::on"
-            echo "================================================================================"
-            echo "Current version of Python3: $(python --version)"
-            echo "Current version of pip3: $(pip --version || true)"
-            echo "Current version of Ubuntu: $(lsb_release -a)"
-            echo "================================================================================"
-            make coveralls
+        run: make isort black lint docs tests
       - name: Commit documentation and sourcecode # transfer the new html files back into the repository
         run: |
           git config --local user.name  ${{ github.actor }}
