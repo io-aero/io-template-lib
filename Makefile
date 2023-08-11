@@ -356,7 +356,7 @@ sphinx-api:
 # twine: Collection of utilities for publishing packages on io-aero-pypi.
 # https://pypi.org/project/twine/
 upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
-	@echo Info **********  Start: twine prod ***********************************
+	@echo Info **********  Start: twine io-aero-pypi ***************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
 	@echo PYTHON     =${PYTHON}
@@ -368,7 +368,42 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	${PYTHON} -m build
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
-	@echo Info **********  End:   twine prod ***********************************
+	@echo Info **********  End:   twine io-aero-pypi ***************************
+
+# twine: Collection of utilities for publishing packages on PyPI.
+# https://pypi.org/project/twine/
+upload-pypi:        ## Upload the distribution archive to PyPi.
+	@echo Info **********  Start: twine pypi ***********************************
+	@echo CREATE_DIST=${CREATE_DIST}
+	@echo DELETE_DIST=${DELETE_DIST}
+	@echo PYTHON     =${PYTHON}
+	${PYTHON} -m build --version
+	${PYTHON} -m twine --version
+	@echo ----------------------------------------------------------------------
+	${DELETE_DIST}
+	${CREATE_DIST}
+	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
+	${PYTHON} -m build
+	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
+	@echo Info **********  End:   twine pypi ***********************************
+
+# twine: Collection of utilities for publishing packages on Test PyPI.
+# https://pypi.org/project/twine/
+# https://test.pypi.org
+upload-testpypi:    ## Upload the distribution archive to Test PyPi.
+	@echo Info **********  Start: twine testpypi *******************************
+	@echo CREATE_DIST=${CREATE_DIST}
+	@echo DELETE_DIST=${DELETE_DIST}
+	@echo PYTHON     =${PYTHON}
+	${PYTHON} -m build --version
+	${PYTHON} -m twine --version
+	@echo ----------------------------------------------------------------------
+	${DELETE_DIST}
+	${CREATE_DIST}
+	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
+	${PYTHON} -m  build
+	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
+	@echo Info **********  End:   twine testpypi *******************************
 
 version:            ## Show the installed software versions.
 	@echo Info **********  Start: version **************************************
