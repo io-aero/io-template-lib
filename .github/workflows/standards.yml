@@ -34,15 +34,6 @@ jobs:
           aws-region: us-east-1
       - name: Install dev dependencies
         run: make pipenv-dev
-      - name: Install Step - Necessary system software (incl. GDAL & Rasterio)
-        run: |
-            sudo add-apt-repository ppa:ubuntugis/ppa
-            sudo apt-get update -y
-            sudo apt-get install -y gdal-bin \
-                                    libgdal-dev \
-                                    python-numpy
-            python3 -m pipenv run pip install templateio
-            python3 -m pipenv run pip freeze
       - name: Run the whole software quality chain
         run: make format lint docs tests
       - name: Publish the code coverage to coveralls.io
