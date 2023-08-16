@@ -3,12 +3,15 @@
 ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
-	export CONDA_PYTHON=~\\miniconda3\\bin\\python
+	export CONDA_PYTHON=--python=~\\miniconda3\\bin\\python --site-packages
+	export CONDA_PYTHON=
 	export CREATE_DIST=if not exist dist mkdir dist
 	export DELETE_DIST=if exist dist rd /s /q dist
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
+	export ENV_FOR_DYNACONF=test
 	export OPTION_NUITKA=
+	export PIPENV=py -m pipenv
 	export PYTHON=py
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
@@ -17,12 +20,15 @@ ifeq ($(OS),Windows_NT)
 else
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
-	export CONDA_PYTHON=~/miniconda3/bin/python
+	export CONDA_PYTHON=--python=~/miniconda3/bin/python --site-packages
+	export CONDA_PYTHON=
 	export CREATE_DIST=mkdir -p dist
 	export DELETE_DIST=rm -rf dist
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
+	export ENV_FOR_DYNACONF=test
 	export OPTION_NUITKA=--disable-ccache
+	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
@@ -31,7 +37,6 @@ else
 endif
 
 export MODULE=iotemplatelib
-export PIPENV=pipenv
 export PYTHONPATH=${MODULE} scripts
 
 ##                                                                            .
@@ -213,7 +218,7 @@ pipenv-dev:         ## Install the package dependencies for development.
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PIPENV} install --dev
+	${PIPENV} install ${CONDA_PYTHON} --dev
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pip freeze
 	@echo ----------------------------------------------------------------------
@@ -234,7 +239,7 @@ pipenv-prod:        ## Install the package dependencies for production.
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PIPENV} install
+	${PIPENV} install ${CONDA_PYTHON}
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pip freeze
 	@echo ----------------------------------------------------------------------
@@ -382,7 +387,6 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m build
 	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
 	@echo Info **********  End:   twine pypi ***********************************
@@ -400,7 +404,6 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m  build
 	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
 	@echo Info **********  End:   twine testpypi *******************************
