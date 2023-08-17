@@ -26,7 +26,12 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.0.7"
+version = "1.0.8"
+
+[project.dependencies]
+dynaconf = "*"
+pyyaml = "<=6.0.0"
+toml = "*"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"

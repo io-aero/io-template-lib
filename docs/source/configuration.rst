@@ -2,7 +2,7 @@ Configuration
 =============
 
 settings.io_template_lib.toml
--------------------------
+-----------------------------
 
 This file controls the behaviour of the **IO-TEMPLATE-LIB** library.
 

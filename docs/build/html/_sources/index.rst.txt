@@ -1,5 +1,5 @@
 Welcome to IO-TEMPLATE-LIB
-======================
+==========================
 
 .. toctree::
    :maxdepth: 1

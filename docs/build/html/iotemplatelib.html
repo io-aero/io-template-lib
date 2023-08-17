@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Release Notes" href="release_notes.html" /><link rel="prev" title="Advanced Usage" href="advanced_usage.html" />
 
-    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.2.2 and Furo 2023.07.26 -->
         <title>iotemplatelib package - IO-TEMPLATE-LIB 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -208,21 +208,54 @@
         </div>
         <article role="main">
           <section id="iotemplatelib-package">
-<h1>iotemplatelib package<a class="headerlink" href="#iotemplatelib-package" title="Permalink to this heading">#</a></h1>
+<h1>iotemplatelib package<a class="headerlink" href="#iotemplatelib-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="iotemplatelib-io-glob-module">
-<h2>iotemplatelib.io_glob module<a class="headerlink" href="#iotemplatelib-io-glob-module" title="Permalink to this heading">#</a></h2>
+<h2>iotemplatelib.io_glob module<a class="headerlink" href="#iotemplatelib-io-glob-module" title="Link to this heading">#</a></h2>
+<p id="module-iotemplatelib.io_glob">Global constants and variables.</p>
 </section>
 <section id="iotemplatelib-io-logger-module">
-<h2>iotemplatelib.io_logger module<a class="headerlink" href="#iotemplatelib-io-logger-module" title="Permalink to this heading">#</a></h2>
+<h2>iotemplatelib.io_logger module<a class="headerlink" href="#iotemplatelib-io-logger-module" title="Link to this heading">#</a></h2>
+<p id="module-iotemplatelib.io_logger">Functions to setup and use the logger and others.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="iotemplatelib.io_logger.initialise_logger">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.io_logger.</span></span><span class="sig-name descname"><span class="pre">initialise_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/iotemplatelib/io_logger.html#initialise_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iotemplatelib.io_logger.initialise_logger" title="Link to this definition">#</a></dt>
+<dd><p>Initialise the root logging functionality.Run this before you run
+io_glob.logger.info(‘msg’) or anything like that.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>log_level</strong> (<em>int default 4</em>) – 0 for no messages, 1 for critical, 2 for error and above,
+3 for warning and above, 4 for info and above, 5 for all messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="iotemplatelib.io_logger.set_logging_level">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.io_logger.</span></span><span class="sig-name descname"><span class="pre">set_logging_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/iotemplatelib/io_logger.html#set_logging_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iotemplatelib.io_logger.set_logging_level" title="Link to this definition">#</a></dt>
+<dd><p>Set the level of the logs that get written to screen.  the levels are
+debug, info, warning, error, critical in order from least to most prioirty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>level</strong> (<em>int</em>) – 0 for no messages, 1 for critical, 2 for error and above,
+3 for warning and above, 4 for info and above, 5 for all messages</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(int) 0 for no error, -1 for error</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="iotemplatelib-io-settings-module">
-<h2>iotemplatelib.io_settings module<a class="headerlink" href="#iotemplatelib-io-settings-module" title="Permalink to this heading">#</a></h2>
+<h2>iotemplatelib.io_settings module<a class="headerlink" href="#iotemplatelib-io-settings-module" title="Link to this heading">#</a></h2>
+<p id="module-iotemplatelib.io_settings">Managing the application configuration parameters.</p>
 </section>
 <section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<p id="module-iotemplatelib">IO-TEMPLATE-LIB.</p>
 </section>
 </section>
 
@@ -284,7 +317,11 @@
 <li><a class="reference internal" href="#">iotemplatelib package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#iotemplatelib-io-glob-module">iotemplatelib.io_glob module</a></li>
-<li><a class="reference internal" href="#iotemplatelib-io-logger-module">iotemplatelib.io_logger module</a></li>
+<li><a class="reference internal" href="#iotemplatelib-io-logger-module">iotemplatelib.io_logger module</a><ul>
+<li><a class="reference internal" href="#iotemplatelib.io_logger.initialise_logger"><code class="docutils literal notranslate"><span class="pre">initialise_logger()</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.io_logger.set_logging_level"><code class="docutils literal notranslate"><span class="pre">set_logging_level()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#iotemplatelib-io-settings-module">iotemplatelib.io_settings module</a></li>
 <li><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
@@ -298,9 +335,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=af2ce170"></script>
+</div><script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     </body>
 </html>

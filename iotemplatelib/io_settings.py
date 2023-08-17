@@ -6,6 +6,6 @@ from dynaconf import Dynaconf  # type: ignore
 
 settings = Dynaconf(
     environments=True,
-    envvar_prefix="IO_TEMPLATE_LIB",
-    settings_files=["settings.io_template_lib.toml", ".settings.io_template_lib.toml"],
+    envvar_prefix="IO_AERO_CONFIG",
+    settings_files=["settings.io_aero.toml", ".settings.io_aero.toml"],
 )
