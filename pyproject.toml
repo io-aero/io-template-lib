@@ -15,6 +15,11 @@ classifiers = [
     "Topic :: Scientific/Engineering",
     "Typing :: Typed",
 ]
+dependencies = [
+    "dynaconf",
+    "pyyaml<=6.0.0",
+    "toml",
+]
 description = "TBD"
 keywords = [
     "TBD",
@@ -26,12 +31,7 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.0.8"
-
-[project.dependencies]
-dynaconf = "*"
-pyyaml = "<=6.0.0"
-toml = "*"
+version = "1.0.9"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"
