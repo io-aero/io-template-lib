@@ -11,7 +11,6 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
 	export ENV_FOR_DYNACONF=test
-	export IO_LIBS_DIR=C:/0-io-libs/io-vector
 	export OPTION_NUITKA=
 	export PIPENV=py -m pipenv
 	export PYTHON=py
@@ -27,7 +26,6 @@ else
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
 	export ENV_FOR_DYNACONF=test
-	export IO_LIBS_DIR=~/0-io-libs/io-vector
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
@@ -55,8 +53,6 @@ export PYTHONPATH=${MODULE} scripts
 everything: dev docs nuitka
 ## dev:                Format, lint and test the code.
 dev: format lint tests
-## dist:               Build the source distribution tgz and html, then copy it to the io-libs dir.
-dist: docs source-dist dist-copy
 ## docs:               Check the API documentation, create and upload the user documentation.
 docs: pydocstyle sphinx
 ## final:              Format, lint and test the code, create the documentation and a ddl.
@@ -109,14 +105,6 @@ compileall:         ## Byte-compile the Python libraries.
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m compileall
 	@echo Info **********  End:   Compile All Python Scripts *******************
-
-# Copy all source dist to the libs folder
-dist-copy:          ## Distribute the source dist into the libs folder
-	@echo Info **********  Start: copy dist ************************************
-	-rm -rf ${IO_LIBS_DIR}
-	mkdir ${IO_LIBS_DIR}
-	cp -rf iotemplatelib/dist/* ${IO_LIBS_DIR}
-	@echo Info **********  End: copy dist **************************************
 
 # Formats docstrings to follow PEP 257
 # https://github.com/PyCQA/docformatter
@@ -173,7 +161,7 @@ mypy:               ## Find typing issues with Mypy.
 
 mypy-stubgen:       ## Autogenerate stub files
 	@echo Info **********  Start: Mypy *****************************************
-	@echo PIPENV    =${PIPENV}
+	@echo PIPENV                          =${PIPENV}
 	@echo ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=${ALL_IO_TEMPLATE_LIB_CHECKED_DIRS}
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run stubgen ${ALL_IO_TEMPLATE_LIB_CHECKED_FILES}
@@ -332,12 +320,6 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
 	@echo Info **********  End:   pytest ***************************************
 
-# Create the source distribution
-source-dist:  ## Setup the package for distribution
-	@echo Info **********  Start: dist *****************************************
-	rm -rf iotemplatelib/dist/*
-	cd iotemplatelib; ${PYTHON} setup.py sdist
-
 sphinx:            ##  Create the user documentation with Sphinx.
 	@echo DELETE_SPHINX_1 =${DELETE_SPHINX_1}
 	@echo DELETE_SPHINX_2 =${DELETE_SPHINX_2}
@@ -353,7 +335,6 @@ sphinx:            ##  Create the user documentation with Sphinx.
 #	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	cd ..
 	@echo Info **********  End:   sphinx ***************************************
-
 
 sphinx-api:
 	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
@@ -371,6 +352,7 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m build
+	${PIPENV} run check-wheel-contents dist
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
 	@echo Info **********  End:   twine io-aero-pypi ***************************
@@ -388,6 +370,7 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m build
+	${PIPENV} run check-wheel-contents dist
 	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
 	@echo Info **********  End:   twine pypi ***********************************
 
@@ -405,6 +388,7 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m  build
+	${PIPENV} run check-wheel-contents dist
 	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
 	@echo Info **********  End:   twine testpypi *******************************
 
