@@ -20,10 +20,9 @@ dependencies = [
     "pyyaml<=6.0.0",
     "toml",
 ]
-description = "TBD"
+description = "Template for Library Repositories"
 keywords = [
-    "TBD",
-    "TBD",
+    "Library",
 ]
 maintainers = [
     { name = "Team IO-Aero", email = "info@io-aero.ch" },
@@ -31,7 +30,7 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.0.9"
+version = "1.1.0"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"
@@ -42,9 +41,6 @@ version = "1.0.9"
 "Source" = "https://github.com/io-aero/io-template-lib/iotemplatelib/"
 
 [tool.bandit]
-
-[tool.coverage.run]
-omit = ["setup.py"]
 
 [tool.isort]
 float_to_top = true
@@ -67,7 +63,9 @@ pythonpath = "./iotemplatelib/"
 testpaths = "./tests/"
 
 [tool.setuptools]
-packages = ["iotemplatelib"]
+packages = [
+	"iotemplatelib",
+]
 
 [tool.setuptools.package-data]
 iotemplatelib = ["*.pyi", "py.typed"]
