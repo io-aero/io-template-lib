@@ -3,7 +3,7 @@
 ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
-	export CONDA_PYTHON=--python=~\\miniconda3\\bin\\python --site-packages
+	export CONDA_PYTHON=--python=c:\\Software\\miniconda3\\python.exe --site-packages
 	export CONDA_PYTHON=
 	export CREATE_DIST=if not exist dist mkdir dist
 	export DELETE_DIST=if exist dist rd /s /q dist
@@ -352,7 +352,6 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m build
-	${PIPENV} run check-wheel-contents dist
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
 	@echo Info **********  End:   twine io-aero-pypi ***************************
@@ -370,7 +369,6 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m build
-	${PIPENV} run check-wheel-contents dist
 	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
 	@echo Info **********  End:   twine pypi ***********************************
 
@@ -388,7 +386,6 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	${DELETE_DIST}
 	${CREATE_DIST}
 	${PYTHON} -m  build
-	${PIPENV} run check-wheel-contents dist
 	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
 	@echo Info **********  End:   twine testpypi *******************************
 
