@@ -20,9 +20,9 @@ dependencies = [
     "pyyaml<=6.0.0",
     "toml",
 ]
-description = "Template for Library Repositories"
+description = "Template for a Library Repository"
 keywords = [
-    "Library",
+    "library",
 ]
 maintainers = [
     { name = "Team IO-Aero", email = "info@io-aero.ch" },
@@ -30,7 +30,7 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.1.0"
+version = "1.1.1"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"
