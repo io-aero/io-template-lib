@@ -10,7 +10,6 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
 	export ENV_FOR_DYNACONF=test
-	export HOME=%HOMEPATH%
 	export OPTION_NUITKA=
 	export PIPENV=py -m pipenv
 	export PYTHON=py
