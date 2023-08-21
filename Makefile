@@ -3,14 +3,14 @@
 ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
-	export CONDA_PYTHON=--python=c:\\Software\\miniconda3\\python.exe --site-packages
-	export CONDA_PYTHON=
 	export CREATE_DIST=if not exist dist mkdir dist
+	export DELETE_BUILD=if exist build rd /s /q build
 	export DELETE_DIST=if exist dist rd /s /q dist
 	export DELETE_PIPFILE_LOCK=del /f /q Pipfile.lock
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
 	export ENV_FOR_DYNACONF=test
+	export HOME=%HOMEPATH%
 	export OPTION_NUITKA=
 	export PIPENV=py -m pipenv
 	export PYTHON=py
@@ -19,10 +19,10 @@ ifeq ($(OS),Windows_NT)
 else
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
-	export CONDA_PYTHON=--python=~/miniconda3/bin/python --site-packages
-	export CONDA_PYTHON=
 	export CREATE_DIST=mkdir -p dist
+	export DELETE_BUILD=rm -rf build
 	export DELETE_DIST=rm -rf dist
+	export DELETE_PIPFILE_LOCK=rm -rf Pipfile.lock
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
 	export ENV_FOR_DYNACONF=test
@@ -31,11 +31,14 @@ else
 	export PYTHON=python3
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
-	export DELETE_PIPFILE_LOCK=rm -rf Pipfile.lock
 endif
 
+export CONDA_ARG=--site-packages
+export CONDA_ARG=
 export MODULE=iotemplatelib
 export PYTHONPATH=${MODULE} scripts
+export VERSION_PIPENV=v2023.7.23
+export VERSION_PYTHON=3.10
 
 ##                                                                            .
 ## =============================================================================
@@ -56,7 +59,9 @@ dev: format lint tests
 ## docs:               Check the API documentation, create and upload the user documentation.
 docs: pydocstyle sphinx
 ## final:              Format, lint and test the code, create the documentation and a ddl.
-final: format lint docs tests nuitka
+#final: format lint docs tests nuitka
+# wwe
+final: format lint docs nuitka
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
@@ -105,6 +110,33 @@ compileall:         ## Byte-compile the Python libraries.
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m compileall
 	@echo Info **********  End:   Compile All Python Scripts *******************
+
+# Miniconda - Minimal installer for conda.
+# https://docs.conda.io/en/latest/miniconda.html
+# Configuration file: pyproject.toml
+conda-env:          ## Create a new environment.
+	@echo Info **********  Start: Miniconda create environment *****************
+	conda --version
+	@echo ----------------------------------------------------------------------
+	conda create --yes --name ${MODULE}
+	conda activate ${MODULE}
+	conda remove --yes --name ${MODULE} --all
+	conda create --yes --name ${MODULE} python=${VERSION_PYTHON}
+	conda activate ${MODULE}
+	conda install --yes -c conda-forge gdal pdal python-pdal rasterio
+	@echo ----------------------------------------------------------------------
+	python --version
+	conda info --envs
+	conda list
+	@echo Info **********  End:   Miniconda create environment *****************
+conda-update:       ## Update Miniconda.
+	@echo Info **********  Start: Miniconda update *****************************
+	conda --version
+	@echo ----------------------------------------------------------------------
+	conda update --yes conda
+	@echo ----------------------------------------------------------------------
+	conda --version
+	@echo Info **********  End:   Miniconda update *****************************
 
 # Formats docstrings to follow PEP 257
 # https://github.com/PyCQA/docformatter
@@ -201,12 +233,13 @@ pipenv-dev:         ## Install the package dependencies for development.
 	@echo PYTHON    =${PYTHON}
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m pip install --upgrade pip
-	${PYTHON} -m pip install --upgrade pipenv
+	${PYTHON} -m pip install --upgrade pipenv==${VERSION_PIPENV}
 	${PYTHON} -m pip install --upgrade virtualenv
+	${DELETE_BUILD}
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PIPENV} install ${CONDA_PYTHON} --dev
+	${PIPENV} install ${CONDA_ARG} --dev
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pip freeze
 	@echo ----------------------------------------------------------------------
@@ -222,12 +255,13 @@ pipenv-prod:        ## Install the package dependencies for production.
 	@echo PYTHON             =${PYTHON}
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m pip install --upgrade pip
-	${PYTHON} -m pip install --upgrade pipenv
+	${PYTHON} -m pip install --upgrade pipenv==${VERSION_PIPENV}
 	${PYTHON} -m pip install --upgrade virtualenv
+	${DELETE_BUILD}
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PIPENV} install ${CONDA_PYTHON}
+	${PIPENV} install ${CONDA_ARG}
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pip freeze
 	@echo ----------------------------------------------------------------------

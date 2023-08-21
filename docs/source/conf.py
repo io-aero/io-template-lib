@@ -5,8 +5,12 @@
 
 import os
 import sys
+from datetime import date
 
 sys.path.insert(0, os.path.abspath("../../"))
+
+from iocommon import io_glob
+import importlib.metadata
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -14,17 +18,25 @@ sys.path.insert(0, os.path.abspath("../../"))
 project = "IO-TEMPLATE-LIB"
 copyright = "2023, IO-Aero"
 author = "IO-Aero Team"
-release = "1.0.0"
+
+try:
+    version = importlib.metadata.version("iotemplatelib")
+except importlib.metadata.PackageNotFoundError:
+    version = "?.?.?"
+
+release = version.replace(".", "-")
+todays_date = date.today()
+
+rst_epilog = f"""
+            .. |version| replace:: {version}
+            .. |today| replace:: {todays_date}
+            .. |release| replace:: {release}
+            """
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
-extensions.append("sphinx.ext.autodoc")
-extensions.append("sphinx.ext.coverage")
-extensions.append("sphinx.ext.napoleon")
-extensions.append("sphinx.ext.viewcode")
-extensions.append("myst_parser")
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.napoleon", "sphinx.ext.viewcode", "myst_parser"]
 source_suffix = {
     ".rst": "restructuredtext",
     ".txt": "markdown",
@@ -52,7 +64,7 @@ rinoh_documents = [
         logo="img/IO-Aero_1_Logo.png",
         subtitle="Manual",
         target="manual",
-        title="IO Template Documentation",
+        title="IO Template Lib Documentation",
         toctree_only=False,
     ),
 ]

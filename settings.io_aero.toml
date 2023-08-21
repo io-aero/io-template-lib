@@ -2,7 +2,7 @@
 check_value = "default"
 is_verbose = true
 postgres_connection_port = 5432
-postgres_container_name = "io_aero_db_container"
+postgres_container_name = "io_aero_db"
 postgres_database_scheme = "public"
 postgres_dbname = "io_aero_db"
 postgres_dbname_admin = "postgres"
@@ -16,5 +16,5 @@ postgres_version = "15.3"
 [test]
 check_value = "test"
 postgres_connection_port = 5433
-postgres_container_name = "io_aero_db_container_test"
+postgres_container_name = "io_aero_db_test"
 postgres_pgdata ="data/postgres_test"
