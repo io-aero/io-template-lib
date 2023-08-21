@@ -37,13 +37,20 @@ jobs:
         run: make pipenv-dev
       - name: Run the whole software quality chain
         run: make isort black lint docs tests
+
+      - name: Check if there are any changes
+        id: verify_diff
+        run: |
+            git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
       - name: Commit documentation and sourcecode # transfer the new html files back into the repository
+        if: steps.verify_diff.outputs.changed == 'true'
         run: |
           git config --local user.name  ${{ github.actor }}
           git config --global user.email ${{ secrets.GLOBAL_USER_EMAIL }}
           git add .
           git commit -a -m "Updating the repository GitHub html pages in the docs folder"
       - name: Push changes  # push the output folder to your repo
+        if: steps.verify_diff.outputs.changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
