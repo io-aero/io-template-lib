@@ -32,8 +32,10 @@ else
 	export SPHINX_SOURCEDIR=docs/source
 endif
 
+export CONDA_PACKAGES=gdal pdal python-pdal rasterio
 export CONDA_ARG=--site-packages
 export CONDA_ARG=
+
 export MODULE=iotemplatelib
 export PYTHONPATH=${MODULE} scripts
 export VERSION_PIPENV=v2023.7.23
@@ -122,7 +124,7 @@ conda-env:          ## Create a new environment.
 	conda remove --yes --name ${MODULE} --all
 	conda create --yes --name ${MODULE} python=${VERSION_PYTHON}
 	conda activate ${MODULE}
-	conda install --yes -c conda-forge gdal pdal python-pdal rasterio
+	conda install --yes -c conda-forge ${CONDA_PACKAGES}
 	@echo ----------------------------------------------------------------------
 	python --version
 	conda info --envs
