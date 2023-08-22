@@ -5,8 +5,11 @@
 
 This is the entry point to the library IO-TEMPLATE-LIB.
 """
+import importlib
 import locale
 import sys
+
+from iocommon import file
 
 from iotemplatelib import io_glob
 from iotemplatelib import io_logger
@@ -36,6 +39,13 @@ def main(argv: list[str]) -> None:
     locale.setlocale(locale.LC_ALL, _LOCALE)
 
     io_glob.logger.info("Start launcher.py")
+
+    try:
+        print("Version ioavstatsdb: {importlib.metadata.version('iotemplatelib')}")
+        file.print_package_content("iotemplatelib")
+    except importlib.metadata.PackageNotFoundError:
+        print("Version iotemplatelib: package not found")
+    file.print_package_content("iocommon")
 
     io_glob.logger.info("End   launcher.py")
     io_glob.logger.debug(io_glob.LOGGER_END)

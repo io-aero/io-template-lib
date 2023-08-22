@@ -307,7 +307,7 @@ pytest:             ## Run all tests with pytest.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest ***************************************
@@ -354,6 +354,7 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 	@echo Info **********  End:   pytest ***************************************
 
 sphinx:            ##  Create the user documentation with Sphinx.
+	@echo Info **********  Start: sphinx ***************************************
 	@echo DELETE_SPHINX_1 =${DELETE_SPHINX_1}
 	@echo DELETE_SPHINX_2 =${DELETE_SPHINX_2}
 	@echo PIPENV          =${PIPENV}

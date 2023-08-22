@@ -37,7 +37,6 @@ jobs:
         run: make pipenv-dev
       - name: Run the whole software quality chain
         run: make isort black lint docs tests
-
       - name: Check if there are any changes
         id: verify_diff
         run: |
