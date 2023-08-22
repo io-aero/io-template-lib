@@ -33,7 +33,7 @@ As described [here](https://docs.github.com/en/repositories/creating-and-managin
     cd ..
     rm -rf io-template-lib.git
 
-### 3. Create a local copy of the new repositoy `my-lib`
+### 3. Create a local copy of the new repository `my-lib`
 
     git clone https://github.com/io-aero/my-lib
 
@@ -44,9 +44,9 @@ As described [here](https://docs.github.com/en/repositories/creating-and-managin
 
 ### 5. Rename the following file directories and files
 
-| Old name                        | New name                |
-|:--------------------------------|:------------------------|
-| `iotemplatelib`                 | `mylib`                 |
+| Old name                        | New name               |
+|:--------------------------------|:-----------------------|
+| `iotemplatelib`                 | `mylib`                |
 | `run_io_template_lib.bat`       | `run_my_lib.bat`       |
 | `run_io_template_lib.sh`        | `run_my_lib.sh`        |
 | `settings_io_template_lib.toml` | `settings_my_lib.toml` |
@@ -55,8 +55,8 @@ As described [here](https://docs.github.com/en/repositories/creating-and-managin
 
 It is absolutely necessary to respect the capitalization!
 
-| Old text           | New text   |
-|:-------------------|:-----------|
+| Old text           | New text  |
+|:-------------------|:----------|
 | `IO-TEMPLATE-LIB`  | `MY-LIB`  |
 | `IO_TEMPLATE_LIB`  | `MY_LIB`  |
 | `io-template-lib`  | `my-lib`  |
@@ -97,4 +97,12 @@ It is absolutely necessary to respect the capitalization!
     make pipenv-dev
     make-final
 
-### 8. Commit and push all changes to the repository as 'Base version'
+### 8. Define GitHub Actions secrets
+
+Under 'settings' -> 'Secrets and variables' -> 'Actions' defines the following 'New repository secret's:
+
+    AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY
+    GLOBAL_USER_EMAIL
+
+### 9. Commit and push all changes to the repository as 'Base version'
