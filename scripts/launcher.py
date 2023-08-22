@@ -10,9 +10,8 @@ import locale
 import sys
 
 from iocommon import file
-
-from iotemplatelib import io_glob
-from iotemplatelib import io_logger
+from iocommon import io_glob
+from iocommon import io_logger
 
 # -----------------------------------------------------------------------------
 # Global variables.
