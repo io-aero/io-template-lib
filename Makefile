@@ -9,7 +9,6 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_PIPFILE_LOCK=del /f /q Pipfile.lock
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
-	export ENV_FOR_DYNACONF=test
 	export OPTION_NUITKA=
 	export PIPENV=py -m pipenv
 	export PYTHON=py
@@ -24,7 +23,6 @@ else
 	export DELETE_PIPFILE_LOCK=rm -rf Pipfile.lock
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
-	export ENV_FOR_DYNACONF=test
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
@@ -36,6 +34,7 @@ export CONDA_PACKAGES=gdal pdal python-pdal rasterio
 export CONDA_ARG=--site-packages
 export CONDA_ARG=
 
+export ENV_FOR_DYNACONF=test
 export MODULE=iotemplatelib
 export PYTHONPATH=${MODULE} scripts
 export VERSION_PIPENV=v2023.7.23
@@ -53,12 +52,12 @@ export VERSION_PYTHON=3.10
 ## -----------------------------------------------------------------------------
 ## help:               Show this help.
 ## -----------------------------------------------------------------------------
-## everything:         Do everything precheckin
-everything: dev docs nuitka
 ## dev:                Format, lint and test the code.
 dev: format lint tests
 ## docs:               Check the API documentation, create and upload the user documentation.
 docs: pydocstyle sphinx
+## everything:         Do everything precheckin
+everything: dev docs nuitka
 ## final:              Format, lint and test the code, create the documentation and a ddl.
 #final: format lint docs tests nuitka
 # wwe
