@@ -5,8 +5,10 @@ ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
 	export CONDA_SHELL=
 	export CREATE_DIST=if not exist dist mkdir dist
+	export CREATE_LIB=ren dist lib
 	export DELETE_BUILD=if exist build rd /s /q build
 	export DELETE_DIST=if exist dist rd /s /q dist
+	export DELETE_LIB=if exist lib rd /s /q lib
 	export DELETE_PIPFILE_LOCK=del /f /q Pipfile.lock
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
@@ -20,8 +22,10 @@ else
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
 	export CONDA_SHELL=conda init bash
 	export CREATE_DIST=mkdir -p dist
+	export CREATE_LIB=mv dist lib
 	export DELETE_BUILD=rm -rf build
 	export DELETE_DIST=rm -rf dist
+	export DELETE_LIB=rm -rf lib
 	export DELETE_PIPFILE_LOCK=rm -rf Pipfile.lock
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
@@ -393,6 +397,8 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	${PYTHON} -m build
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
+	${DELETE_LIB}
+	${CREATE_LIB}
 	@echo Info **********  End:   twine io-aero-pypi ***************************
 
 # twine: Collection of utilities for publishing packages on PyPI.
@@ -409,6 +415,8 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	${CREATE_DIST}
 	${PYTHON} -m build
 	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
+	${DELETE_LIB}
+	${CREATE_LIB}
 	@echo Info **********  End:   twine pypi ***********************************
 
 # twine: Collection of utilities for publishing packages on Test PyPI.
