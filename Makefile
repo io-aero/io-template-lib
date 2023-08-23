@@ -3,6 +3,7 @@
 ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
+	export CONDA_SHELL=
 	export CREATE_DIST=if not exist dist mkdir dist
 	export DELETE_BUILD=if exist build rd /s /q build
 	export DELETE_DIST=if exist dist rd /s /q dist
@@ -17,6 +18,7 @@ ifeq ($(OS),Windows_NT)
 else
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
+	export CONDA_SHELL=conda init bash
 	export CREATE_DIST=mkdir -p dist
 	export DELETE_BUILD=rm -rf build
 	export DELETE_DIST=rm -rf dist
@@ -52,6 +54,12 @@ export VERSION_PYTHON=3.10
 ## -----------------------------------------------------------------------------
 ## help:               Show this help.
 ## -----------------------------------------------------------------------------
+## conda-dev:          Install the package dependencies for development incl.
+##                     Conda & pipenv.
+conda-dev: conda pipenv-dev
+## conda-prod:         Install the package dependencies for production incl.
+##                     Conda & pipenv.
+conda-prod: conda pipenv-prod
 ## dev:                Format, lint and test the code.
 dev: format lint tests
 ## docs:               Check the API documentation, create and upload the user documentation.
@@ -59,9 +67,7 @@ docs: pydocstyle sphinx
 ## everything:         Do everything precheckin
 everything: dev docs nuitka
 ## final:              Format, lint and test the code, create the documentation and a ddl.
-#final: format lint docs tests nuitka
-# wwe
-final: format lint docs nuitka
+final: format lint docs tests nuitka
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
@@ -114,29 +120,27 @@ compileall:         ## Byte-compile the Python libraries.
 # Miniconda - Minimal installer for conda.
 # https://docs.conda.io/en/latest/miniconda.html
 # Configuration file: pyproject.toml
-conda-env:          ## Create a new environment.
+conda:              ## Create a new environment.
 	@echo Info **********  Start: Miniconda create environment *****************
 	conda --version
 	@echo ----------------------------------------------------------------------
-	conda create --yes --name ${MODULE}
-	conda activate ${MODULE}
-	conda remove --yes --name ${MODULE} --all
-	conda create --yes --name ${MODULE} python=${VERSION_PYTHON}
-	conda activate ${MODULE}
+	${CONDA_SHELL}
+	conda create --yes --name io_aero
+	conda activate io_aero
+	conda remove --yes --name io_aero --all
+	conda create --yes --name io_aero python=${VERSION_PYTHON}
+	conda activate io_aero
 	conda install --yes -c conda-forge ${CONDA_PACKAGES}
 	@echo ----------------------------------------------------------------------
 	python --version
 	conda info --envs
 	conda list
 	@echo Info **********  End:   Miniconda create environment *****************
-conda-update:       ## Update Miniconda.
-	@echo Info **********  Start: Miniconda update *****************************
-	conda --version
-	@echo ----------------------------------------------------------------------
-	conda update --yes conda
-	@echo ----------------------------------------------------------------------
-	conda --version
-	@echo Info **********  End:   Miniconda update *****************************
+conda-action:       ## Create a new environment.
+	@echo Info **********  Start: Miniconda create environment *****************
+	conda install --yes -c conda-forge ${CONDA_PACKAGES}
+	conda list
+	@echo Info **********  End:   Miniconda create environment *****************
 
 # Formats docstrings to follow PEP 257
 # https://github.com/PyCQA/docformatter
@@ -217,7 +221,7 @@ nuitka:             ## Create a dynamic link library.
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=iotemplatelib --module ${MODULE} --no-pyi-file --output-dir=dist --remove-output
+	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=${MODULE} --module ${MODULE} --no-pyi-file --output-dir=dist --remove-output
 	@echo Info **********  End:   nuitka ***************************************
 
 # pip is the package installer for Python.
@@ -324,7 +328,7 @@ pytest-ci:          ## Run all tests with pytest after test tool installation.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo Info **********  Start: pytest ***************************************
@@ -333,7 +337,7 @@ pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -rP -v -x tests
+	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
 	@echo Info **********  Start: pytest ***************************************
@@ -342,7 +346,7 @@ pytest-issue:       ## Run only the tests with pytest which are marked with 'iss
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --capture=no --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
+	${PIPENV} run pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-module:      ## Run tests of specific module(s) with pytest - test_all & test_cfg_cls_setup & test_db_cls.
 	@echo Info **********  Start: pytest ***************************************
@@ -351,7 +355,7 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
+	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
 	@echo Info **********  End:   pytest ***************************************
 
 sphinx:            ##  Create the user documentation with Sphinx.
