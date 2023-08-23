@@ -40,7 +40,7 @@ def main(argv: list[str]) -> None:
     io_glob.logger.info("Start launcher.py")
 
     try:
-        print("Version iotemplatelib: {importlib.metadata.version('iotemplatelib')}")
+        print(f"Version iotemplatelib: {importlib.metadata.version('iotemplatelib')}")
         file.print_package_content("iotemplatelib")
     except importlib.metadata.PackageNotFoundError:
         print("Version iotemplatelib: package not found")
