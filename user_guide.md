@@ -99,10 +99,18 @@ It is absolutely necessary to respect the capitalization!
 
 ### 8. Define GitHub Actions secrets
 
-Under 'settings' -> 'Secrets and variables' -> 'Actions' defines the following 'New repository secret's:
+Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Secrets' define the following 'New repository secret's:
 
     AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY
     GLOBAL_USER_EMAIL
 
-### 9. Commit and push all changes to the repository as 'Base version'
+### 9. Define GitHub repository variables
+
+Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Variables' define the following 'New repository variable's:
+
+| Namevv  | Value  | Reason                     |
+|---------|--------|----------------------------|
+| `CONDA` | `true` | To get Miniconda installed |
+
+### 10. Commit and push all changes to the repository as 'Base version'
