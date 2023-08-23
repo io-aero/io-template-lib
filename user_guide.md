@@ -94,8 +94,16 @@ It is absolutely necessary to respect the capitalization!
 
 ### 7. Test the current state of the new library
 
-    make pipenv-dev
-    make-final
+#### 7.1 If Miniconda is required 
+
+- Install Miniconda
+- Run `make conda-dev`
+- Run `make-final`
+
+#### 7.2 If Miniconda is not required
+
+- Run `make pipenv-dev`
+- Run `make-final`
 
 ### 8. Define GitHub Actions secrets
 
@@ -109,7 +117,7 @@ Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Secrets' define
 
 Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Variables' define the following 'New repository variable's:
 
-| Namevv  | Value  | Reason                     |
+| Name    | Value  | Reason                     |
 |---------|--------|----------------------------|
 | `CONDA` | `true` | To get Miniconda installed |
 
