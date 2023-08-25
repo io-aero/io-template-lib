@@ -50,7 +50,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install conda dependencies - Conda 1/2
         if: ${{ vars.CONDA }} == "true"
-        run: conda init bash
+        run: |
+          echo CONDA=${{ vars.CONDA }}
+          conda init bash
       - name: Install conda dependencies - Conda 2/2
         if: ${{ vars.CONDA }} == "true"
         run: make conda-action
@@ -77,7 +79,9 @@ jobs:
           force: true
       - name: Create the coverage data
         if: ${{ vars.COVERALLS }} == "true"
-        run: make coveralls
+        run: |
+          echo COVERALLS=${{ vars.COVERALLS }}
+          make coveralls
       - name: Publish the code coverage to coveralls.io
         if: ${{ vars.COVERALLS }} == "true"
         uses: coverallsapp/github-action@v2
