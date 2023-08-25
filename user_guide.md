@@ -117,8 +117,9 @@ Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Secrets' define
 
 Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Variables' define the following 'New repository variable's:
 
-| Name    | Value  | Reason                     |
-|---------|--------|----------------------------|
-| `CONDA` | `true` | To get Miniconda installed |
+| Name        | Value  | Reason            |
+|-------------|--------|-------------------|
+| `CONDA`     | `true` | Include Miniconda |
+| `COVERALLS` | `true` | Run coveralls.io  |
 
 ### 10. Commit and push all changes to the repository as 'Base version'
