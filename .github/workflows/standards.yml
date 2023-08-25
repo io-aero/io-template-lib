@@ -27,8 +27,8 @@ jobs:
     steps:
       - name: Show the repository variables
         run: |
-          echo CONDA=vars.CONDA
-          echo COVERALLS=vars.COVERALLS
+          echo CONDA=${{ vars.CONDA }}
+          echo COVERALLS=${{ vars.COVERALLS }}
       - name: Checking out the repository
         uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
