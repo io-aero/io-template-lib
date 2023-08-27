@@ -400,12 +400,15 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	@echo Info **********  Start: twine io-aero-pypi ***************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
+	@echo PIPENV     =${PIPENV}
 	@echo PYTHON     =${PYTHON}
+	@echo ----------------------------------------------------------------------
 	${PYTHON} -m build --version
 	${PYTHON} -m twine --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
+	${PIPENV} run ${PYTHON} scripts\next_version.py
 	${PYTHON} -m build
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
@@ -419,12 +422,15 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	@echo Info **********  Start: twine pypi ***********************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
+	@echo PIPENV     =${PIPENV}
 	@echo PYTHON     =${PYTHON}
+	@echo ----------------------------------------------------------------------
 	${PYTHON} -m build --version
 	${PYTHON} -m twine --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
+	${PIPENV} run ${PYTHON} scripts\next_version.py
 	${PYTHON} -m build
 	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
 	${DELETE_LIB}
@@ -438,12 +444,15 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	@echo Info **********  Start: twine testpypi *******************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
+	@echo PIPENV     =${PIPENV}
 	@echo PYTHON     =${PYTHON}
+	@echo ----------------------------------------------------------------------
 	${PYTHON} -m build --version
 	${PYTHON} -m twine --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
+	${PIPENV} run ${PYTHON} scripts\next_version.py
 	${PYTHON} -m  build
 	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
 	@echo Info **********  End:   twine testpypi *******************************
