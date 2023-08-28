@@ -35,7 +35,7 @@ else
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
-	export SHELL=/bon/bash
+	export SHELL=/bin/bash
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
 endif
