@@ -1,5 +1,7 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = [
+    "setuptools>=61.0",
+]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -30,15 +32,15 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.3.0"
+version = "1.3.1"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"
-"Documentation" = "https://io-aero.github.io/io-template-lib/"
-"Homepage" = "https://github.com/io-aero/io-template-lib"
+Documentation = "https://io-aero.github.io/io-template-lib/"
+Homepage = "https://github.com/io-aero/io-template-lib"
 "Release History" = "https://io-aero.github.io/io-template-lib/release_history/"
 "Release Notes" = "https://io-aero.github.io/io-template-lib/release_notes/"
-"Source" = "https://github.com/io-aero/io-template-lib/tree/main/iotemplatelib"
+Source = "https://github.com/io-aero/io-template-lib/tree/main/iotemplatelib"
 
 [tool.bandit]
 
@@ -49,7 +51,7 @@ overwrite_in_place = true
 profile = "black"
 
 [tool.pydocstyle]
-match = '((?!test_).*\.py)'
+match = "((?!test_).*\.py)"
 
 [tool.pytest.ini_options]
 console_output_style = "count"
@@ -57,15 +59,20 @@ log_cli_level = "INFO"
 log_file = "logging_io_aero_pytest.log"
 log_file_level = "DEBUG"
 log_level = "DEBUG"
-markers = ["issue"]
+markers = [
+    "issue",
+]
 norecursedirs = "./tests/helpers"
 pythonpath = "./iotemplatelib/"
 testpaths = "./tests/"
 
 [tool.setuptools]
 packages = [
-	"iotemplatelib",
+    "iotemplatelib",
 ]
 
 [tool.setuptools.package-data]
-iotemplatelib = ["*.pyi", "py.typed"]
+iotemplatelib = [
+    "*.pyi",
+    "py.typed",
+]
