@@ -51,7 +51,7 @@ overwrite_in_place = true
 profile = "black"
 
 [tool.pydocstyle]
-match = "((?!test_).*\\.py)"
+match = "((?!test_).*\.py)"
 
 [tool.pytest.ini_options]
 console_output_style = "count"

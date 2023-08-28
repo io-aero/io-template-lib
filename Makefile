@@ -3,7 +3,8 @@
 ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
-	export CONDA_SHELL=
+	export CONDA_SHELL_1=
+	export CONDA_SHELL_2=
 	export CREATE_DIST=if not exist dist mkdir dist
 	export CREATE_LIB=ren dist lib
 	export DELETE_BUILD=if exist build rd /s /q build
@@ -15,12 +16,14 @@ ifeq ($(OS),Windows_NT)
 	export OPTION_NUITKA=
 	export PIPENV=py -m pipenv
 	export PYTHON=py
+	export SHELL=cmd
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
 else
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
-	export CONDA_SHELL=conda init bash
+	export CONDA_SHELL_1=conda init bash
+	export CONDA_SHELL_2=bash -el {0}
 	export CREATE_DIST=mkdir -p dist
 	export CREATE_LIB=mv dist lib
 	export DELETE_BUILD=rm -rf build
@@ -32,6 +35,7 @@ else
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
+	export SHELL=/bon/bash
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
 endif
@@ -71,8 +75,8 @@ dev: format lint tests
 docs: pydocstyle sphinx
 ## everything:         Do everything precheckin
 everything: dev docs nuitka
-## final:              Format, lint and test the code, create the documentation and a ddl.
-final: format lint docs tests nuitka
+## final:              Format, lint and test the code and create the documentation.
+final: format lint docs tests
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
@@ -129,7 +133,8 @@ conda:              ## Create a new environment.
 	@echo Info **********  Start: Miniconda create environment *****************
 	conda --version
 	@echo ----------------------------------------------------------------------
-	${CONDA_SHELL}
+	${CONDA_SHELL_1}
+	${CONDA_SHELL_2}
 	conda create --yes --name io_aero
 	conda activate io_aero
 	conda remove --yes --name io_aero --all
