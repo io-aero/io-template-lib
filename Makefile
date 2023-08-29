@@ -3,8 +3,6 @@
 ifeq ($(OS),Windows_NT)
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
-	export CONDA_SHELL_1=
-	export CONDA_SHELL_2=
 	export CREATE_DIST=if not exist dist mkdir dist
 	export CREATE_LIB=ren dist lib
 	export DELETE_BUILD=if exist build rd /s /q build
@@ -22,8 +20,6 @@ ifeq ($(OS),Windows_NT)
 else
 	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
 	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
-	export CONDA_SHELL_1=conda init bash
-	export CONDA_SHELL_2=bash -el {0}
 	export CREATE_DIST=mkdir -p dist
 	export CREATE_LIB=mv dist lib
 	export DELETE_BUILD=rm -rf build
@@ -128,28 +124,15 @@ compileall:         ## Byte-compile the Python libraries.
 
 # Miniconda - Minimal installer for conda.
 # https://docs.conda.io/en/latest/miniconda.html
-# Configuration file: pyproject.toml
+# Configuration file: none
 conda:              ## Create a new environment.
 	@echo Info **********  Start: Miniconda create environment *****************
 	conda --version
 	@echo ----------------------------------------------------------------------
-	${CONDA_SHELL_1}
-	${CONDA_SHELL_2}
-	conda create --yes --name io_aero
-	conda activate io_aero
-	conda remove --yes --name io_aero --all
-	conda create --yes --name io_aero python=${VERSION_PYTHON}
-	conda activate io_aero
 	conda install --yes -c conda-forge ${CONDA_PACKAGES}
 	@echo ----------------------------------------------------------------------
-	python --version
+	conda list
 	conda info --envs
-	conda list
-	@echo Info **********  End:   Miniconda create environment *****************
-conda-action:       ## Create a new environment.
-	@echo Info **********  Start: Miniconda create environment *****************
-	conda install --yes -c conda-forge ${CONDA_PACKAGES}
-	conda list
 	@echo Info **********  End:   Miniconda create environment *****************
 
 # Requires a public repository !!!
