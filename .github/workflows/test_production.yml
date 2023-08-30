@@ -50,9 +50,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install prod dependencies - pipenv
         run: make pipenv-prod
-      - name: Install dev dependencies - Conda & pipenv
+      - name: Install prod dependencies - Conda & pipenv
         if: ${{ vars.CONDA == 'true' }}
-        run: make conda-dev
+        run: make conda-prod
       - name: Compile the Python code
         run: make compileall
       - name: Run pytest for writing better program
