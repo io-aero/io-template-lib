@@ -1,6 +1,3 @@
 [default]
-postgres_password = "..."
-postgres_password_admin = "..."
-postgres_password_guest = "..."
 
 [test]

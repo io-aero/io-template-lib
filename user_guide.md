@@ -44,12 +44,11 @@ As described [here](https://docs.github.com/en/repositories/creating-and-managin
 
 ### 5. Rename the following file directories and files
 
-| Old name                        | New name               |
-|:--------------------------------|:-----------------------|
-| `iotemplatelib`                 | `mylib`                |
-| `run_io_template_lib.bat`       | `run_my_lib.bat`       |
-| `run_io_template_lib.sh`        | `run_my_lib.sh`        |
-| `settings_io_template_lib.toml` | `settings_my_lib.toml` |
+| Old name                  | New name         |
+|:--------------------------|:-----------------|
+| `iotemplatelib`           | `mylib`          |
+| `run_io_template_lib.bat` | `run_my_lib.bat` |
+| `run_io_template_lib.sh`  | `run_my_lib.sh`  |
 
 ### 4. Replacing texts in the new repository `my-lib`
 
@@ -98,12 +97,12 @@ It is absolutely necessary to respect the capitalization!
 
 - Install Miniconda
 - Run `make conda-dev`
-- Run `make-final`
+- Run `make final`
 
 #### 7.2 If Miniconda is not required
 
 - Run `make pipenv-dev`
-- Run `make-final`
+- Run `make final`
 
 ### 8. Define GitHub Actions secrets
 

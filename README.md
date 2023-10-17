@@ -4,8 +4,8 @@ This repository is a sample repository for developing Python related IO-Aero lib
 
 ## Documentation
 
-Since this is a private repository, the complete documentation is only available in a local version of the repository in the file directory **`site`**. 
-You just have to open the file **`site/index.html`** with a web browser.
+Since this is a private repository, the complete documentation is only available in a local version of the repository in the file directory **`docs`**. 
+You just have to open the file **`docs/build/html/index.html`** with a web browser.
 
 ## Directory and File Structure of this Repository
 
@@ -16,13 +16,13 @@ You just have to open the file **`site/index.html`** with a web browser.
 | .github/workflows | **[GitHub Action](https://github.com/actions)** workflows. |
 | .vscode           | Configuration data for **Visual Code**.                    |
 | data              | Application data related files.                            |
+| dist              | Contains an executable of this library.                    |
 | docs              | Documentation files.                                       |
 | iotemplatelib     | Python script files.                                       |
 | lib               | Compiled versions of **IO-TEMPLATE-LIB**.                  |
 | libs              | Required third party libraries.                            |
 | resources         | Selected manuals and software.                             |
 | scripts           | Scripts supporting Ubuntu and Windows.                     |
-| site              | Documentation as static HTML pages.                        |
 | tests             | Scripts and data for **pytest**.                           |
 
 ### 2. Files
