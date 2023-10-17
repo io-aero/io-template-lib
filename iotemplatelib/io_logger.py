@@ -1,7 +1,8 @@
 # Copyright (c) 2022-2023 IO-Aero. All rights reserved. Use of this
 # source code is governed by the IO-Aero License, that can
 # be found in the LICENSE.md file.
-"""Functions to setup and use the logger and others."""
+
+"""Functions to set up and use the logger and others."""
 import logging
 import logging.config
 
@@ -25,8 +26,9 @@ io_log: logging.Logger = logging.getLogger(LOGGER_NAME)
 # Initialising the logging functionality.
 # -----------------------------------------------------------------------------
 def initialise_logger(log_level: int = 4) -> None:
-    """Initialise the root logging functionality.Run this before you run
-    io_glob.logger.info('msg') or anything like that.
+    """Initialise the root logging functionality.
+
+    Run this before you run logger.info('msg') or anything like that.
 
     Args:
         log_level (int default 4): 0 for no messages, 1 for critical, 2 for error and above,
@@ -44,12 +46,14 @@ def initialise_logger(log_level: int = 4) -> None:
         io_glob.IO_TEMPLATE_LIB_VERSION,
     )
     io_log.info("The logger is configured and ready use:")
-    io_log.info("use io_log.(debug(),info(),warning(),error(), critcal())")
+    io_log.info("use io_log.(debug(),info(),warning(),error(), critical())")
 
 
 def set_logging_level(level: int) -> int:
-    """Set the level of the logs that get written to screen.  the levels are
-    debug, info, warning, error, critical in order from least to most prioirty.
+    """Set the level of the logs that get written to screen.
+
+    The levels are debug, info, warning, error, critical
+    in order from least to most priority.
 
     Args:
         level (int): 0 for no messages, 1 for critical, 2 for error and above,

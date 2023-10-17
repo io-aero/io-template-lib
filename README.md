@@ -16,9 +16,9 @@ You just have to open the file **`site/index.html`** with a web browser.
 | .github/workflows | **[GitHub Action](https://github.com/actions)** workflows. |
 | .vscode           | Configuration data for **Visual Code**.                    |
 | data              | Application data related files.                            |
-| dist              | Deployable libraries.                                      |
 | docs              | Documentation files.                                       |
 | iotemplatelib     | Python script files.                                       |
+| lib               | Compiled versions of **IO-TEMPLATE-LIB**.                  |
 | libs              | Required third party libraries.                            |
 | resources         | Selected manuals and software.                             |
 | scripts           | Scripts supporting Ubuntu and Windows.                     |
@@ -27,17 +27,17 @@ You just have to open the file **`site/index.html`** with a web browser.
 
 ### 2. Files
 
-| File                           | Functionality                                                   |
-|--------------------------------|-----------------------------------------------------------------|
-| .gitignore                     | Configuration of files and folders to be ignored.               |
-| .pylintrc                      | **pylint** configuration file.                                  |
-| .settings.io_template_lib.toml | Configuration data - secrets.                                   |
-| LICENSE.md                     | Text of the licence terms.                                      |
-| logging_cfg.yaml               | Configuration of the Logger functionality.                      |
-| Makefile                       | Tasks to be executed with the **`make`** command.               |
-| Pipfile                        | Definition of the Python package requirements.                  |
-| pyproject.toml                 | Optional configuration data for the software quality tools.     |
-| README.md                      | This file.                                                      |
-| run_io_template_lib            | Main script for using the functionality of **IO-TEMPLATE-LIB**. |
-| settings.io_template_lib.toml  | Configuration data.                                             |
-| setup.cfg                      | Optional configuration data for **flake8**.                     |
+| File                   | Functionality                                                   |
+|------------------------|-----------------------------------------------------------------|
+| .gitignore             | Configuration of files and folders to be ignored.               |
+| .pylintrc              | **pylint** configuration file.                                  |
+| .settings.io_aero.toml | Configuration data - secrets.                                   |
+| LICENSE.md             | Text of the licence terms.                                      |
+| logging_cfg.yaml       | Configuration of the Logger functionality.                      |
+| Makefile               | Tasks to be executed with the **`make`** command.               |
+| Pipfile                | Definition of the Python package requirements.                  |
+| pyproject.toml         | Optional configuration data for the software quality tools.     |
+| README.md              | This file.                                                      |
+| run_io_template_lib    | Main script for using the functionality of **IO-TEMPLATE-LIB**. |
+| settings.io_aero.toml  | Configuration data.                                             |
+| setup.cfg              | Optional configuration data for **flake8**.                     |

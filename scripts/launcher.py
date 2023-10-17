@@ -1,11 +1,13 @@
 # Copyright (c) 2022-2023 IO-Aero. All rights reserved. Use of this
 # source code is governed by the IO-Aero License, that can
 # be found in the LICENSE.md file.
+
 """Module iotemplatelib: Entry Point Functionality.
 
 This is the entry point to the library IO-TEMPLATE-LIB.
 """
 import locale
+import logging
 import sys
 
 from iocommon import file
@@ -32,17 +34,19 @@ def main(argv: list[str]) -> None:
     # Initialise the logging functionality.
     io_logger.initialise_logger()
 
-    io_glob.logger.debug(io_glob.LOGGER_START)
-    io_glob.logger.debug("param argv=%s", argv)
+    logger = logging.getLogger(__name__)
+
+    logger.debug(io_glob.LOGGER_START)
+    logger.debug("param argv=%s", argv)
     locale.setlocale(locale.LC_ALL, _LOCALE)
 
-    io_glob.logger.info("Start launcher.py")
+    logger.info("Start launcher.py")
 
     file.print_version_pkg_struct("iotemplatelib")
     file.print_pkg_structs(["iocommon"])
 
-    io_glob.logger.info("End   launcher.py")
-    io_glob.logger.debug(io_glob.LOGGER_END)
+    logger.info("End   launcher.py")
+    logger.debug(io_glob.LOGGER_END)
 
 
 # -----------------------------------------------------------------------------

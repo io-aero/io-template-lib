@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Release Notes" href="release_notes.html" /><link rel="prev" title="Advanced Usage" href="advanced_usage.html" />
 
-    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.2.4 and Furo 2023.08.19 -->
+    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>iotemplatelib package - IO-TEMPLATE-LIB 1-3-1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -218,12 +218,12 @@
 </section>
 <section id="module-iotemplatelib.io_logger">
 <span id="iotemplatelib-io-logger-module"></span><h2>iotemplatelib.io_logger module<a class="headerlink" href="#module-iotemplatelib.io_logger" title="Link to this heading">#</a></h2>
-<p>Functions to setup and use the logger and others.</p>
+<p>Functions to set up and use the logger and others.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="iotemplatelib.io_logger.initialise_logger">
 <span class="sig-prename descclassname"><span class="pre">iotemplatelib.io_logger.</span></span><span class="sig-name descname"><span class="pre">initialise_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/iotemplatelib/io_logger.html#initialise_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iotemplatelib.io_logger.initialise_logger" title="Link to this definition">#</a></dt>
-<dd><p>Initialise the root logging functionality.Run this before you run
-io_glob.logger.info(‘msg’) or anything like that.</p>
+<dd><p>Initialise the root logging functionality.</p>
+<p>Run this before you run logger.info(‘msg’) or anything like that.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>log_level</strong> (<em>int default 4</em>) – 0 for no messages, 1 for critical, 2 for error and above,
@@ -235,8 +235,9 @@ io_glob.logger.info(‘msg’) or anything like that.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="iotemplatelib.io_logger.set_logging_level">
 <span class="sig-prename descclassname"><span class="pre">iotemplatelib.io_logger.</span></span><span class="sig-name descname"><span class="pre">set_logging_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/iotemplatelib/io_logger.html#set_logging_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#iotemplatelib.io_logger.set_logging_level" title="Link to this definition">#</a></dt>
-<dd><p>Set the level of the logs that get written to screen.  the levels are
-debug, info, warning, error, critical in order from least to most prioirty.</p>
+<dd><p>Set the level of the logs that get written to screen.</p>
+<p>The levels are debug, info, warning, error, critical
+in order from least to most priority.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>level</strong> (<em>int</em>) – 0 for no messages, 1 for critical, 2 for error and above,
