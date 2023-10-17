@@ -18,8 +18,8 @@ set PYTHONPATH=.
 echo.
 echo Script %0 is now running
 
-if exist logging_io_template_lib.log (
-    del /f /q logging_io_template_lib.log
+if exist logging_io_aero.log (
+    del /f /q logging_io_aero.log
 )
 
 echo =======================================================================
