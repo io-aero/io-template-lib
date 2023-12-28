@@ -13,36 +13,18 @@ Furthermore, the use of an IDE or a text editor that can replace texts across fi
 
 ### 1. Create the new repository `my-lib`
 
-As described [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository), the new repository my-lib must first be created. The creation of a very minimal basic version is sufficient, i.e. the only necessary parameter is the repository name.
+As described [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template), the new repository my-app must first be created.
 
-### 2. Copy the repository `io-template-lib`
-
-- Open Git Bash
----
-- Create a bare clone of the repository.
-
-    git clone --bare https://github.com/io-aero/io-template-lib
----
-- Mirror-push to the new repository
-
-    cd io-template-lib.git
-    git push --mirror https://github.com/io-aero/my-lib
----
-- Remove the temporary local repository you created earlier
-
-    cd ..
-    rm -rf io-template-lib.git
-
-### 3. Create a local copy of the new repository `my-lib`
+### 2. Create a local copy of the new repository `my-lib`
 
     git clone https://github.com/io-aero/my-lib
 
-### 4. Delete the two files with the User's Guide
+### 3. Delete the two files with the User's Guide
 
     `user_guide.md`
     `user_guide.pdf`
 
-### 5. Rename the following file directories and files
+### 4. Rename the following file directories and files
 
 | Old name                  | New name         |
 |:--------------------------|:-----------------|
@@ -50,7 +32,7 @@ As described [here](https://docs.github.com/en/repositories/creating-and-managin
 | `run_io_template_lib.bat` | `run_my_lib.bat` |
 | `run_io_template_lib.sh`  | `run_my_lib.sh`  |
 
-### 4. Replacing texts in the new repository `my-lib`
+### 5. Replacing texts in the new repository `my-lib`
 
 It is absolutely necessary to respect the capitalization!
 
@@ -62,13 +44,13 @@ It is absolutely necessary to respect the capitalization!
 | `io_template_lib`  | `my_lib`  |
 | `iotemplatelib`    | `mylib`   |
 
-### 5. Store your AWS access rights in file `~/.aws/credentials`
+### 6. Store your AWS access rights in file `~/.aws/credentials`
 
     [default]
     aws_access_key_id=...
     aws_secret_access_key=...
 
-### 6. Create the package index configuration file `~/.pypirc`
+### 7. Create the package index configuration file `~/.pypirc`
 
     [distutils]
     index-servers = 
@@ -91,20 +73,20 @@ It is absolutely necessary to respect the capitalization!
     username = io-aero-test
     password = <password>
 
-### 7. Test the current state of the new library
+### 8. Test the current state of the new library
 
-#### 7.1 If Miniconda is required 
+#### 8.1 If Miniconda is required 
 
 - Install Miniconda
 - Run `make conda-dev`
 - Run `make final`
 
-#### 7.2 If Miniconda is not required
+#### 8.2 If Miniconda is not required
 
 - Run `make pipenv-dev`
 - Run `make final`
 
-### 8. Define GitHub Actions secrets
+### 9. Define GitHub Actions secrets
 
 Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Secrets' define the following 'New repository secret's:
 
@@ -112,7 +94,7 @@ Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Secrets' define
     AWS_SECRET_ACCESS_KEY
     GLOBAL_USER_EMAIL
 
-### 9. Define GitHub repository variables
+### 10. Define GitHub repository variables
 
 Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Variables' define the following 'New repository variable's:
 
@@ -121,4 +103,4 @@ Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Variables' defi
 | `CONDA`     | `true` | Include Miniconda |
 | `COVERALLS` | `true` | Run coveralls.io  |
 
-### 10. Commit and push all changes to the repository as 'Base version'
+### 11. Commit and push all changes to the repository as 'Base version'
