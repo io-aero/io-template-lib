@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_io_template_lib.sh: Process IO-TEMPLATE-LIB tasks.
+# run_io_template_lib.zsh: Process IO-TEMPLATE-LIB tasks.
 #
 # ------------------------------------------------------------------------------
 

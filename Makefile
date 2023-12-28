@@ -58,12 +58,14 @@ export VERSION_PYTHON=3.10
 ## -----------------------------------------------------------------------------
 ## help:               Show this help.
 ## -----------------------------------------------------------------------------
+## action:             Run the GitHub Actions locally.
+action: action-std
 ## conda-dev:          Install the package dependencies for development incl.
 ##                     Conda & pipenv.
-conda-dev: conda pipenv-dev
+conda-dev: conda pipenv-dev-int
 ## conda-prod:         Install the package dependencies for production incl.
 ##                     Conda & pipenv.
-conda-prod: conda pipenv-prod
+conda-prod: conda pipenv-prod-int
 ## dev:                Format, lint and test the code.
 dev: format lint tests
 ## docs:               Check the API documentation, create and upload the user documentation.
@@ -82,6 +84,18 @@ tests: pytest
 
 help:
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
+
+# Run the GitHub Actions locally.
+# https://github.com/nektos/act
+# Configuration files: .act_secrets & .act_vars
+action-std:         ## Run the GitHub Actions locally: standard.
+	@echo Info **********  Start: action ***************************************
+	@echo Copy your .aws/creedentials to .aws_secrets
+	@echo ----------------------------------------------------------------------
+	$(ACT_INSTALL)
+	@echo ----------------------------------------------------------------------
+	act  --quiet --secret-file .act_secrets --var-file .act_vars --verbose
+	@echo Info **********  End:   action ***************************************
 
 # Bandit is a tool designed to find common security issues in Python code.
 # https://github.com/PyCQA/bandit
@@ -126,6 +140,7 @@ compileall:         ## Byte-compile the Python libraries.
 # Configuration file: none
 conda:              ## Create a new environment.
 	@echo Info **********  Start: Miniconda create environment *****************
+	conda update conda
 	conda --version
 	@echo ----------------------------------------------------------------------
 	conda install --yes -c conda-forge ${CONDA_PACKAGES}
@@ -233,6 +248,8 @@ nuitka:             ## Create a dynamic link library.
 # Pipenv: Python Development Workflow for Humans.
 # https://github.com/pypa/pipenv
 # Configuration file: Pipfile
+# ToDo: If Conda needed.
+# pipenv-dev-int:     ## Install the package dependencies for development.
 pipenv-dev:         ## Install the package dependencies for development.
 	@echo Info **********  Start: Installation of Development Packages *********
 	@echo DELETE_PIPFILE_LOCK=${DELETE_PIPFILE_LOCK}
@@ -255,6 +272,8 @@ pipenv-dev:         ## Install the package dependencies for development.
 	${PYTHON} -m pipenv --version
 	${PYTHON} -m virtualenv --version
 	@echo Info **********  End:   Installation of Development Packages *********
+# ToDo: If Conda needed.
+# pipenv-prod-int:    ## Install the package dependencies for production.
 pipenv-prod:        ## Install the package dependencies for production.
 	@echo Info **********  Start: Installation of Production Packages **********
 	@echo DELETE_PIPFILE_LOCK=${DELETE_PIPFILE_LOCK}
@@ -315,18 +334,14 @@ pytest:             ## Run all tests with pytest.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -v tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest ***************************************
 	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} install pytest
-	${PIPENV} install pytest-cov
-	${PIPENV} install pytest-deadfixtures
-	${PIPENV} install pytest-helpers-namespace
-	${PIPENV} install pytest-random-order
+	${PIPENV} install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
@@ -351,14 +366,11 @@ pytest-issue:       ## Run only the tests with pytest which are marked with 'iss
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
-pytest-module:      ## Run tests of specific module(s) with pytest - test_all & test_cfg_cls_setup & test_db_cls.
+pytest-module:      ## Run test of a specific module with pytest.
 	@echo Info **********  Start: pytest ***************************************
-	@echo PIPENV    =${PIPENV}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo TESTMODULE=tests/$(module)
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --version
-	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
+	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(module)
 	@echo Info **********  End:   pytest ***************************************
 
 sphinx:            ##  Create the user documentation with Sphinx.
@@ -370,12 +382,10 @@ sphinx:            ##  Create the user documentation with Sphinx.
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX_1}
-	cd ${DOCUMENTATION_DIR}
 	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 	${DELETE_SPHINX_2}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
-#	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
-	cd ..
+	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	@echo Info **********  End:   sphinx ***************************************
 
 sphinx-api:
