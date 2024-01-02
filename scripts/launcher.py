@@ -30,6 +30,7 @@ def main(argv: list[str]) -> None:
 
     Args:
         argv (list[str]): Command line arguments.
+
     """
     # Initialise the logging functionality.
     io_logger.initialise_logger()

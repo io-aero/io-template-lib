@@ -1,7 +1,5 @@
 # IO-TEMPLATE-LIB - File Directory **`.github/workflows`**
 
-This directory contains the following GitHub Action workflows:
+This directory contains the following GitHub Action workflow:
 
-- `standards.yml` - perform all development-specific tools, including formatting, static code analysis, style enforcement and documentation creation.
-- `test_development.yml` - install the development environment and run all tests based on pytest.
-- `test_production.yml` - install the production environment and run all tests based on pytest.
+- `standard.yml` - perform all production and development related tasks, including formatting, static code analysis, style enforcement and documentation creation.
