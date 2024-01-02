@@ -4,3 +4,5 @@ is_verbose = true
 
 [test]
 check_value = "test"
+postgres_password = "postgres_password"
+postgres_password_admin = "postgres_password_admin"

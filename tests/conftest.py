@@ -9,6 +9,7 @@ Setup test configuration and store fixtures.
 
 Returns:
     [type]: None.
+
 """
 import os
 import pathlib
@@ -35,6 +36,7 @@ def copy_files_4_pytest(
                 tuple[pathlib.Path, list[str], str | None]
             ]
         ]): list of files to be copied.
+
     """
     assert os.path.isdir(
         get_os_independent_name(get_test_files_source_directory_name())
@@ -86,6 +88,7 @@ def copy_files_4_pytest_2_dir(
     Args:
         source_files: list[tuple[str, str | None]]: Source file names.
         target_path: Path: Target directory.
+
     """
     for source_file in source_files:
         (source_stem, source_ext) = source_file
@@ -114,6 +117,7 @@ def get_full_name_from_components(
 
     Returns:
         str: Full file name.
+
     """
     file_name_int = (
         stem_name if file_extension == "" else stem_name + "." + file_extension
@@ -142,6 +146,7 @@ def get_os_independent_name(file_name: pathlib.Path | str) -> str:
 
     Returns:
         str: Platform-independent name.
+
     """
     return file_name.replace(
         ("\\" if os.sep == "/" else "/"), os.sep
@@ -156,5 +161,6 @@ def get_test_files_source_directory_name():
     """Provide test file directory.
 
     Provide the file directory name where the test files are located.
+
     """
     return "tests/__PYTEST_FILES__/"

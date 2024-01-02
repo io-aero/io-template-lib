@@ -38,6 +38,12 @@ jobs:
         with:
           fetch-depth: 1  # no history, just HEAD
 
+      - name: Set Locale - macOS
+        if: runner.os == 'macOS'
+        run: |
+          echo "LANG=en_US.UTF-8" >> $GITHUB_ENV
+          echo "LC_ALL=en_US.UTF-8" >> $GITHUB_ENV
+
       - name: Set Locale - Ubuntu
         if: runner.os == 'Linux'
         run: |
@@ -46,11 +52,12 @@ jobs:
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
 
-      - name: Set Locale - macOS
+      - name: Preparing scripts - macOS
         if: runner.os == 'macOS'
         run: |
-          echo "LANG=en_US.UTF-8" >> $GITHUB_ENV
-          echo "LC_ALL=en_US.UTF-8" >> $GITHUB_ENV
+          brew install dos2unix
+          chmod +x scripts/run_prep_*.zsh
+          ./scripts/run_prep_zsh_scripts.zsh
 
       - name: Preparing scripts - Ubuntu
         if: runner.os == 'Linux'
@@ -58,13 +65,6 @@ jobs:
           sudo apt-get update && sudo apt-get install -y dos2unix
           chmod +x scripts/run_prep_*.sh
           ./scripts/run_prep_bash_scripts.sh
-
-      - name: Preparing scripts - macOS
-        if: runner.os == 'macOS'
-        run: |
-          brew install dos2unix
-          chmod +x scripts/run_prep_*.zsh
-          ./scripts/run_prep_zsh_scripts.zsh
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -78,17 +78,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Install AWS CLI - macOS
+        if: ${{ env.IO_LOCAL == 'true' && runner.os == 'macOS' }}
+        run: |
+          brew update
+          brew upgrade unzip
+          curl "https://awscli.amazonaws.com/awscli-exe-macosx-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
       - name: Install AWS CLI - Ubuntu
         if: ${{ env.IO_LOCAL == 'true' && runner.os == 'Linux' }}
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-
-      - name: Install AWS CLI - macOS
-        if: ${{ env.IO_LOCAL == 'true' && runner.os == 'macOS' }}
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-macosx-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
           sudo ./aws/install
 
@@ -100,8 +102,14 @@ jobs:
           miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up Docker
-        if: ${{ env.IO_DOCKER == 'true' }}
+      - name: Install Docker - macOS
+        if: ${{ env.IO_DOCKER == 'true' && runner.os == 'macOS' }}
+        run: |
+          brew install --cask docker
+          open /Applications/Docker.app   
+
+      - name: Set up Docker - Ubuntu
+        if: ${{ env.IO_DOCKER == 'true' && runner.os == 'Linux' }}
         uses: docker/setup-buildx-action@v3
 
       - name: Install dependencies - pipenv - prod
@@ -140,7 +148,7 @@ jobs:
           parallel-finished: true
 
       - name: Deploy to GitHub Pages
-        if: ${{ env.IO_PAGES == 'true' && runner.os == 'Linux' }}
+        if: ${{ env.IO_PAGES == 'true' && runner.os == 'Linux' && env.IO_LOCAL != 'true' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

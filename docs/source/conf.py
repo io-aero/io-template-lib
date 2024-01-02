@@ -37,6 +37,7 @@ rst_epilog = f"""
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.githubpages", "sphinx.ext.napoleon", "sphinx.ext.viewcode", "myst_parser"]
+
 source_suffix = {
     ".rst": "restructuredtext",
     ".txt": "markdown",

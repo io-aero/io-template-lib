@@ -1,15 +1,15 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_io_template_lib.zsh: Process IO-TEMPLATE-LIB tasks.
+# run_io_template_lib_pytest.sh: Process IO-TEMPLATE-LIB tasks.
 #
 # ------------------------------------------------------------------------------
 
-if [[ -z "${ENV_FOR_DYNACONF}" ]]; then
-    export ENV_FOR_DYNACONF=prod
+if [ -z "${ENV_FOR_DYNACONF}" ]; then
+    export ENV_FOR_DYNACONF=test
 fi
 
 export PYTHONPATH=.
