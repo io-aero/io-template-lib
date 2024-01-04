@@ -172,8 +172,10 @@ docformatter:       ## Format the docstrings with docformatter.
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run docformatter --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run docformatter -r ${PYTHONPATH}
-	${PIPENV} run docformatter -r tests
+	${PIPENV} run docformatter --in-place -r ${PYTHONPATH}
+	${PIPENV} run docformatter --in-place -r tests
+#	${PIPENV} run docformatter -r ${PYTHONPATH}
+#	${PIPENV} run docformatter -r tests
 	@echo Info **********  End:   docformatter *********************************
 
 # Flake8: Your Tool For Style Guide Enforcement.
