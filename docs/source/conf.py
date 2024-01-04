@@ -15,9 +15,10 @@ import importlib.metadata
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "IO-TEMPLATE-LIB"
-copyright = "2023, IO-Aero"
 author = "IO-Aero Team"
+copyright = "2022 - 2024, IO-Aero"
+github_url = "https://github.com/io-aero/io-template-lib"
+project = "IO-TEMPLATE-LIB"
 
 try:
     version = importlib.metadata.version("iotemplatelib")
@@ -36,7 +37,16 @@ rst_epilog = f"""
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.coverage", "sphinx.ext.githubpages", "sphinx.ext.napoleon", "sphinx.ext.viewcode", "myst_parser"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.coverage",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.linkcode",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "myst_parser"
+]
 
 source_suffix = {
     ".rst": "restructuredtext",
@@ -58,6 +68,10 @@ html_theme_options = {
     "sidebar_hide_name": True,
 }
 
+extlinks = {
+    'repo': ('https://github.com/io-aero/io-template-lib%s', 'GitHub Repository')
+}
+
 # -- Options for PDF output --------------------------------------------------
 rinoh_documents = [
     dict(
@@ -69,3 +83,9 @@ rinoh_documents = [
         toctree_only=False,
     ),
 ]
+
+def linkcode_resolve(domain, info):
+    if domain != "py" or not info["module"]:
+        return None
+    filename = info["module"].replace(".", "/")
+    return f"https://github.com/io-aero/io-template-lib/blob/master/{filename}.py"

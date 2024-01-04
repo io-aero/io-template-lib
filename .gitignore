@@ -5,9 +5,6 @@
 .pytest_cache/
 .settings.io_aero.toml
 /.act_secrets
-/docs/build/pdf/.doctrees
-/docs/build/pdf/manual.rtc
-/docs/build/pdf/manual.stylelog
 Pipfile.lock
 __pycache__
 coverage.lcov

@@ -4,7 +4,7 @@ Release Notes
 Version 1.0.0
 -------------
 
-Release Date: dd.mm.2023
+Release Date: dd.mm.2024
 
 1 New Features
 ~~~~~~~~~~~~~~
