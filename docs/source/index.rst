@@ -36,4 +36,3 @@ Repository
 ==========
 
 :repo:`Link to the repository <>`
-

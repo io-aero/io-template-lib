@@ -8,7 +8,6 @@ env:
   IO_CONDA: 'false'
   IO_COVERALLS: 'false'
   IO_DOCKER: 'false'
-  IO_LOCAL: 'false'
   IO_PAGES: 'true'
 
 jobs:
@@ -27,7 +26,7 @@ jobs:
           echo "IO_CONDA    = ${{ env.IO_CONDA }}"
           echo "IO_COVERALLS= ${{ env.IO_COVERALLS }}"
           echo "IO_DOCKER   = ${{ env.IO_DOCKER }}"
-          echo "IO_LOCAL    = ${{ env.IO_LOCAL }}"
+          echo "IO_LOCAL    = ${{ vars.IO_LOCAL }}"
           echo "IO_PAGES    = ${{ env.IO_PAGES }}"
 
       - name: Set Timezone
@@ -79,7 +78,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Install AWS CLI - macOS
-        if: ${{ env.IO_LOCAL == 'true' && runner.os == 'macOS' }}
+        if: ${{ vars.IO_LOCAL == 'true' && runner.os == 'macOS' }}
         run: |
           brew update
           brew upgrade unzip
@@ -88,7 +87,7 @@ jobs:
           sudo ./aws/install
 
       - name: Install AWS CLI - Ubuntu
-        if: ${{ env.IO_LOCAL == 'true' && runner.os == 'Linux' }}
+        if: ${{ vars.IO_LOCAL == 'true' && runner.os == 'Linux' }}
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
@@ -148,7 +147,7 @@ jobs:
           parallel-finished: true
 
       - name: Deploy to GitHub Pages
-        if: ${{ env.IO_PAGES == 'true' && runner.os == 'Linux' && env.IO_LOCAL != 'true' }}
+        if: ${{ env.IO_PAGES == 'true' && runner.os == 'Linux' && vars.IO_LOCAL != 'true' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
