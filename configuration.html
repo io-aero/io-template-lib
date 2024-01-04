@@ -209,8 +209,39 @@
         <article role="main">
           <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h1>
-<section id="settings-io-template-lib-toml">
-<h2>settings.io_template_lib.toml<a class="headerlink" href="#settings-io-template-lib-toml" title="Link to this heading">#</a></h2>
+<section id="settings-io-aero-toml">
+<h2>.settings.io_aero.toml<a class="headerlink" href="#settings-io-aero-toml" title="Link to this heading">#</a></h2>
+<p>This file controls the secrets of the <strong>IO-TEMPLATE-LIB</strong> library.
+This file is not included in the repository.</p>
+<p>The customisable entries are:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>postgres_password</p></td>
+<td><p>Password of the database user</p></td>
+</tr>
+<tr class="row-odd"><td><p>postgres_password_admin</p></td>
+<td><p>Password of the database administrator</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The secrets can be set differently for the individual
+environments (<code class="docutils literal notranslate"><span class="pre">default</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code>).</p>
+<p><strong>Examples</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">default</span><span class="p">]</span>
+<span class="n">postgres_password</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span>
+<span class="n">postgres_password_admin</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>settings.io_aero.toml<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>This file controls the behaviour of the <strong>IO-TEMPLATE-LIB</strong> library.</p>
 <p>The customisable entries are:</p>
 <div class="table-wrapper docutils container">
@@ -222,28 +253,32 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>is_verbose</p></td>
+<tr class="row-even"><td><p>check_value</p></td>
+<td><p>default</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default</span></code> for productive operation,
+<code class="docutils literal notranslate"><span class="pre">test</span></code> for test operation</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_verbose</p></td>
 <td><p>true</p></td>
-<td><p>Display progress messages for processing.</p></td>
+<td><p>Display progress messages for processing</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>The configuration parameters can be set differently for the individual
-environments (<code class="docutils literal notranslate"><span class="pre">dev</span></code>, <code class="docutils literal notranslate"><span class="pre">prod</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code>).</p>
+environments (<code class="docutils literal notranslate"><span class="pre">default</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code>).</p>
 <p><strong>Examples</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[default]
+check_value = &quot;default&quot;
 is_verbose = true
-[dev]
-[prod]
+
 [test]
-is_verbose = true
-...
+check_value = &quot;test&quot;
 
 
-         .. |version| replace:: ?.?.?
-         .. |today| replace:: 2024-01-02
-         .. |release| replace:: ?-?-?
+        .. |version| replace:: ?.?.?
+        .. |today| replace:: 2024-01-04
+        .. |release| replace:: ?-?-?
 </pre></div>
 </div>
 </section>
@@ -305,7 +340,8 @@ is_verbose = true
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Configuration</a><ul>
-<li><a class="reference internal" href="#settings-io-template-lib-toml">settings.io_template_lib.toml</a></li>
+<li><a class="reference internal" href="#settings-io-aero-toml">.settings.io_aero.toml</a></li>
+<li><a class="reference internal" href="#id1">settings.io_aero.toml</a></li>
 </ul>
 </li>
 </ul>
