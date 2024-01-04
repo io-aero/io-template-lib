@@ -147,9 +147,15 @@ jobs:
           parallel: false
           parallel-finished: true
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages - Step 1
+        if: ${{ env.IO_PAGES == 'true' && runner.os == 'Linux' && env.IO_LOCAL != 'true' }}
+        uses: sphinx-notes/pages@v3
+        with:
+          publish_dir: false
+
+      - name: Deploy to GitHub Pages - Step 2
         if: ${{ env.IO_PAGES == 'true' && runner.os == 'Linux' && env.IO_LOCAL != 'true' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/build/html
+          publish_dir: ${{ steps.deployment.outputs.artifact }}
