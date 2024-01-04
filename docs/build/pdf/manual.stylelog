@@ -4719,11 +4719,11 @@
                   MixedStyledText('Version 1.0.0')
                     MixedStyledText('Version 1.0.0')
                       SingleStyledText('Version 1.0.0')
-              Paragraph('Release Date: dd.mm.2023')   D:7 (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\release_notes.rst)   <paragraph>
+              Paragraph('Release Date: dd.mm.2024')   D:7 (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\release_notes.rst)   <paragraph>
                    > (0,0,0,0,2) body [Sphinx] > default
-                  MixedStyledText('Release Date: dd.mm.2023')
-                    MixedStyledText('Release Date: dd.mm.2023')
-                      SingleStyledText('Release Date: dd.mm.2023')
+                  MixedStyledText('Release Date: dd.mm.2024')
+                    MixedStyledText('Release Date: dd.mm.2024')
+                      SingleStyledText('Release Date: dd.mm.2024')
               Section(id='%release_notes#new-features')   D:10 (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\release_notes.rst)   <section>
                 Heading('8.1.1 1 New Features')   D:10 (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\release_notes.rst)   <title>
                      > (0,0,0,1,2) heading level 3 [Sphinx] > heading level 2
@@ -6002,7 +6002,7 @@
                   MixedStyledText('genindex')
                     MixedStyledText('genindex')   <inline>
                       SingleStyledText('genindex')
-        ListItem()   <rst_epilog>   <list_item>
+        ListItem()   D (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\index.rst)   <list_item>
              x (0,0,1,0,4) bulleted list item
           ListItemLabel('•')
                > (0,0,1,0,6) bulleted list item label [Sphinx] > list item label
@@ -6020,8 +6020,15 @@
                   MixedStyledText('modindex')
                     MixedStyledText('modindex')   <inline>
                       SingleStyledText('modindex')
-            StaticGroupedFlowables(style='block quote')   <rst_epilog>:2   <block_quote>
-                 > (0,0,1,0,1) block quote [Sphinx] > DEFAULT
+      Paragraph('Link to the repository')   D:38 (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\index.rst)   <paragraph>
+           > (0,0,0,0,2) body [Sphinx] > default
+          MixedStyledText('Link to the repository')
+            MixedStyledText('Link to the repository')
+              MixedStyledText('Link to the repository', style='external link')   D (\SoftDevelopment\Projects\IO-Aero\io-template-lib\docs\source\index.rst)   <reference>
+                   > (0,0,1,0,1) external hyperlink [Sphinx] > DEFAULT
+                SingleStyledText('Link to the repository')
+      StaticGroupedFlowables(style='block quote')   <rst_epilog>:2   <block_quote>
+           > (0,0,1,0,1) block quote [Sphinx] > DEFAULT
 #### UpExpandingContainer('header')
   StaticGroupedFlowables()
     Header('IO Template Lib Documentation, M...')
