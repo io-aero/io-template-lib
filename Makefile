@@ -96,7 +96,7 @@ action-std:         ## Run the GitHub Actions locally: standard.
 	@echo ----------------------------------------------------------------------
 	act --version
 	@echo ----------------------------------------------------------------------
-	act  --quiet --secret-file .act_secrets --verbose
+	act  --quiet --secret-file .act_secrets --var IO_LOCAL='true' --verbose
 	@echo Info **********  End:   action ***************************************
 
 # Bandit is a tool designed to find common security issues in Python code.
