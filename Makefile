@@ -10,7 +10,7 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_LIB=if exist lib rd /s /q lib
 	export DELETE_PIPFILE_LOCK=del /f /q Pipfile.lock
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
-	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
+	export DELETE_SPHINX_2=del /f /q docs\\source\\iotemplatelib.rst docs\\source\\modules.rst
 	export OPTION_NUITKA=
 	export PIPENV=py -m pipenv
 	export PYTHON=py
@@ -27,7 +27,7 @@ else
 	export DELETE_LIB=rm -rf lib
 	export DELETE_PIPFILE_LOCK=rm -rf Pipfile.lock
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
-	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
+	export DELETE_SPHINX_2=rm -rf docs/source/iotemplatelib.rst docs/source/modules.rst
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
@@ -388,8 +388,8 @@ sphinx:            ##  Create the user documentation with Sphinx.
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX_1}
-	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 	${DELETE_SPHINX_2}
+	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
 	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	@echo Info **********  End:   sphinx ***************************************
