@@ -16,7 +16,7 @@ Welcome to IO-TEMPLATE-LIB
    :maxdepth: 1
    :caption: API Documentation
 
-   iotemplatelib
+   modules
 
 .. toctree::
    :maxdepth: 1
@@ -36,4 +36,3 @@ Repository
 ==========
 
 :repo:`Link to the repository <>`
-

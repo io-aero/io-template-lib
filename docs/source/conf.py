@@ -6,6 +6,7 @@
 import os
 import sys
 from datetime import date
+from rinoh.frontend.rst import DocutilsInlineNode
 
 sys.path.insert(0, os.path.abspath("../../"))
 
@@ -28,49 +29,36 @@ except importlib.metadata.PackageNotFoundError:
 release = version.replace(".", "-")
 todays_date = date.today()
 
-rst_epilog = f"""
-            .. |version| replace:: {version}
-            .. |today| replace:: {todays_date}
-            .. |release| replace:: {release}
-            """
-
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store",]
+
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.coverage",
     "sphinx.ext.extlinks",
     "sphinx.ext.githubpages",
-    "sphinx.ext.linkcode",
     "sphinx.ext.napoleon",
-    "sphinx.ext.viewcode",
     "myst_parser"
 ]
 
-source_suffix = {
-    ".rst": "restructuredtext",
-    ".txt": "markdown",
-    ".md": "markdown",
+extlinks = {
+    'repo': ('https://github.com/io-aero/io-template-lib%s', 'GitHub Repository')
 }
-
-# templates_path = ['_templates']
-# exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_favicon = "img/IO-Aero_1_Favicon.ico"
 html_logo = "img/IO-Aero_1_Logo.png"
-html_static_path = ["_static"]
+html_show_sourcelink = False
 html_theme = "furo"
 html_theme_options = {
     "sidebar_hide_name": True,
 }
 
-extlinks = {
-    'repo': ('https://github.com/io-aero/io-template-lib%s', 'GitHub Repository')
-}
+# The master toctree document.
+master_doc = "index"
 
 # -- Options for PDF output --------------------------------------------------
 rinoh_documents = [
@@ -79,13 +67,22 @@ rinoh_documents = [
         logo="img/IO-Aero_1_Logo.png",
         subtitle="Manual",
         target="manual",
-        title="IO Template Lib Documentation",
+        title="IO Template Library Documentation",
         toctree_only=False,
     ),
 ]
 
-def linkcode_resolve(domain, info):
-    if domain != "py" or not info["module"]:
-        return None
-    filename = info["module"].replace(".", "/")
-    return f"https://github.com/io-aero/io-template-lib/blob/master/{filename}.py"
+rst_epilog = f"""
+            .. |version| replace:: {version}
+            .. |today| replace:: {todays_date}
+            .. |release| replace:: {release}
+            """
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".txt": "markdown",
+    ".md": "markdown",
+}
+
+class Desc_Sig_Space(DocutilsInlineNode):
+    pass
