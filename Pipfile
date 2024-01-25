@@ -1,5 +1,6 @@
 [packages]
 iocommon = "*"
+PyYAML = "*"
 
 [dev-packages]
 bandit = "*"
