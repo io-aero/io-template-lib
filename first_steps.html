@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Advanced Usage" href="advanced_usage.html" /><link rel="prev" title="Configuration" href="configuration.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Advanced Usage" href="advanced_usage.html" /><link rel="prev" title="Configuration Logging" href="configuration_logging.html" />
 
     <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>First Steps - IO-TEMPLATE-LIB 1-3-12 documentation</title>
+        <title>First Steps - IO-TEMPLATE-LIB 1-3-13 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">IO-TEMPLATE-LIB 1-3-12 documentation</div></a>
+      <a href="index.html"><div class="brand">IO-TEMPLATE-LIB 1-3-13 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -161,7 +161,8 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration_io_template_lib.html">Configuration IO-TEMPLATE-LIB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration_logging.html">Configuration Logging</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">First Steps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
 </ul>
@@ -422,30 +423,6 @@ Follow these steps:</p>
 It helps identify and address any potential problems early in the development process.</p>
 </section>
 </section>
-<section id="downloading-database-files-optional">
-<h3>Downloading Database Files (Optional)<a class="headerlink" href="#downloading-database-files-optional" title="Link to this heading">#</a></h3>
-<p>Database files can be downloaded from the IO-Aero Google Drive directory
-<cite>io_aero_data/io-xpa/database/io_xpa_db</cite> to your local repository directory <cite>data</cite>.
-Before extracting, if a <cite>postgres</cite> directory exists within the <cite>data</cite> directory, it should be deleted.</p>
-<p>Follow these steps to manage the database files:</p>
-<section id="a-access-the-io-aero-google-drive-directory">
-<h4>a. Access the IO-Aero Google Drive Directory:<a class="headerlink" href="#a-access-the-io-aero-google-drive-directory" title="Link to this heading">#</a></h4>
-<p>Navigate to the IO-Aero Google Drive and locate the directory <cite>io_aero_data/io-xpa/database/io_xpa_db</cite>.</p>
-</section>
-<section id="b-download-database-files">
-<h4>b. Download Database Files:<a class="headerlink" href="#b-download-database-files" title="Link to this heading">#</a></h4>
-<p>Download the necessary database files from the specified directory to your local repository directory <cite>data</cite>.</p>
-</section>
-<section id="c-delete-existing-postgres-directory-if-present">
-<h4>c. Delete Existing <cite>postgres</cite> Directory (if present):<a class="headerlink" href="#c-delete-existing-postgres-directory-if-present" title="Link to this heading">#</a></h4>
-<p>If a directory named <cite>postgres</cite> already exists within the <cite>data</cite> directory, you should delete it to avoid conflicts.</p>
-</section>
-<section id="d-extract-database-files">
-<h4>d. Extract Database Files:<a class="headerlink" href="#d-extract-database-files" title="Link to this heading">#</a></h4>
-<p>The downloaded database files are in an archive format (ZIP) and should be extracted in the <cite>data</cite> directory.
-After completing these steps, the database files should reside in the <cite>data</cite> directory of your local repository and will be ready for use.</p>
-</section>
-</section>
 <section id="creating-the-docker-container-with-postgresql-db">
 <h3>Creating the Docker Container with PostgreSQL DB<a class="headerlink" href="#creating-the-docker-container-with-postgresql-db" title="Link to this heading">#</a></h3>
 <p>To create the Docker container with PostgreSQL database software, you can use the provided <cite>run_io_template_lib</cite> script.
@@ -468,8 +445,6 @@ Depending on your operating system, follow the relevant instructions below:</p>
 </pre></div>
 </div>
 <p>These commands will initiate the process of creating the Docker container with PostgreSQL database software.</p>
-<blockquote>
-<div></div></blockquote>
 </section>
 </section>
 </section>
@@ -489,14 +464,14 @@ Depending on your operating system, follow the relevant instructions below:</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="configuration.html">
+          <a class="prev-page" href="configuration_logging.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Configuration</div>
+                <div class="title">Configuration Logging</div>
                 
               </div>
             </a>
@@ -575,13 +550,6 @@ Depending on your operating system, follow the relevant instructions below:</p>
 <li><a class="reference internal" href="#b-review-the-test-results">b. Review the Test Results:</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#downloading-database-files-optional">Downloading Database Files (Optional)</a><ul>
-<li><a class="reference internal" href="#a-access-the-io-aero-google-drive-directory">a. Access the IO-Aero Google Drive Directory:</a></li>
-<li><a class="reference internal" href="#b-download-database-files">b. Download Database Files:</a></li>
-<li><a class="reference internal" href="#c-delete-existing-postgres-directory-if-present">c. Delete Existing <cite>postgres</cite> Directory (if present):</a></li>
-<li><a class="reference internal" href="#d-extract-database-files">d. Extract Database Files:</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#creating-the-docker-container-with-postgresql-db">Creating the Docker Container with PostgreSQL DB</a><ul>
 <li><a class="reference internal" href="#a-macos-zsh">a. macOS (zsh):</a></li>
 <li><a class="reference internal" href="#b-ubuntu-sh">b. Ubuntu (sh):</a></li>
@@ -601,7 +569,7 @@ Depending on your operating system, follow the relevant instructions below:</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=dd2aa58d"></script>
+</div><script src="_static/documentation_options.js?v=79522194"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
