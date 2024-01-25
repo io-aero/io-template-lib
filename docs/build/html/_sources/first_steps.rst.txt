@@ -262,36 +262,6 @@ b. Review the Test Results:
 Running system tests using `make tests` is a valuable step to ensure that your installation is working correctly, and your environment is properly configured for your project.
 It helps identify and address any potential problems early in the development process.
 
-Downloading Database Files (Optional)
-.....................................
-
-Database files can be downloaded from the IO-Aero Google Drive directory
-`io_aero_data/io-xpa/database/io_xpa_db` to your local repository directory `data`.
-Before extracting, if a `postgres` directory exists within the `data` directory, it should be deleted.
-
-Follow these steps to manage the database files:
-
-a. Access the IO-Aero Google Drive Directory:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Navigate to the IO-Aero Google Drive and locate the directory `io_aero_data/io-xpa/database/io_xpa_db`.
-
-b. Download Database Files:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Download the necessary database files from the specified directory to your local repository directory `data`.
-
-c. Delete Existing `postgres` Directory (if present):
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If a directory named `postgres` already exists within the `data` directory, you should delete it to avoid conflicts.
-
-d. Extract Database Files:
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The downloaded database files are in an archive format (ZIP) and should be extracted in the `data` directory.
-After completing these steps, the database files should reside in the `data` directory of your local repository and will be ready for use.
-
 Creating the Docker Container with PostgreSQL DB
 .................................................
 

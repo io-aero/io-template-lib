@@ -339,6 +339,7 @@ pytest:             ## Run all tests with pytest.
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
+	${PYTHON} -m pip install .
 	${PIPENV} run pytest --dead-fixtures tests
 	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -v tests
 	@echo Info **********  End:   pytest ***************************************
@@ -351,6 +352,7 @@ pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
+	${PYTHON} -m pip install .
 	${PIPENV} run pytest --dead-fixtures tests
 	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest ***************************************
@@ -361,6 +363,7 @@ pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
+	${PYTHON} -m pip install .
 	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
@@ -370,12 +373,14 @@ pytest-issue:       ## Run only the tests with pytest which are marked with 'iss
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
+	${PYTHON} -m pip install .
 	${PIPENV} run pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-module:      ## Run test of a specific module with pytest.
 	@echo Info **********  Start: pytest ***************************************
 	@echo TESTMODULE=tests/$(module)
 	@echo ----------------------------------------------------------------------
+	${PYTHON} -m pip install .
 	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(module)
 	@echo Info **********  End:   pytest ***************************************
 
@@ -389,6 +394,7 @@ sphinx:            ##  Create the user documentation with Sphinx.
 	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX_1}
 	${DELETE_SPHINX_2}
+	${PYTHON} -m pip install .
 	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
 	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
