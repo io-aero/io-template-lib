@@ -72,11 +72,11 @@ rinoh_documents = [
     ),
 ]
 
-rst_epilog = f"""
-            .. |version| replace:: {version}
-            .. |today| replace:: {todays_date}
-            .. |release| replace:: {release}
-            """
+# rst_epilog = f"""
+#             .. |version| replace:: {version}
+#             .. |today| replace:: {todays_date}
+#             .. |release| replace:: {release}
+#             """
 
 source_suffix = {
     ".rst": "restructuredtext",

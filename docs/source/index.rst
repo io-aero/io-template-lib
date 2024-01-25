@@ -8,7 +8,8 @@ Welcome to IO-TEMPLATE-LIB
    introduction
    requirements
    installation
-   configuration
+   configuration_io_template_lib
+   configuration_logging
    first_steps
    advanced_usage
 

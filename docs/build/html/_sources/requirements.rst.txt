@@ -67,6 +67,12 @@ By using Miniconda, users can access the extensive repositories of Conda package
 
 Utilizing Miniconda ensures that you have the necessary Conda environment with the minimal set of dependencies required to run and develop the project efficiently.
 
+`MS Access Database Engine <https://www.microsoft.com/en-us/download/details.aspx?id=54920>`__\
+-----------------------------------------------------------------------------------------------
+
+This Software consists of a set of components that facilitate the transfer of data between existing Microsoft Office files such as Microsoft Office Access (*.mdb and *.accdb) files and Microsoft Office Excel (*.xls, *.xlsx, and *.xlsb) files to other data sources.
+Connectivity to existing text files is also supported.
+
 `DBeaver Community <https://dbeaver.io>`__\  - optional
 -------------------------------------------------------
 
