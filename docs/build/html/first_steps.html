@@ -423,30 +423,6 @@ Follow these steps:</p>
 It helps identify and address any potential problems early in the development process.</p>
 </section>
 </section>
-<section id="downloading-database-files-optional">
-<h3>Downloading Database Files (Optional)<a class="headerlink" href="#downloading-database-files-optional" title="Link to this heading">#</a></h3>
-<p>Database files can be downloaded from the IO-Aero Google Drive directory
-<cite>io_aero_data/io-xpa/database/io_xpa_db</cite> to your local repository directory <cite>data</cite>.
-Before extracting, if a <cite>postgres</cite> directory exists within the <cite>data</cite> directory, it should be deleted.</p>
-<p>Follow these steps to manage the database files:</p>
-<section id="a-access-the-io-aero-google-drive-directory">
-<h4>a. Access the IO-Aero Google Drive Directory:<a class="headerlink" href="#a-access-the-io-aero-google-drive-directory" title="Link to this heading">#</a></h4>
-<p>Navigate to the IO-Aero Google Drive and locate the directory <cite>io_aero_data/io-xpa/database/io_xpa_db</cite>.</p>
-</section>
-<section id="b-download-database-files">
-<h4>b. Download Database Files:<a class="headerlink" href="#b-download-database-files" title="Link to this heading">#</a></h4>
-<p>Download the necessary database files from the specified directory to your local repository directory <cite>data</cite>.</p>
-</section>
-<section id="c-delete-existing-postgres-directory-if-present">
-<h4>c. Delete Existing <cite>postgres</cite> Directory (if present):<a class="headerlink" href="#c-delete-existing-postgres-directory-if-present" title="Link to this heading">#</a></h4>
-<p>If a directory named <cite>postgres</cite> already exists within the <cite>data</cite> directory, you should delete it to avoid conflicts.</p>
-</section>
-<section id="d-extract-database-files">
-<h4>d. Extract Database Files:<a class="headerlink" href="#d-extract-database-files" title="Link to this heading">#</a></h4>
-<p>The downloaded database files are in an archive format (ZIP) and should be extracted in the <cite>data</cite> directory.
-After completing these steps, the database files should reside in the <cite>data</cite> directory of your local repository and will be ready for use.</p>
-</section>
-</section>
 <section id="creating-the-docker-container-with-postgresql-db">
 <h3>Creating the Docker Container with PostgreSQL DB<a class="headerlink" href="#creating-the-docker-container-with-postgresql-db" title="Link to this heading">#</a></h3>
 <p>To create the Docker container with PostgreSQL database software, you can use the provided <cite>run_io_template_lib</cite> script.
@@ -469,8 +445,6 @@ Depending on your operating system, follow the relevant instructions below:</p>
 </pre></div>
 </div>
 <p>These commands will initiate the process of creating the Docker container with PostgreSQL database software.</p>
-<blockquote>
-<div></div></blockquote>
 </section>
 </section>
 </section>
@@ -574,13 +548,6 @@ Depending on your operating system, follow the relevant instructions below:</p>
 <li><a class="reference internal" href="#system-testing-with-unit-tests">System Testing with Unit Tests</a><ul>
 <li><a class="reference internal" href="#a-run-the-system-test">a. Run the System Test:</a></li>
 <li><a class="reference internal" href="#b-review-the-test-results">b. Review the Test Results:</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#downloading-database-files-optional">Downloading Database Files (Optional)</a><ul>
-<li><a class="reference internal" href="#a-access-the-io-aero-google-drive-directory">a. Access the IO-Aero Google Drive Directory:</a></li>
-<li><a class="reference internal" href="#b-download-database-files">b. Download Database Files:</a></li>
-<li><a class="reference internal" href="#c-delete-existing-postgres-directory-if-present">c. Delete Existing <cite>postgres</cite> Directory (if present):</a></li>
-<li><a class="reference internal" href="#d-extract-database-files">d. Extract Database Files:</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#creating-the-docker-container-with-postgresql-db">Creating the Docker Container with PostgreSQL DB</a><ul>

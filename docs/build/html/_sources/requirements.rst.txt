@@ -34,7 +34,7 @@ The command-line shells supported are:
    * - Windows 10/11
      - cmd and PowerShell
 
-For macOS and Ubuntu, the end-of-line character and the execution authorization may need to be adjusted for the shell scripts. 
+For macOS and Ubuntu, the end-of-line character and the execution authorization may need to be adjusted for the shell scripts.
 If the ``dos2Unix`` program is installed, the necessary adjustments can be made using the scripts ``./scripts/run_prep_zsh_scripts.zsh`` (macOS) or ``./scripts/run_prep_bash_scripts.sh`` (Ubuntu).
 
 `Python <https://docs.python.org/3/whatsnew/3.11.html>`__\
@@ -70,7 +70,7 @@ Utilizing Miniconda ensures that you have the necessary Conda environment with t
 `MS Access Database Engine <https://www.microsoft.com/en-us/download/details.aspx?id=54920>`__\
 -----------------------------------------------------------------------------------------------
 
-This Software consists of a set of components that facilitate the transfer of data between existing Microsoft Office files such as Microsoft Office Access (*.mdb and *.accdb) files and Microsoft Office Excel (*.xls, *.xlsx, and *.xlsb) files to other data sources.
+This Software consists of a set of components that facilitate the transfer of data between existing Microsoft Office files such as Microsoft Office Access (\*.mdb and \*.accdb) files and Microsoft Office Excel (\*.xls, \*.xlsx, and \*.xlsb) files to other data sources.
 Connectivity to existing text files is also supported.
 
 `DBeaver Community <https://dbeaver.io>`__\  - optional
