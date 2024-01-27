@@ -2,6 +2,7 @@
 iocommon = "*"
 PyYAML = "*"
 tomli = "*"
+tomli-w = "*"
 
 [dev-packages]
 bandit = "*"
