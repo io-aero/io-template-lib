@@ -4,7 +4,7 @@ This repository is a sample repository for developing Python related IO-Aero lib
 
 ## Documentation
 
-The complete documentation for this repository is contained in the GitHub pages [here](https://io-aero.github.io/io-template-lib-core/). 
+The complete documentation for this repository is contained in the GitHub pages [here](https://io-aero.github.io/io-template-lib/). 
 See that documentation for installation instructions
 
 Further IO-Aero software documentation can be found under the following links.

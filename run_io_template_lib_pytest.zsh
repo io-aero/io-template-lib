@@ -12,7 +12,6 @@ if [[ -z "${ENV_FOR_DYNACONF}" ]]; then
     export ENV_FOR_DYNACONF=test
 fi
 
-
 export IO_AERO_TASK=
 export IO_AERO_TASK_DEFAULT=version
 
@@ -53,42 +52,41 @@ fi
 # Redirection of the standard output and the standard error output to the log file
 exec > >(while read -r line; do log_message "$line"; done) 2> >(while read -r line; do log_message "ERROR: $line"; done)
 
-echo "================================================================================"
+echo "======================================================================="
 echo "Start $0"
-echo "--------------------------------------------------------------------------------"
-echo "IO_TEMPLATE_LIB - Template for Library Repositories."
-echo "--------------------------------------------------------------------------------"
+echo "-----------------------------------------------------------------------"
+echo "IO_TEMPLATE-LIB - Template for Library Repositories."
+echo "-----------------------------------------------------------------------"
 echo "ENV_FOR_DYNACONF : ${ENV_FOR_DYNACONF}"
 echo "PYTHONPATH       : ${PYTHONPATH}"
-echo "--------------------------------------------------------------------------------"
+echo "-----------------------------------------------------------------------"
+echo "TASK             : ${IO_AERO_TASK}"
+echo "-----------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
-echo "================================================================================"
-# ---------------------------------------------------------------------------
-# version: Show the IO-TEMPLATE-LIB version
-# ---------------------------------------------------------------------------
+echo "======================================================================="
 # Task handling
 # ---------------------------------------------------------------------------
-if [[ "${IO_AERO_TASK}" =~ ^(version)$ ]]; then
-    if ! ( pipenv run python scripts/launcher.py -t "${IO_AERO_TASK}" ); then
+case "${IO_AERO_TASK}" in
+    "version")
+	    if ! ( pipenv run python scripts/launcher.py -t "${IO_AERO_TASK}" ); then
+            exit 255
+        fi
+        ;;
+
+    *)
+        echo "Processing of the script run_io_template_lib_pytest is aborted: unknown task='${IO_AERO_TASK}'"
         exit 255
-    fi
+        ;;
+esac
 
-# ---------------------------------------------------------------------------
-# Program abort due to wrong input.
-# ---------------------------------------------------------------------------
-else
-    echo "Processing of the script run_io_template_lib_pytest is aborted: unknown task='${IO_AERO_TASK}'"
-    exit 255
-fi
-
-echo "--------------------------------------------------------------------------------"
+echo "-----------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
-echo "--------------------------------------------------------------------------------"
+echo "-----------------------------------------------------------------------"
 echo "End   $0"
-echo "================================================================================"
+echo "======================================================================="
 
 # Close the log file
 exec > >(while read -r line; do echo "$line"; done) 2> >(while read -r line; do echo "ERROR: $line"; done)
 
 # Closing the log file
-log_message "Script finished." Test
+log_message "Script finished."

@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 # -----------------------------------------------------------------------------
-# Test case: version - Show the IO-XPA-CORE version.
+# Test case: version - Show the IO-TEMPLATE-LIB version.
 # -----------------------------------------------------------------------------
 # pylint: disable=R0801
 def test_launcher_version():

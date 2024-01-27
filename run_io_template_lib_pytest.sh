@@ -12,7 +12,6 @@ if [ -z "${ENV_FOR_DYNACONF}" ]; then
     export ENV_FOR_DYNACONF=test
 fi
 
-
 export IO_AERO_TASK=
 export IO_AERO_TASK_DEFAULT=version
 
@@ -61,7 +60,7 @@ exec > >(while read -r line; do log_message "$line"; done) 2> >(while read -r li
 echo "======================================================================="
 echo "Start $0"
 echo "-----------------------------------------------------------------------"
-echo "iIO_TEMPLATE_LIB - Template for Library Repositories."
+echo "IO_TEMPLATE_LIB - Template for Library Repositories."
 echo "-----------------------------------------------------------------------"
 echo "ENV_FOR_DYNACONF         : ${ENV_FOR_DYNACONF}"
 echo "PYTHONPATH               : ${PYTHONPATH}"

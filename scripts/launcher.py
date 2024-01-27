@@ -1,6 +1,7 @@
 # Copyright (c) 2022-2024 IO-Aero. All rights reserved. Use of this
 # source code is governed by the IO-Aero License, that can
 # be found in the LICENSE.md file.
+
 """Module iotemplatelib: Entry Point Functionality.
 
 This is the entry point to the library IO-TEMPLATE-LIB.
@@ -9,6 +10,7 @@ import locale
 import logging
 import sys
 
+import tomli
 from iocommon import file
 from iocommon import io_glob
 from iocommon import io_logger
@@ -17,6 +19,28 @@ from iocommon import io_logger
 # Global variables.
 # -----------------------------------------------------------------------------
 _LOCALE = "en_US.UTF-8"
+
+
+# -----------------------------------------------------------------------------
+# Print the version number from pyproject.toml.
+# -----------------------------------------------------------------------------
+def _print_project_version():
+    """Print the version number from pyproject.toml."""
+    # Open the pyproject.toml file in read mode
+    with open("pyproject.toml", "rb") as toml_file:
+        # Use toml.load() to parse the file and store the data in a dictionary
+        pyproject = tomli.load(toml_file)
+
+    # Extract the version information
+    # This method safely handles cases where the key might not exist
+    version = pyproject.get("project", {}).get("version")
+
+    # Check if the version is found and print it
+    if version:
+        print(f"IO-TEMPLATE-LIB version: {version}")
+    else:
+        # If the version isn't found, print an appropriate message
+        print("IO-TEMPLATE-LIB version not found in pyproject.toml")
 
 
 # -----------------------------------------------------------------------------
@@ -44,6 +68,7 @@ def main(argv: list[str]) -> None:
 
     file.print_version_pkg_struct("iotemplatelib")
     file.print_pkg_structs(["iocommon"])
+    _print_project_version()
 
     logger.info("End   launcher.py")
     logger.debug(io_glob.LOGGER_END)
