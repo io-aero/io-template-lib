@@ -1,6 +1,7 @@
 [packages]
 iocommon = "*"
 PyYAML = "*"
+tomli = "*"
 
 [dev-packages]
 bandit = "*"
@@ -28,6 +29,7 @@ sphinx = "*"
 sphinx-autodoc-typehints = "*"
 types-pyyaml = "*"
 types-setuptools = "*"
+types-toml = "*"
 wheel = "*"
 
 [requires]

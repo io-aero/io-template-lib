@@ -31,6 +31,7 @@ if ["%1"] EQU [""] (
 ) else (
     set IO_AERO_TASK=%1
 )
+
 echo.
 echo Script %0 is now running
 echo.

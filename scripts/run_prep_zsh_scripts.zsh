@@ -30,11 +30,13 @@ then
     brew install dos2unix
 fi
 
-dos2unix *.zsh
-dos2unix */*.zsh
-
+# Set execute permissions on .sh files
 chmod +x *.zsh
 chmod +x */*.zsh
+
+# Convert EOL characters from Windows to Unix style
+dos2unix *.zsh
+dos2unix */*.zsh
 
 echo "--------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
