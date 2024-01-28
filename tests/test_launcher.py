@@ -9,7 +9,7 @@ import platform
 from iocommon import io_glob
 from iocommon.io_config import settings
 
-from iotemplatelib import glob
+from iotemplatelib import glob_local
 
 # -----------------------------------------------------------------------------
 # Constants & Globals.
@@ -37,7 +37,7 @@ def test_launcher_version():
         exit_code = os.system("run_io_template_lib_pytest.bat version")
     else:
         # FATAL.00.908 The operating system '{os}' is not supported
-        assert False, glob.FATAL_00_908.replace("{os}", platform.system())
+        assert False, glob_local.FATAL_00_908.replace("{os}", platform.system())
 
     assert exit_code == 0, f"Command failed with exit code {exit_code}"
 
