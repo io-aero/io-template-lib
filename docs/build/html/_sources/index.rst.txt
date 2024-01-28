@@ -26,7 +26,6 @@ Welcome to IO-TEMPLATE-LIB
    release_notes
    LICENSE
 
-
 Indices and tables
 ==================
 
