@@ -27,12 +27,17 @@ Welcome to IO-TEMPLATE-LIB
    LICENSE
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
 
 Repository
-==========
+.........
 
 :repo:`Link to the repository <>`
+
+Version
+.......
+
+|version|

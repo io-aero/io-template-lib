@@ -11,9 +11,10 @@ Further IO-Aero software documentation can be found under the following links.
 
 - [IO-AVSTATS - Aviation Event Statistics](https://io-aero.github.io/io-avstats/) 
 - [IO-COMMON - Common Globals, Functions, and Processes for the IO-Aero Libraries](https://io-aero.github.io/io-common/) 
-- [IO-LIDAR - Lidar Processing Libraries](https://io-aero.github.io/io-lidar/) 
-- [IO-LIDAR-BATCH - Maintenance of the directory of LAZ and metadata from Rockyweb](https://io-aero.github.io/io-lidar-batch/)
-- [IO-RASTER - TODO](https://io-aero.github.io/io-raster/) 
+- [IO-LIDAR - Map Processing Library](https://io-aero.github.io/io-lidar/) 
+- [IO-LIDAR-DATA - Lidar Data Management](https://io-aero.github.io/io-lidar-data/)
+- [IO-MAP-APPS - A collection of the applications that produce IO-Aero maps and map products](https://io-aero.github.io/io-map-apps/) 
+- [IO-RASTER - io raster phase II](https://io-aero.github.io/io-raster/) 
 - [IO-VECTOR - Vector Map Repository](https://io-aero.github.io/io-vector/) 
 - [IO-XPA-CORE - IO-XPA Data Processing](https://io-aero.github.io/io-xpa-core/)
 <!-- - [IO-TEMPLATE-APP - Template for Application Repositories](https://io-aero.github.io/io-template-app/) -->
