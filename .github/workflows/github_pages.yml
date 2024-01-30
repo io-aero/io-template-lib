@@ -1,4 +1,4 @@
-name: Standard
+name: GitHub Pages
 
 on:
   pull_request:
