@@ -33,7 +33,7 @@ Indices and tables
 * :ref:`modindex`
 
 Repository
-.........
+..........
 
 :repo:`Link to the repository <>`
 

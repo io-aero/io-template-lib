@@ -32,7 +32,15 @@ todays_date = date.today()
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store",]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "README.md", "img/README.md",]
+
+# Check if building with RinohType for PDF
+# if 'rinoh' in sys.argv:
+#     # Add the files you want to exclude specifically from PDF
+#     exclude_patterns.extend([
+#         'process_logs.rst',
+#         'process_logs/*.md'
+#     ])
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -67,7 +75,7 @@ rinoh_documents = [
         logo="img/IO-Aero_1_Logo.png",
         subtitle="Manual",
         target="manual",
-        title="IO Template Library Documentation",
+        title="Template Library",
         toctree_only=False,
     ),
 ]

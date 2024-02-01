@@ -32,7 +32,7 @@ GLOBAL_USER_EMAIL       The global email address for GitHub
 
 This file controls the secrets of the **IO-TEMPLATE-LIB** library.
 This file is not included in the repository.
-The file ``.settings.io_aero_template.zoml`` can be used as a template.
+The file ``.settings.io_aero_template.toml`` can be used as a template.
 
 The customisable entries are:
 
@@ -63,13 +63,13 @@ This file controls the behaviour of the **IO-TEMPLATE-LIB** library.
 
 The customisable entries are:
 
-======================== ============================== =========================================
-Parameter                Default                        Description
-======================== ============================== =========================================
-check_value              default                        ``default`` for productive operation,
-                                                        ``test`` for test operation
-is_verbose               true                           Display progress messages for processing
-======================== ============================== =========================================
+======================== =========================================
+Parameter                Description
+======================== =========================================
+check_value              ``default`` for productive operation,
+                         ``test`` for test operation
+is_verbose               Display progress messages for processing
+======================== =========================================
 
 The configuration parameters can be set differently for the individual
 environments (``default`` and ``test``).
