@@ -33,7 +33,7 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.3.17"
+version = "1.3.18"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"
