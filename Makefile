@@ -199,6 +199,7 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 gh-pages:           ## Deploy GitHub pages.
 	@echo Info **********  Start: pages ****************************************
 	git add .
+	git commit -m "Update documentation for GitHub Pages"
 ifeq ($(OS),Windows_NT)
 	@echo Off & for /f "tokens=*" %%i in ('git rev-parse --abbrev-ref HEAD') do @(set CURRENT_BRANCH=%%i)
 	@git checkout gh-pages
