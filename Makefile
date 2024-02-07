@@ -43,6 +43,7 @@ export CONDA_ARG=
 
 export COVERALLS_REPO_TOKEN=<see coveralls.io>
 export ENV_FOR_DYNACONF=test
+export LANG=en_US.UTF-8
 export MODULE=iotemplatelib
 export PYTHONPATH=${MODULE} scripts
 #export VERSION_PIPENV=v2023.7.23
