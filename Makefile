@@ -81,8 +81,6 @@ final: format lint docs tests
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
 lint: bandit flake8 pylint mypy
-## pages:              Create the documentation and publish it on GitHub pages.
-pages: docs gh-pages
 ## tests:              Run all tests with pytest.
 tests: pytest
 ## -----------------------------------------------------------------------------
@@ -193,29 +191,6 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run flake8 ${PYTHONPATH} tests
 	@echo Info **********  End:   Flake8 ***************************************
-
-# Nuitka: Python compiler written in Python
-# https://github.com/Nuitka/Nuitka
-gh-pages:           ## Deploy GitHub pages.
-	@echo Info **********  Start: pages ****************************************
-	git add .
-	git commit -m "Update documentation for GitHub Pages"
-ifeq ($(OS),Windows_NT)
-	@echo Off & for /f "tokens=*" %%i in ('git rev-parse --abbrev-ref HEAD') do @(set CURRENT_BRANCH=%%i)
-	@git checkout gh-pages
-	@git add docs/build/html/ -A
-	@git commit -m "Update documentation for GitHub Pages"
-	@git push origin gh-pages
-	@git checkout %CURRENT_BRANCH%
-else
-	@CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD) && \
-	git checkout gh-pages && \
-	git add docs/build/html/ -A && \
-	git commit -m "Update documentation for GitHub Pages" && \
-	git push origin gh-pages && \
-	git checkout $$CURRENT_BRANCH
-endif
-	@echo Info **********  End:   pages ****************************************
 
 # isort your imports, so you don't have to.
 # https://github.com/PyCQA/isort
