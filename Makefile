@@ -12,7 +12,6 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_SPHINX_1=del /f /q docs\\build\\*
 	export DELETE_SPHINX_2=del /f /q docs\\source\\iotemplatelib.rst docs\\source\\modules.rst
 	export OPTION_NUITKA=
-	export PIPENV=py -m pipenv
 	export PYTHON=py
 	export SHELL=cmd
 	export SPHINX_BUILDDIR=docs\\build
@@ -29,7 +28,6 @@ else
 	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/iotemplatelib.rst docs/source/modules.rst
 	export OPTION_NUITKA=--disable-ccache
-	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
 	export SHELL=/bin/bash
 	export SPHINX_BUILDDIR=docs/build
@@ -105,12 +103,11 @@ action-std:         ## Run the GitHub Actions locally: standard.
 # Configuration file: none
 bandit:             ## Find common security issues with Bandit.
 	@echo Info **********  Start: Bandit ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run bandit --version
+	pipenv run bandit --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH}
+	pipenv run bandit -c pyproject.toml -r ${PYTHONPATH}
 	@echo Info **********  End:   Bandit ***************************************
 
 # The Uncompromising Code Formatter
@@ -118,12 +115,11 @@ bandit:             ## Find common security issues with Bandit.
 # Configuration file: pyproject.toml
 black:              ## Format the code with Black.
 	@echo Info **********  Start: black ****************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run black --version
+	pipenv run black --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run black ${PYTHONPATH} tests
+	pipenv run black ${PYTHONPATH} tests
 	@echo Info **********  End:   black ****************************************
 
 # Byte-compile Python libraries
@@ -158,9 +154,9 @@ conda:              ## Create a new environment.
 # Configuration file: none
 coveralls:          ## Run all the tests and upload the coverage data to coveralls.
 	@echo Info **********  Start: coveralls ***********************************
-	${PIPENV} run pytest --cov=${MODULE} --cov-report=xml --random-order tests
+	pipenv run pytest --cov=${MODULE} --cov-report=xml --random-order tests
 	@echo ---------------------------------------------------------------------
-	${PIPENV} run coveralls --service=github
+	pipenv run coveralls --service=github
 	@echo Info **********  End:   coveralls ***********************************
 
 # Formats docstrings to follow PEP 257
@@ -168,15 +164,14 @@ coveralls:          ## Run all the tests and upload the coverage data to coveral
 # Configuration file: pyproject.toml
 docformatter:       ## Format the docstrings with docformatter.
 	@echo Info **********  Start: docformatter *********************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run docformatter --version
+	pipenv run docformatter --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run docformatter --in-place -r ${PYTHONPATH}
-	${PIPENV} run docformatter --in-place -r tests
-#	${PIPENV} run docformatter -r ${PYTHONPATH}
-#	${PIPENV} run docformatter -r tests
+	pipenv run docformatter --in-place -r ${PYTHONPATH}
+	pipenv run docformatter --in-place -r tests
+#	pipenv run docformatter -r ${PYTHONPATH}
+#	pipenv run docformatter -r tests
 	@echo Info **********  End:   docformatter *********************************
 
 # Flake8: Your Tool For Style Guide Enforcement.
@@ -184,12 +179,11 @@ docformatter:       ## Format the docstrings with docformatter.
 # Configuration file: cfg.cfg
 flake8:             ## Enforce the Python Style Guides with Flake8.
 	@echo Info **********  Start: Flake8 ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run flake8 --version
+	pipenv run flake8 --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run flake8 ${PYTHONPATH} tests
+	pipenv run flake8 ${PYTHONPATH} tests
 	@echo Info **********  End:   Flake8 ***************************************
 
 # isort your imports, so you don't have to.
@@ -197,12 +191,11 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 # Configuration file: pyproject.toml
 isort:              ## Edit and sort the imports with isort.
 	@echo Info **********  Start: isort ****************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run isort --version
+	pipenv run isort --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run isort ${PYTHONPATH} tests
+	pipenv run isort ${PYTHONPATH} tests
 	@echo Info **********  End:   isort ****************************************
 
 # Mypy: Static Typing for Python
@@ -210,20 +203,18 @@ isort:              ## Edit and sort the imports with isort.
 # Configuration file: pyproject.toml
 mypy:               ## Find typing issues with Mypy.
 	@echo Info **********  Start: Mypy *****************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run mypy --version
+	pipenv run mypy --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run mypy ${PYTHONPATH}
+	pipenv run mypy ${PYTHONPATH}
 	@echo Info **********  End:   Mypy *****************************************
 
 mypy-stubgen:       ## Autogenerate stub files
 	@echo Info **********  Start: Mypy *****************************************
-	@echo PIPENV                          =${PIPENV}
 	@echo ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=${ALL_IO_TEMPLATE_LIB_CHECKED_DIRS}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run stubgen ${ALL_IO_TEMPLATE_LIB_CHECKED_FILES}
+	pipenv run stubgen ${ALL_IO_TEMPLATE_LIB_CHECKED_FILES}
 	mv out/iotemplatelib/*.pyi iotemplatelib/
 	mv out/iotemplatelib/tools/*.pyi iotemplatelib/tools/
 	mv out/iotemplatelib/lidar/*.pyi iotemplatelib/lidar/
@@ -240,11 +231,11 @@ nuitka:             ## Create a dynamic link library.
 	@echo OPTION_NUITKA=${OPTION_NUITKA}
 	@echo PYTHON       =${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run ${PYTHON} -m nuitka --version
+	pipenv run ${PYTHON} -m nuitka --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=${MODULE} --module ${MODULE} --no-pyi-file --output-dir=dist --remove-output
+	pipenv run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=${MODULE} --module ${MODULE} --no-pyi-file --output-dir=dist --remove-output
 	@echo Info **********  End:   nuitka ***************************************
 
 # pip is the package installer for Python.
@@ -258,24 +249,23 @@ nuitka:             ## Create a dynamic link library.
 pipenv-dev:         ## Install the package dependencies for development.
 	@echo Info **********  Start: Installation of Development Packages *********
 	@echo DELETE_PIPFILE_LOCK=${DELETE_PIPFILE_LOCK}
-	@echo PIPENV    =${PIPENV}
-	@echo PYTHON    =${PYTHON}
+	@echo PYTHON             =${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install --upgrade pip
-#	${PYTHON} -m pip install --upgrade pipenv==${VERSION_PIPENV}
-	${PYTHON} -m pip install --upgrade pipenv
-	${PYTHON} -m pip install --upgrade virtualenv
+	pip install --upgrade pip
+#	pip install --upgrade pipenv==${VERSION_PIPENV}
+	pip install --upgrade pipenv
+	pip install --upgrade virtualenv
 	${DELETE_BUILD}
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PIPENV} install ${CONDA_ARG} --dev
+	pipenv install ${CONDA_ARG} --dev
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pip freeze
+	pipenv run pip freeze
 	@echo ----------------------------------------------------------------------
 	${PYTHON} --version
-	${PYTHON} -m pip --version
-	${PYTHON} -m pipenv --version
+	pip --version
+	pipenv --version
 	${PYTHON} -m virtualenv --version
 	@echo Info **********  End:   Installation of Development Packages *********
 # ToDo: If Conda needed.
@@ -283,24 +273,23 @@ pipenv-dev:         ## Install the package dependencies for development.
 pipenv-prod:        ## Install the package dependencies for production.
 	@echo Info **********  Start: Installation of Production Packages **********
 	@echo DELETE_PIPFILE_LOCK=${DELETE_PIPFILE_LOCK}
-	@echo PIPENV             =${PIPENV}
 	@echo PYTHON             =${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install --upgrade pip
-#	${PYTHON} -m pip install --upgrade pipenv==${VERSION_PIPENV}
-	${PYTHON} -m pip install --upgrade pipenv
-	${PYTHON} -m pip install --upgrade virtualenv
+	pip install --upgrade pip
+#	pip install --upgrade pipenv==${VERSION_PIPENV}
+	pip install --upgrade pipenv
+	pip install --upgrade virtualenv
 	${DELETE_BUILD}
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PIPENV} install ${CONDA_ARG}
+	pipenv install ${CONDA_ARG}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pip freeze
+	pipenv run pip freeze
 	@echo ----------------------------------------------------------------------
 	${PYTHON} --version
-	${PYTHON} -m pip --version
-	${PYTHON} -m pipenv --version
+	pip --version
+	pipenv --version
 	${PYTHON} -m virtualenv --version
 	@echo Info **********  End:   Installation of Production Packages **********
 
@@ -309,12 +298,11 @@ pipenv-prod:        ## Install the package dependencies for production.
 # Configuration file: pyproject.toml
 pydocstyle:         ## Check the API documentation with pydocstyle.
 	@echo Info **********  Start: pydocstyle ***********************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pydocstyle --version
+	pipenv run pydocstyle --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pydocstyle --count ${MODULE} scripts
+	pipenv run pydocstyle --count ${MODULE} scripts
 	@echo Info **********  End:   pydocstyle ***********************************
 
 # Pylint is a tool that checks for errors in Python code.
@@ -322,12 +310,11 @@ pydocstyle:         ## Check the API documentation with pydocstyle.
 # Configuration file: .pylintrc
 pylint:             ## Lint the code with Pylint.
 	@echo Info **********  Start: Pylint ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pylint --version
+	pipenv run pylint --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pylint ${PYTHONPATH} tests
+	pipenv run pylint ${PYTHONPATH} tests
 	@echo Info **********  End:   Pylint ***************************************
 
 # pytest: helps you write better programs.
@@ -335,74 +322,69 @@ pylint:             ## Lint the code with Pylint.
 # Configuration file: pyproject.toml
 pytest:             ## Run all tests with pytest.
 	@echo Info **********  Start: pytest ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --version
+	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install .
-	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -v tests
+	pip install .
+	pipenv run pytest --dead-fixtures tests
+	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -v tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
+	pipenv install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --version
+	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install .
-	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
+	pip install .
+	pipenv run pytest --dead-fixtures tests
+	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo Info **********  Start: pytest ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --version
+	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install .
-	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -rP -v -x tests
+	pip install .
+	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
 	@echo Info **********  Start: pytest ***************************************
-	@echo PIPENV    =${PIPENV}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --version
+	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install .
-	${PIPENV} run pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
+	pip install .
+	pipenv run pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-module:      ## Run test of a specific module with pytest.
 	@echo Info **********  Start: pytest ***************************************
 	@echo TESTMODULE=tests/$(module)
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip install .
-	${PIPENV} run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(module)
+	pip install .
+	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(module)
 	@echo Info **********  End:   pytest ***************************************
 
 sphinx:            ##  Create the user documentation with Sphinx.
 	@echo Info **********  Start: sphinx ***************************************
 	@echo DELETE_SPHINX_1 =${DELETE_SPHINX_1}
 	@echo DELETE_SPHINX_2 =${DELETE_SPHINX_2}
-	@echo PIPENV          =${PIPENV}
 	@echo SPHINX_BUILDDIR =${SPHINX_BUILDDIR}
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX_1}
 	${DELETE_SPHINX_2}
-	${PYTHON} -m pip install .
-	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
-	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
-	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
+	pip install .
+	pipenv run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
+	pipenv run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
+	pipenv run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	@echo Info **********  End:   sphinx ***************************************
 
 sphinx-api:
-	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
+	pipenv run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 
 # twine: Collection of utilities for publishing packages on io-aero-pypi.
 # https://pypi.org/project/twine/
@@ -410,7 +392,6 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	@echo Info **********  Start: twine io-aero-pypi ***************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
-	@echo PIPENV     =${PIPENV}
 	@echo PYTHON     =${PYTHON}
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m build --version
@@ -418,7 +399,7 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} scripts\next_version.py
+	pipenv run ${PYTHON} scripts\next_version.py
 	${PYTHON} -m build
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
@@ -432,7 +413,6 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	@echo Info **********  Start: twine pypi ***********************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
-	@echo PIPENV     =${PIPENV}
 	@echo PYTHON     =${PYTHON}
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m build --version
@@ -440,7 +420,7 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} scripts\next_version.py
+	pipenv run ${PYTHON} scripts\next_version.py
 	${PYTHON} -m build
 	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
 	${DELETE_LIB}
@@ -454,7 +434,6 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	@echo Info **********  Start: twine testpypi *******************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST}
-	@echo PIPENV     =${PIPENV}
 	@echo PYTHON     =${PYTHON}
 	@echo ----------------------------------------------------------------------
 	${PYTHON} -m build --version
@@ -462,7 +441,7 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} scripts\next_version.py
+	pipenv run ${PYTHON} scripts\next_version.py
 	${PYTHON} -m  build
 	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
 	@echo Info **********  End:   twine testpypi *******************************
@@ -471,8 +450,8 @@ version:            ## Show the installed software versions.
 	@echo Info **********  Start: version **************************************
 	@echo PYTHON=${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m pip --version
-	${PYTHON} -m pipenv --version
+	pip --version
+	pipenv --version
 	@echo Info **********  End:   version **************************************
 
 ## =============================================================================
