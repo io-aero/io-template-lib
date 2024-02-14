@@ -1,9 +1,11 @@
 Welcome to IO-TEMPLATE-LIB
 ==========================
 
+General Documentation
+---------------------
+
 .. toctree::
    :maxdepth: 1
-   :caption: General Documentation
 
    introduction
    requirements
@@ -13,15 +15,19 @@ Welcome to IO-TEMPLATE-LIB
    first_steps
    advanced_usage
 
+API Documentation
+-----------------
+
 .. toctree::
    :maxdepth: 1
-   :caption: API Documentation
 
    modules
 
+About
+-----
+
 .. toctree::
    :maxdepth: 1
-   :caption: About
 
    release_notes
    LICENSE
