@@ -139,10 +139,11 @@ compileall:         ## Byte-compile the Python libraries.
 # Configuration file: none
 conda:              ## Create a new environment.
 	@echo Info **********  Start: Miniconda create environment *****************
+	conda config --set always_yes true
 	conda update conda
 	conda --version
 	@echo ----------------------------------------------------------------------
-	conda install --yes -c conda-forge ${CONDA_PACKAGES}
+	conda install -c conda-forge ${CONDA_PACKAGES}
 	@echo ----------------------------------------------------------------------
 	conda list
 	conda info --envs
