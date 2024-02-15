@@ -50,27 +50,27 @@ Applied Software
      - Remark
      - Status
    * - AWS CLI
-     - 2.15.3
+     - 9.9.9
      -
      -
    * - DBeaver - optional
-     - 23.3.1
+     - 9.9.9
      -
      -
    * - Docker Desktop
-     - 4.26.1
+     - 9.9.9
      -
      -
    * - Miniconda
-     - 23.3.1
+     - 9.9.9
      -
      -
    * - PostgreSQL
-     - 16.1
+     - 9.9
      -
      -
    * - Python
-     - 3.10.11
+     - 9.9.9
      -
      -
 
@@ -87,7 +87,20 @@ Windows-specific Software
      - Version
      - Remark
      - Status
+   * - The LLVM Compiler Infrastructure
+     - 9.9.9
+     -
+     -
    * - Make for Windows
      - 3.81
      -
      -
+   * - Visual Studio Community 2022
+     - 2022
+     -
+     -
+
+Minimal Requirements Visual Studio Community 2022
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: img/Visual_Studio_Requirements.png
