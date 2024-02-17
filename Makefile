@@ -81,6 +81,8 @@ final: format lint docs tests
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
 lint: bandit flake8 pylint mypy
+## pre-push:           Preparatory work for the pushing process.
+pre-push: upload-io-aero nuitka docs
 ## tests:              Run all tests with pytest.
 tests: pytest
 ## -----------------------------------------------------------------------------
@@ -399,9 +401,6 @@ sphinx:            ##  Create the user documentation with Sphinx.
 	pipenv run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
 	pipenv run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	@echo Info **********  End:   sphinx ***************************************
-
-sphinx-api:
-	pipenv run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 
 # twine: Collection of utilities for publishing packages on io-aero-pypi.
 # https://pypi.org/project/twine/
