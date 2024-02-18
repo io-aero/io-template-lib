@@ -129,9 +129,9 @@ compileall:         ## Byte-compile the Python libraries.
 	@echo Info **********  Start: Compile All Python Scripts *******************
 	@echo PYTHON=${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} --version
+	pipenv run ${PYTHON} --version
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m compileall
+	pipenv run ${PYTHON} -m compileall
 	@echo Info **********  End:   Compile All Python Scripts *******************
 
 # Miniconda - Minimal installer for conda.
@@ -263,10 +263,10 @@ pipenv-dev:         ## Install the package dependencies for development.
 	@echo ----------------------------------------------------------------------
 	pipenv run pip freeze
 	@echo ----------------------------------------------------------------------
-	${PYTHON} --version
+	pipenv run ${PYTHON} --version
 	$(PIP) --version
 	pipenv --version
-	${PYTHON} -m virtualenv --version
+	pipenv run ${PYTHON} -m virtualenv --version
 	@echo Info **********  End:   Installation of Development Packages *********
 # ToDo: If Conda needed.
 # pipenv-prod-int:    ## Install the package dependencies for production.
@@ -288,10 +288,10 @@ pipenv-prod:        ## Install the package dependencies for production.
 	@echo ----------------------------------------------------------------------
 	pipenv run pip freeze
 	@echo ----------------------------------------------------------------------
-	${PYTHON} --version
+	pipenv run ${PYTHON} --version
 	$(PIP) --version
 	pipenv --version
-	${PYTHON} -m virtualenv --version
+	pipenv run ${PYTHON} -m virtualenv --version
 	@echo Info **********  End:   Installation of Production Packages **********
 
 # pydocstyle - docstring style checker.
@@ -404,15 +404,15 @@ upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
 	@echo DELETE_DIST=${DELETE_DIST}
 	@echo PYTHON     =${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m build --version
-	${PYTHON} -m twine --version
+	pipenv run ${PYTHON} -m build --version
+	pipenv run ${PYTHON} -m twine --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
 	pipenv run ${PYTHON} scripts\next_version.py
-	${PYTHON} -m build
+	pipenv run ${PYTHON} -m build
 	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
+	pipenv run ${PYTHON} -m twine upload --repository codeartifact --verbose dist/*
 	${DELETE_LIB}
 	${CREATE_LIB}
 	@echo Info **********  End:   twine io-aero-pypi ***************************
@@ -425,14 +425,14 @@ upload-pypi:        ## Upload the distribution archive to PyPi.
 	@echo DELETE_DIST=${DELETE_DIST}
 	@echo PYTHON     =${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m build --version
-	${PYTHON} -m twine --version
+	pipenv run ${PYTHON} -m build --version
+	pipenv run ${PYTHON} -m twine --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
 	pipenv run ${PYTHON} scripts\next_version.py
-	${PYTHON} -m build
-	${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
+	pipenv run ${PYTHON} -m build
+	pipenv run ${PYTHON} -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
 	${DELETE_LIB}
 	${CREATE_LIB}
 	@echo Info **********  End:   twine pypi ***********************************
@@ -446,14 +446,14 @@ upload-testpypi:    ## Upload the distribution archive to Test PyPi.
 	@echo DELETE_DIST=${DELETE_DIST}
 	@echo PYTHON     =${PYTHON}
 	@echo ----------------------------------------------------------------------
-	${PYTHON} -m build --version
-	${PYTHON} -m twine --version
+	pipenv run ${PYTHON} -m build --version
+	pipenv run ${PYTHON} -m twine --version
 	@echo ----------------------------------------------------------------------
 	${DELETE_DIST}
 	${CREATE_DIST}
 	pipenv run ${PYTHON} scripts\next_version.py
-	${PYTHON} -m  build
-	${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
+	pipenv run ${PYTHON} -m  build
+	pipenv run ${PYTHON} -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
 	@echo Info **********  End:   twine testpypi *******************************
 
 version:            ## Show the installed software versions.
