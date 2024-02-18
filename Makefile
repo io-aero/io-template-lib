@@ -1,8 +1,6 @@
 .DEFAULT_GOAL := help
 
 ifeq ($(OS),Windows_NT)
-	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib iotemplatelib\\tools iotemplatelib\\lidar tests
-	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib\\*.py iotemplatelib\\tools\\*.py iotemplatelib\\lidar\\*.py
 	export CREATE_DIST=if not exist dist mkdir dist
 	export CREATE_LIB=ren dist lib
 	export DELETE_BUILD=if exist build rd /s /q build
@@ -18,8 +16,6 @@ ifeq ($(OS),Windows_NT)
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
 else
-	export ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=iotemplatelib tests
-	export ALL_IO_TEMPLATE_LIB_CHECKED_FILES=iotemplatelib/*.py
 	export CREATE_DIST=mkdir -p dist
 	export CREATE_LIB=mv dist lib
 	export DELETE_BUILD=rm -rf build
@@ -217,12 +213,10 @@ mypy:               ## Find typing issues with Mypy.
 
 mypy-stubgen:       ## Autogenerate stub files
 	@echo Info **********  Start: Mypy *****************************************
-	@echo ALL_IO_TEMPLATE_LIB_CHECKED_DIRS=${ALL_IO_TEMPLATE_LIB_CHECKED_DIRS}
+	@echo MODULE=${MODULE}
 	@echo ----------------------------------------------------------------------
-	pipenv run stubgen ${ALL_IO_TEMPLATE_LIB_CHECKED_FILES}
-	mv out/iotemplatelib/*.pyi iotemplatelib/
-	mv out/iotemplatelib/tools/*.pyi iotemplatelib/tools/
-	mv out/iotemplatelib/lidar/*.pyi iotemplatelib/lidar/
+	pipenv run stubgen --package ${MODULE}
+	cp -f out/${MODULE}/* ./${MODULE}/
 	rm -rf out
 	@echo Info **********  End:   Mypy *****************************************
 

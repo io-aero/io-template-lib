@@ -65,10 +65,6 @@ Applied Software
      - 9.9.9
      -
      -
-   * - PostgreSQL
-     - 9.9
-     -
-     -
    * - Python
      - 9.9.9
      -
