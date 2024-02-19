@@ -11,14 +11,13 @@ ifeq ($(OS),Windows_NT)
 	DELETE_LIB=if exist lib rd /s /q lib
 	DELETE_MYPY_STUBGEN=if exist out rd /s /q out
 	DELETE_PIPFILE_LOCK=del /f /q Pipfile.lock
-	DELETE_SPHINX_1=del /f /q docs\\build\\*
-	DELETE_SPHINX_2=del /f /q docs\\source\\iotemplatelib.rst docs\\source\\modules.rst
 	OPTION_NUITKA=
 	PIP=pip
 	PYTHON=py
 	SHELL=cmd
 	SPHINX_BUILDDIR=docs\\build
 	SPHINX_SOURCEDIR=docs\\source
+	DELETE_SPHINX=del /f /q $(SPHINX_BUILDDIR)\\* $(SPHINX_SOURCEDIR)\\io*.rst $(SPHINX_SOURCEDIR)\\modules.rst
 else
 	COPY_MYPY_STUBGEN=cp -f out/$(MODULE)/* ./$(MODULE)/
 	CREATE_DIST=mkdir -p dist
@@ -28,14 +27,13 @@ else
 	DELETE_LIB=rm -rf lib
 	DELETE_MYPY_STUBGEN=rm -rf out
 	DELETE_PIPFILE_LOCK=rm -rf Pipfile.lock
-	DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
-	DELETE_SPHINX_2=rm -rf docs/source/iotemplatelib.rst docs/source/modules.rst
 	OPTION_NUITKA=--disable-ccache
 	PIP=pip3
 	PYTHON=python3
 	SHELL=/bin/bash
 	SPHINX_BUILDDIR=docs/build
 	SPHINX_SOURCEDIR=docs/source
+	DELETE_SPHINX=rm -rf $(SPHINX_BUILDDIR)/* $(SPHINX_SOURCEDIR)/io*.rst $(SPHINX_SOURCEDIR)/modules.rs
 endif
 
 # ToDo: If Conda needed.
@@ -389,14 +387,12 @@ pytest-module:      ## Run test of a specific module with pytest.
 
 sphinx:            ##  Create the user documentation with Sphinx.
 	@echo Info **********  Start: sphinx ***************************************
-	@echo DELETE_SPHINX_1 =${DELETE_SPHINX_1}
-	@echo DELETE_SPHINX_2 =${DELETE_SPHINX_2}
+	@echo DELETE_SPHINX   =${DELETE_SPHINX}
 	@echo PIP             =${PIP}
 	@echo SPHINX_BUILDDIR =${SPHINX_BUILDDIR}
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
-	${DELETE_SPHINX_1}
-	${DELETE_SPHINX_2}
+	${DELETE_SPHINX}
 	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	$(PIP) install .
 	pipenv run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
