@@ -28,6 +28,7 @@ Further IO-Aero software documentation can be found under the following links.
 | Directory         | Content                                                  |
 |-------------------|----------------------------------------------------------|
 | .github/workflows | GitHub Action workflows.                                 |
+| .pylintrc         | Pylint configuration file.                               |
 | .vscode           | Visual Studio Code configuration files.                  |
 | data              | Application data related files.                          |
 | dist              | Dynamic link library version of **IO-TEMPLATE-LIB**.     |
