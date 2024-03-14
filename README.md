@@ -28,7 +28,6 @@ Further IO-Aero software documentation can be found under the following links.
 | Directory         | Content                                                  |
 |-------------------|----------------------------------------------------------|
 | .github/workflows | GitHub Action workflows.                                 |
-| .pylintrc         | Pylint configuration file.                               |
 | .vscode           | Visual Studio Code configuration files.                  |
 | data              | Application data related files.                          |
 | dist              | Dynamic link library version of **IO-TEMPLATE-LIB**.     |
@@ -48,7 +47,7 @@ Further IO-Aero software documentation can be found under the following links.
 | .act_secrets_template           | Template file for the configuration of ``make action``.              |
 | .gitattributes                  | Handling of the os-specific file properties.                         |
 | .gitignore                      | Configuration of files and folders to be ignored.                    |
-| .pylintrc                       | pylint configuration file.                                           |
+| .pylintrc                       | Pylint configuration file.                                           |
 | .settings.io_aero_template.toml | Template file for the secret configuration data.                     |
 | LICENSE.md                      | Text of the licence terms.                                           |
 | logging_cfg.yaml                | Configuration of the Logger functionality.                           |
