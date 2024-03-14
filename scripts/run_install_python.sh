@@ -8,6 +8,14 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
+echo "=========================================================================="
+echo "Some general requirements."
+echo "--------------------------------------------------------------------------"
+sudo apt update
+sudo locale-gen en_US.UTF-8
+sudo update-locale LANG=en_US.UTF-8
+sudo apt install unzip
+
 # Set the Python version
 PYTHON_VERSION="3.10"
 
