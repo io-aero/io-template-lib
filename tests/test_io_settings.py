@@ -5,6 +5,6 @@
 from iotemplatelib.io_settings import settings
 
 
-def test_dynaconf_settings():
+def test_dynaconf_settings() -> None:
     """Test the dynaconf settings functionality."""
     assert settings.is_verbose is True
