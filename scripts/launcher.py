@@ -11,23 +11,25 @@ import logging
 import sys
 
 import tomli
-from iocommon import file
-from iocommon import io_glob
-from iocommon import io_logger
+from iocommon import file, io_glob, io_logger
+
+from iotemplatelib import glob_local
 
 # -----------------------------------------------------------------------------
 # Global variables.
 # -----------------------------------------------------------------------------
 _LOCALE = "en_US.UTF-8"
 
+logger = logging.getLogger(__name__)
+
 
 # -----------------------------------------------------------------------------
 # Print the version number from pyproject.toml.
 # -----------------------------------------------------------------------------
-def _print_project_version():
+def _print_project_version() -> None:
     """Print the version number from pyproject.toml."""
     # Open the pyproject.toml file in read mode
-    with open("pyproject.toml", "rb") as toml_file:
+    with open("pyproject.toml", "rb") as toml_file:  # noqa: PTH123
         # Use toml.load() to parse the file and store the data in a dictionary
         pyproject = tomli.load(toml_file)
 
@@ -37,10 +39,10 @@ def _print_project_version():
 
     # Check if the version is found and print it
     if version:
-        print(f"IO-TEMPLATE-LIB version: {version}")
+        logger.info("IO-TEMPLATE-LIB version: %s", version)
     else:
         # If the version isn't found, print an appropriate message
-        print("IO-TEMPLATE-LIB version not found in pyproject.toml")
+        logger.fatal("IO-TEMPLATE-LIB version not found in pyproject.toml")
 
 
 # -----------------------------------------------------------------------------
@@ -52,19 +54,24 @@ def main(argv: list[str]) -> None:
     The processes to be carried out are selected via command line arguments.
 
     Args:
+    ----
         argv (list[str]): Command line arguments.
 
     """
     # Initialise the logging functionality.
     io_logger.initialise_logger()
 
-    logger = logging.getLogger(__name__)
-
     logger.debug(io_glob.LOGGER_START)
     logger.debug("param argv=%s", argv)
-    locale.setlocale(locale.LC_ALL, _LOCALE)
 
     logger.info("Start launcher.py")
+
+    try:
+        locale.setlocale(locale.LC_ALL, glob_local.LOCALE)
+    except locale.Error:
+        locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+
+    logger.info("locale=%s", locale.getlocale())
 
     file.print_version_pkg_struct("iotemplatelib")
     file.print_pkg_structs(["iocommon"])

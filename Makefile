@@ -79,7 +79,7 @@ final: format lint docs tests
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
-lint: bandit flake8 vulture pylint mypy
+lint: ruff bandit flake8 vulture pylint mypy
 ## pre-push:           Preparatory work for the pushing process.
 pre-push: upload-io-aero nuitka docs
 ## tests:              Run all tests with pytest.
@@ -384,6 +384,18 @@ pytest-module:      ## Run test of a specific module with pytest.
 	$(PIP) install .
 	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(module)
 	@echo Info **********  End:   pytest ***************************************
+
+# https://github.com/astral-sh/ruff
+# Configuration file: pyproject.toml
+ruff:              ##  An extremely fast Python linter and code formatter,
+                   ## written in Rust.
+	@echo Info **********  Start: ruff *****************************************
+	@echo PIPENV          =${PIPENV}
+	@echo ----------------------------------------------------------------------
+	pipenv run ruff --version
+	@echo ----------------------------------------------------------------------
+	pipenv run ruff check --fix
+	@echo Info **********  End:   ruff *****************************************
 
 sphinx:            ##  Create the user documentation with Sphinx.
 	@echo Info **********  Start: sphinx ***************************************
