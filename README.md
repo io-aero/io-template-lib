@@ -57,4 +57,4 @@ Further IO-Aero software documentation can be found under the following links.
 | README.md                       | This file.                                                           |
 | run_io_template_lib_pytest      | Main script for using the test functionality of **IO-TEMPLATE-LIB**. |
 | settings.io_aero.toml           | Configuration data.                                                  |
-| setup.cfg                       | Configuration data for flake8.                                       |
+| setup.cfg                       | Configuration data.                                       |
