@@ -44,57 +44,35 @@ It is absolutely necessary to respect the capitalization!
 | `io_template_lib`  | `my_lib`  |
 | `iotemplatelib`    | `mylib`   |
 
-### 6. Store your AWS access rights in file `~/.aws/credentials`
-
-    [default]
-    aws_access_key_id=...
-    aws_secret_access_key=...
-
-### 7. Create the package index configuration file `~/.pypirc`
+### 6. Create the package index configuration file `~/.pypirc`
 
     [distutils]
     index-servers = 
         codeartifact
         pypi
         testpypi
-    
-    [codeartifact]
-    repository = https://io-aero-444046118275.d.codeartifact.us-east-1.amazonaws.com/pypi/io-aero-pypi/
-    username = aws
-    password = <password>
-    
-    [pypi]
-    repository = https://upload.pypi.org/legacy/
-    username = io-aero
-    password = <password>
-    
-    [testpypi]
-    repository = https://test.pypi.org/legacy/
-    username = io-aero-test
-    password = <password>
 
-### 8. Test the current state of the new library
+### 7. Test the current state of the new library
 
-#### 8.1 If Miniconda is required 
+#### 7.1 If Miniconda is required 
 
 - Install Miniconda
 - Run `make conda-dev`
 - Run `make final`
 
-#### 8.2 If Miniconda is not required
+#### 7.2 If Miniconda is not required
 
 - Run `make pipenv-dev`
 - Run `make final`
 
-### 9. Define GitHub Actions secrets
+### 8. Define GitHub Actions secrets
 
 Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Secrets' define the following 'New repository secret's:
 
-    AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY
     GLOBAL_USER_EMAIL
+    PYPI_PAT
 
-### 10. Define GitHub repository variables
+### 9. Define GitHub repository variables
 
 Under 'settings' -> 'Secrets and variables' -> 'Actions' -> Tab 'Variables' define the following 'New repository variable's:
 

@@ -53,7 +53,7 @@ export LANG=en_US.UTF-8
 ## IO-TEMPLATE-LIB - IO Aero Template Library - make Documentation.
 ##                   -----------------------------------------------------------
 ##                   The purpose of this Makefile is to support the whole
-##                   software development process for a librfary. It
+##                   software development process for a library. It
 ##                   contains also the necessary tools for the CI activities.
 ##                   -----------------------------------------------------------
 ##                   The available make commands are:
@@ -78,10 +78,8 @@ everything: dev docs nuitka
 final: format lint docs tests
 ## format:             Format the code with Black and docformatter.
 format: black docformatter
-## lint:               Lint the code with ruff, Bandit, Flake8, vulture, Pylint and Mypy.
+## lint:               Lint the code with ruff, Bandit, Flakvulture, Pylint and Mypy.
 lint: ruff bandit vulture pylint mypy
-## pre-push:           Preparatory work for the pushing process.
-pre-push: upload-io-aero nuitka docs
 ## tests:              Run all tests with pytest.
 tests: pytest
 ## -----------------------------------------------------------------------------
@@ -94,8 +92,6 @@ help:
 # Configuration files: .act_secrets & .act_vars
 action-std:         ## Run the GitHub Actions locally: standard.
 	@echo Info **********  Start: action ***************************************
-	@echo Copy your .aws/creedentials to .aws_secrets
-	@echo ----------------------------------------------------------------------
 	act --version
 	@echo ----------------------------------------------------------------------
 	act  --quiet --secret-file .act_secrets --var IO_LOCAL='true' --verbose
@@ -240,7 +236,6 @@ pipenv-dev:         ## Install the package dependencies for development.
 	${DELETE_BUILD}
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	pipenv install ${CONDA_ARG} --dev
 	@echo ----------------------------------------------------------------------
 	pipenv run pip freeze
@@ -265,7 +260,6 @@ pipenv-prod:        ## Install the package dependencies for production.
 	${DELETE_BUILD}
 	${DELETE_PIPFILE_LOCK}
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
 	pipenv install ${CONDA_ARG}
 	@echo ----------------------------------------------------------------------
 	pipenv run pip freeze
@@ -298,8 +292,6 @@ pytest:             ## Run all tests with pytest.
 	@echo ----------------------------------------------------------------------
 	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	$(PIP) install .
 	pipenv run pytest --dead-fixtures tests
 	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -v tests
 	@echo Info **********  End:   pytest ***************************************
@@ -312,8 +304,6 @@ pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo ----------------------------------------------------------------------
 	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	$(PIP) install .
 	pipenv run pytest --dead-fixtures tests
 	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest ***************************************
@@ -324,8 +314,6 @@ pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo ----------------------------------------------------------------------
 	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	$(PIP) install .
 	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
@@ -335,8 +323,6 @@ pytest-issue:       ## Run only the tests with pytest which are marked with 'iss
 	@echo ----------------------------------------------------------------------
 	pipenv run pytest --version
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	$(PIP) install .
 	pipenv run pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest ***************************************
 pytest-module:      ## Run test of a specific module with pytest.
@@ -344,8 +330,6 @@ pytest-module:      ## Run test of a specific module with pytest.
 	@echo PIP       =${PIP}
 	@echo TESTMODULE=tests/$(module)
 	@echo ----------------------------------------------------------------------
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	$(PIP) install .
 	pipenv run pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(module)
 	@echo Info **********  End:   pytest ***************************************
 
@@ -368,72 +352,10 @@ sphinx:            ##  Create the user documentation with Sphinx.
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX}
-	aws codeartifact login --tool pip --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	$(PIP) install .
 	pipenv run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 	pipenv run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
 	pipenv run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	@echo Info **********  End:   sphinx ***************************************
-
-# twine: Collection of utilities for publishing packages on io-aero-pypi.
-# https://pypi.org/project/twine/
-upload-io-aero:     ## Upload the distribution archive to io-aero-pypi.
-	@echo Info **********  Start: twine io-aero-pypi ***************************
-	@echo CREATE_DIST=${CREATE_DIST}
-	@echo DELETE_DIST=${DELETE_DIST}
-	@echo PYTHON     =${PYTHON}
-	@echo ----------------------------------------------------------------------
-	pipenv run python -m build --version
-	pipenv run python -m twine --version
-	@echo ----------------------------------------------------------------------
-	${DELETE_DIST}
-	${CREATE_DIST}
-	pipenv run python scripts\next_version.py
-	pipenv run python -m build
-	aws codeartifact login --tool twine --repository io-aero-pypi --domain io-aero --domain-owner 444046118275 --region us-east-1
-	pipenv run python -m twine upload --repository codeartifact --verbose dist/*
-	${DELETE_LIB}
-	${CREATE_LIB}
-	@echo Info **********  End:   twine io-aero-pypi ***************************
-
-# twine: Collection of utilities for publishing packages on PyPI.
-# https://pypi.org/project/twine/
-upload-pypi:        ## Upload the distribution archive to PyPi.
-	@echo Info **********  Start: twine pypi ***********************************
-	@echo CREATE_DIST=${CREATE_DIST}
-	@echo DELETE_DIST=${DELETE_DIST}
-	@echo PYTHON     =${PYTHON}
-	@echo ----------------------------------------------------------------------
-	pipenv run python -m build --version
-	pipenv run python -m twine --version
-	@echo ----------------------------------------------------------------------
-	${DELETE_DIST}
-	${CREATE_DIST}
-	pipenv run python scripts\next_version.py
-	pipenv run python -m build
-	pipenv run python -m twine upload -p $(SECRET_PYPI) -u io-aero dist/*
-	${DELETE_LIB}
-	${CREATE_LIB}
-	@echo Info **********  End:   twine pypi ***********************************
-
-# twine: Collection of utilities for publishing packages on Test PyPI.
-# https://pypi.org/project/twine/
-# https://test.pypi.org
-upload-testpypi:    ## Upload the distribution archive to Test PyPi.
-	@echo Info **********  Start: twine testpypi *******************************
-	@echo CREATE_DIST=${CREATE_DIST}
-	@echo DELETE_DIST=${DELETE_DIST}
-	@echo PYTHON     =${PYTHON}
-	@echo ----------------------------------------------------------------------
-	pipenv run python -m build --version
-	pipenv run python -m twine --version
-	@echo ----------------------------------------------------------------------
-	${DELETE_DIST}
-	${CREATE_DIST}
-	pipenv run python scripts\next_version.py
-	pipenv run python -m  build
-	pipenv run python -m  twine upload -p $(SECRET_TEST_PYPI) -r testpypi -u io-aero-test --verbose dist/*
-	@echo Info **********  End:   twine testpypi *******************************
 
 version:            ## Show the installed software versions.
 	@echo Info **********  Start: version **************************************

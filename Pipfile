@@ -1,5 +1,5 @@
 [packages]
-iocommon = "*"
+iocommon = {ref = "main", git = "git+https://IoAeroMachineUser:${PYPI_PAT}@github.com/io-aero/io-common.git"}
 PyYAML = "*"
 tomli = "*"
 tomli-w = "*"
@@ -8,7 +8,6 @@ virtualenv = "*"
 [dev-packages]
 bandit = "*"
 black = "*"
-build = "*"
 coverage = "*"
 coveralls = "*"
 docformatter = "*"
@@ -28,12 +27,9 @@ rinohtype = "*"
 ruff = "*"
 sphinx = "*"
 sphinx-autodoc-typehints = "*"
-twine = "*"
 types-pyyaml = "*"
-types-setuptools = "*"
 types-toml = "*"
 vulture = "*"
-wheel = "*"
 
 [requires]
 python_version = "3.10"

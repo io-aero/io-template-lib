@@ -49,10 +49,6 @@ Applied Software
      - Version
      - Remark
      - Status
-   * - AWS CLI
-     - 9.9.9
-     -
-     -
    * - DBeaver - optional
      - 9.9.9
      -

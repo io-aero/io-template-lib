@@ -1,7 +1,7 @@
 Requirements
 ============
 
-The required software is listed below. 
+The required software is listed below.
 Regarding the corresponding software versions, you will find the detailed information in the
 `Release Notes <https://github.com/io-aero/io-template-lib/blob/main/docs/release_notes.md>`__\.
 
@@ -43,13 +43,6 @@ If the ``dos2Unix`` program is installed, the necessary adjustments can be made 
 This project utilizes Python 3.10, which introduces significant enhancements in type hinting and type annotations.
 These improvements provide a more robust and clear definition of function parameters, return types, and variable types, contributing to improved code readability and maintainability.
 The use of Python 3.10 ensures compatibility with these advanced typing features, offering a more structured and error-resistant development environment.
-
-`AWS Command Line Interface <https://aws.amazon.com/cli/>`__\
--------------------------------------------------------------
-
-The AWS CLI is employed in this project to facilitate access to private Python libraries hosted on Amazon CodeArtifact, a fully managed artifact repository service.
-This integration allows for seamless retrieval and management of project dependencies, ensuring a streamlined and secure development workflow.
-Utilizing the AWS CLI ensures efficient and reliable access to the necessary Python libraries, enhancing the overall build and deployment process within the AWS ecosystem.
 
 `Docker Desktop <https://www.docker.com/products/docker-desktop/>`__\
 ---------------------------------------------------------------------
