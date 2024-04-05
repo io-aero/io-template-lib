@@ -14,18 +14,16 @@ The customisable entries are:
 ======================= ======================================
 Parameter               Description
 ======================= ======================================
-AWS_ACCESS_KEY_ID       AWS access key
-AWS_SECRET_ACCESS_KEY   AWS secret access key
 GLOBAL_USER_EMAIL       The global email address for GitHub
+PYPI_PAT                IO-Aero pypi access key
 ======================= ======================================
 
 **Examples**:
 
 .. code-block::
 
-    AWS_ACCESS_KEY_ID=<tbd>>
-    AWS_SECRET_ACCESS_KEY=<tbd>>
     GLOBAL_USER_EMAIL=a@b.com
+    PYPI_PAT=<tbd>
 
 .settings.io_aero.toml
 ----------------------

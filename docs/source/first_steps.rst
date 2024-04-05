@@ -45,16 +45,7 @@ Run the script to install Python, pip, and pipenv:
 
     ./scripts/run_install_python.zsh
 
-c. Install AWS Command Line Interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Execute the script to install the AWS CLI:
-
-.. code-block:: bash
-
-    ./scripts/run_install_aws_cli.zsh
-
-d. Install Miniconda and the Correct Python Version
+c. Install Miniconda and the Correct Python Version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to install Miniconda and set the right Python version:
@@ -63,7 +54,7 @@ Use the following script to install Miniconda and set the right Python version:
 
     ./scripts/run_install_miniconda.zsh
 
-e. Install Docker Desktop
+de. Install Docker Desktop
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To install Docker Desktop, run:
@@ -72,7 +63,7 @@ To install Docker Desktop, run:
 
     ./scripts/run_install_docker.zsh
 
-f. Optionally Install DBeaver
+e. Optionally Install DBeaver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If needed, install DBeaver using the following script:
@@ -81,7 +72,7 @@ If needed, install DBeaver using the following script:
 
     ./scripts/run_install_dbeaver.zsh
 
-g. Close the Terminal Window
+f. Close the Terminal Window
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all installations are complete, close the terminal window.
@@ -109,16 +100,7 @@ Run the script to install Python, pip, and pipenv:
 
     ./scripts/run_install_python.sh
 
-c. Install AWS Command Line Interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Execute the script to install the AWS CLI:
-
-.. code-block:: bash
-
-    ./scripts/run_install_aws_cli.sh
-
-d. Install Miniconda and the Correct Python Version
+c. Install Miniconda and the Correct Python Version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to install Miniconda and set the right Python version:
@@ -127,7 +109,7 @@ Use the following script to install Miniconda and set the right Python version:
 
     ./scripts/run_install_miniconda.sh
 
-e. Install Docker Desktop
+d. Install Docker Desktop
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To install Docker Desktop, run:
@@ -136,7 +118,7 @@ To install Docker Desktop, run:
 
     ./scripts/run_install_docker.sh
 
-f. Optionally Install DBeaver
+e. Optionally Install DBeaver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If needed, install DBeaver using the following script:
@@ -145,7 +127,7 @@ If needed, install DBeaver using the following script:
 
     ./scripts/run_install_dbeaver.sh
 
-g. Close the Terminal Window
+f. Close the Terminal Window
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all installations are complete, close the terminal window.
@@ -164,16 +146,7 @@ Run the script to install Python, pip, and pipenv:
 
     scripts/run_install_python.bat
 
-b. Install AWS Command Line Interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Execute the script to install the AWS CLI:
-
-.. code-block:: bat
-
-    scripts/run_install_aws_cli.bat
-
-c. Install Miniconda and the Correct Python Version
+b. Install Miniconda and the Correct Python Version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to install Miniconda and set the right Python version:
@@ -182,12 +155,12 @@ Use the following script to install Miniconda and set the right Python version:
 
     scripts/run_install_miniconda.bat
 
-d. Close the Command Prompt
+c. Close the Command Prompt
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all installations are complete, close the command prompt.
 
-e. Install Docker Desktop
+d. Install Docker Desktop
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To install Docker Desktop, download the software from here:
@@ -196,7 +169,7 @@ To install Docker Desktop, download the software from here:
 
 and follow the installation instructions.
 
-f. Optionally Install DBeaver
+e. Optionally Install DBeaver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If needed, install DBeaver, download the software from here:

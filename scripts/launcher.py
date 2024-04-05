@@ -1,7 +1,6 @@
 # Copyright (c) 2022-2024 IO-Aero. All rights reserved. Use of this
 # source code is governed by the IO-Aero License, that can
 # be found in the LICENSE.md file.
-
 """Module iotemplatelib: Entry Point Functionality.
 
 This is the entry point to the library IO-TEMPLATE-LIB.
@@ -9,6 +8,7 @@ This is the entry point to the library IO-TEMPLATE-LIB.
 import locale
 import logging
 import sys
+from pathlib import Path
 
 import tomli
 from iocommon import file, io_glob, io_logger
@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 def _print_project_version() -> None:
     """Print the version number from pyproject.toml."""
     # Open the pyproject.toml file in read mode
-    with open("pyproject.toml", "rb") as toml_file:  # noqa: PTH123
+    with Path("pyproject.toml").open("rb") as toml_file:
         # Use toml.load() to parse the file and store the data in a dictionary
         pyproject = tomli.load(toml_file)
 
