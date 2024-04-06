@@ -9,6 +9,7 @@ See that documentation for installation instructions
 
 Further IO-Aero software documentation can be found under the following links.
 
+- [IO-AIRPLANE-SIM - Airplane Simulator](https://io-aero.github.io/io-airplane-sim/)
 - [IO-AVSTATS - Aviation Event Statistics](https://io-aero.github.io/io-avstats/) 
 - [IO-COMMON - Common Elements](https://io-aero.github.io/io-common/) 
 - [IO-LANDINGSPOT - Landing spot identification](https://io-aero.github.io/io-landingspot/) 
