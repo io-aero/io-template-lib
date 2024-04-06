@@ -34,7 +34,6 @@ Further IO-Aero software documentation can be found under the following links.
 | docs              | Documentation files.                                     |
 | examples          | Scripts for examples and special tests.                  |
 | iotemplatelib     | Python script files.                                     |
-| lib               | Pre-built binary package format for **IO-TEMPLATE-LIB**. |
 | libs              | Contains libraries that are not used via pipenv.         |
 | resources         | Selected manuals and software.                           |
 | scripts           | Scripts supporting Ubuntu and Windows.                   |
