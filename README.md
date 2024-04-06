@@ -9,6 +9,7 @@ See that documentation for installation instructions
 
 Further IO-Aero software documentation can be found under the following links.
 
+- [IO-AIRPLANE-SIM - Airplane Simulator](https://io-aero.github.io/io-airplane-sim/)
 - [IO-AVSTATS - Aviation Event Statistics](https://io-aero.github.io/io-avstats/) 
 - [IO-COMMON - Common Elements](https://io-aero.github.io/io-common/) 
 - [IO-LANDINGSPOT - Landing spot identification](https://io-aero.github.io/io-landingspot/) 
@@ -34,7 +35,6 @@ Further IO-Aero software documentation can be found under the following links.
 | docs              | Documentation files.                                     |
 | examples          | Scripts for examples and special tests.                  |
 | iotemplatelib     | Python script files.                                     |
-| lib               | Pre-built binary package format for **IO-TEMPLATE-LIB**. |
 | libs              | Contains libraries that are not used via pipenv.         |
 | resources         | Selected manuals and software.                           |
 | scripts           | Scripts supporting Ubuntu and Windows.                   |
