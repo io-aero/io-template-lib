@@ -72,7 +72,7 @@ if exist %IO_AERO_TEMPLATE_LIB_LOG% (
     rem Show the IO_TEMPLATE_LIB version.
     rem ----------------------------------------------------------------------------
     if /I ["%IO_AERO_TASK%"] EQU ["version"] (
-        pipenv run python scripts\launcher.py -t "%IO_AERO_TASK%"
+        python scripts\launcher.py -t "%IO_AERO_TASK%"
         if ERRORLEVEL 1 (
             echo Processing of the script run_io_template_lib_pytest was aborted
             exit 1

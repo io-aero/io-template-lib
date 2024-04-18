@@ -40,9 +40,9 @@ If the ``dos2Unix`` program is installed, the necessary adjustments can be made 
 `Python <https://docs.python.org/3/whatsnew/3.11.html>`__\
 ----------------------------------------------------------
 
-This project utilizes Python 3.10, which introduces significant enhancements in type hinting and type annotations.
+This project utilizes Python from version 3.10, which introduced significant enhancements in type hinting and type annotations.
 These improvements provide a more robust and clear definition of function parameters, return types, and variable types, contributing to improved code readability and maintainability.
-The use of Python 3.10 ensures compatibility with these advanced typing features, offering a more structured and error-resistant development environment.
+The use of Python 3.12 ensures compatibility with these advanced typing features, offering a more structured and error-resistant development environment.
 
 `Docker Desktop <https://www.docker.com/products/docker-desktop/>`__\
 ---------------------------------------------------------------------

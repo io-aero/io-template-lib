@@ -2,4 +2,4 @@
 
 This file directory contains in its subdirectory:
 
-- `manuals` - manuals on selected topics, e.g. `Pipenv`.
+- `manuals` - manuals on selected topics.

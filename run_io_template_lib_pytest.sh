@@ -77,7 +77,7 @@ echo "======================================================================="
 # Task handling
 # ---------------------------------------------------------------------------
 if [[ "${IO_AERO_TASK}" =~ ^(version)$ ]]; then
-    if ! ( pipenv run python scripts/launcher.py -t "${IO_AERO_TASK}" ); then
+    if ! ( python scripts/launcher.py -t "${IO_AERO_TASK}" ); then
         exit 255
     fi
 
