@@ -22,10 +22,9 @@ jobs:
     steps:
       - name: Show the environment variables
         run: |
-          echo "IO_LOCAL    = ${{ vars.IO_LOCAL }}"
           echo "IO_PAGES    = ${{ env.IO_PAGES }}"
-          echo "MODULE      = ${{ env.MODULE }}"
-          echo "PYPI_PAT    = ${{ env.PYPI_PAT }}"
+          echo "MODULE      = $MODULE"
+          echo "PYPI_PAT    = ${{ secrets.PYPI_PAT }}"
 
       - name: Set Timezone
         run: echo "TZ=UTC" >> $GITHUB_ENV
@@ -54,11 +53,11 @@ jobs:
         run: |
           conda init --all
           source ~/.bashrc
-          conda activate env.MODULE
+          conda activate $MODULE
           make black docs
 
       - name: Deploy to GitHub Pages
-        if: ${{ vars.IO_LOCAL != 'true' }}
+        if: env.IO_PAGES == 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
