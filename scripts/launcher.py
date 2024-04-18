@@ -18,9 +18,10 @@ from iotemplatelib import glob_local
 # -----------------------------------------------------------------------------
 # Global variables.
 # -----------------------------------------------------------------------------
-_LOCALE = "en_US.UTF-8"
 
-logger = logging.getLogger(__name__)
+io_logger.initialise_logger()
+
+_LOCALE = "en_US.UTF-8"
 
 
 # -----------------------------------------------------------------------------
@@ -39,10 +40,10 @@ def _print_project_version() -> None:
 
     # Check if the version is found and print it
     if version:
-        logger.info("IO-TEMPLATE-LIB version: %s", version)
+        logging.info("IO-TEMPLATE-LIB version: %s", version)
     else:
         # If the version isn't found, print an appropriate message
-        logger.fatal("IO-TEMPLATE-LIB version not found in pyproject.toml")
+        logging.fatal("IO-TEMPLATE-LIB version not found in pyproject.toml")
 
 
 # -----------------------------------------------------------------------------
@@ -58,27 +59,24 @@ def main(argv: list[str]) -> None:
         argv (list[str]): Command line arguments.
 
     """
-    # Initialise the logging functionality.
-    io_logger.initialise_logger()
+    logging.debug(io_glob.LOGGER_START)
+    logging.debug("param argv=%s", argv)
 
-    logger.debug(io_glob.LOGGER_START)
-    logger.debug("param argv=%s", argv)
-
-    logger.info("Start launcher.py")
+    logging.info("Start launcher.py")
 
     try:
         locale.setlocale(locale.LC_ALL, glob_local.LOCALE)
     except locale.Error:
         locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
-    logger.info("locale=%s", locale.getlocale())
+    logging.info("locale=%s", locale.getlocale())
 
     file.print_version_pkg_struct("iotemplatelib")
     file.print_pkg_structs(["iocommon"])
     _print_project_version()
 
-    logger.info("End   launcher.py")
-    logger.debug(io_glob.LOGGER_END)
+    logging.info("End   launcher.py")
+    logging.debug(io_glob.LOGGER_END)
 
 
 # -----------------------------------------------------------------------------

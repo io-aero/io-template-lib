@@ -1,0 +1,13 @@
+name: iotemplatelib
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pyyaml
+  - pip:
+      - git+https://IoAeroMachineUser:${PYPI_PAT}@github.com/io-aero/io-common.git
+      - tomli
+      - tomli-w
+      - virtualenv

@@ -18,13 +18,11 @@ from iotemplatelib import glob_local
 # Constants & Globals.
 # -----------------------------------------------------------------------------
 
-logger = logging.getLogger(__name__)
-
 
 # -----------------------------------------------------------------------------
 # Run shell commands safely.
 # -----------------------------------------------------------------------------
-def _run_command(command: str) -> None:
+def _run_command(command: list[str]) -> None:
     """Run shell commands safely."""
     try:
         subprocess.run(
@@ -35,7 +33,15 @@ def _run_command(command: str) -> None:
             capture_output=True,
         )
     except subprocess.CalledProcessError as e:
-        pytest.fail(f"Command failed with exit code {e.returncode}")
+        print(  # noqa: T201
+            f"test_launcher - stdout: '{e.stdout}'",
+        )  # Print stdout for additional context
+        print(  # noqa: T201
+            f"test_launcher - stderr: '{e.stderr}'",
+        )  # This will print the error output
+        pytest.fail(
+            f"test_launcher - command failed with exit code: {e.returncode}",
+        )
 
 
 # -----------------------------------------------------------------------------
@@ -44,13 +50,13 @@ def _run_command(command: str) -> None:
 @pytest.fixture(scope="session", autouse=True)
 def _setup_and_teardown() -> None:
     """Setup and teardown fixture for all tests."""  # noqa: D401
-    logger.debug(io_glob.LOGGER_START)
+    logging.debug(io_glob.LOGGER_START)
 
     os.environ["ENV_FOR_DYNACONF"] = "test"
 
     yield  # This is where the testing happens
 
-    logger.debug(io_glob.LOGGER_END)
+    logging.debug(io_glob.LOGGER_END)
 
 
 # -----------------------------------------------------------------------------

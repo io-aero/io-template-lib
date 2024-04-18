@@ -15,18 +15,19 @@ Returns
 
 """
 import logging
+import logging.config
 import os
 import pathlib
 import shutil
 
 import pytest
-from iocommon import io_glob
+from iocommon import io_glob, io_logger
 
 # -----------------------------------------------------------------------------
 # Global variables.
 # -----------------------------------------------------------------------------
 
-logger = logging.getLogger(__name__)
+io_logger.initialise_logger()
 
 
 # -----------------------------------------------------------------------------
@@ -35,18 +36,18 @@ logger = logging.getLogger(__name__)
 # pylint: disable=protected-access
 @pytest.fixture(scope="session", autouse=True)
 def _fxtr_before_any_test() -> None:
-    """Fixture Factory: Before any test."""
-    logger.debug(io_glob.LOGGER_START)
+    """Fixture Factory: Before and after any test."""
+    logging.debug(io_glob.LOGGER_START)
 
+    # Setup environment for testing
     os.environ["ENV_FOR_DYNACONF"] = "test"
 
-    logger.debug(io_glob.LOGGER_END)
+    logging.debug(io_glob.LOGGER_END)
 
 
 # -----------------------------------------------------------------------------
 # Copy files from the sample test file directory.
 # -----------------------------------------------------------------------------
-@pytest.helpers.register  # type: ignore[attr-defined]
 def copy_files_4_pytest(
     file_list: list[
         tuple[tuple[str, str | None], tuple[pathlib.Path, list[str], str | None]]
@@ -78,9 +79,9 @@ def copy_files_4_pytest(
       destination directory for the copied files.
 
     """
-    assert os.path.isdir(  # noqa: PTH112
+    assert pathlib.Path(
         get_os_independent_name(get_test_files_source_directory_name()),
-    ), (
+    ).is_dir(), (
         "source directory '" + get_test_files_source_directory_name() + "' missing"
     )
 
@@ -95,11 +96,11 @@ def copy_files_4_pytest(
             get_test_files_source_directory_name(),
             source_file_name,
         )
-        assert os.path.isfile(source_file), (  # noqa: PTH113
+        assert pathlib.Path(source_file).is_file(), (
             "source file '" + str(source_file) + "' missing"
         )
 
-        assert os.path.isdir(get_os_independent_name(target_dir)), (  # noqa: PTH112
+        assert pathlib.Path(get_os_independent_name(target_dir)).is_dir(), (
             "target directory '" + str(target_dir.absolute()) + "' missing"
         )
         target_file_name = (
@@ -108,12 +109,12 @@ def copy_files_4_pytest(
             else "_".join(target_file_comp) + "." + target_ext
         )
         target_file = get_full_name_from_components(target_dir, target_file_name)
-        assert os.path.isfile(target_file) is False, (  # noqa: PTH113
+        assert pathlib.Path(target_file).is_file() is False, (
             "target file '" + str(target_file) + "' already existing"
         )
 
         shutil.copy(source_file, target_file)
-        assert os.path.isfile(target_file), (  # noqa: PTH113
+        assert pathlib.Path(target_file).is_file(), (
             "target file '" + str(target_file) + "' is missing"
         )
 
@@ -121,7 +122,6 @@ def copy_files_4_pytest(
 # -----------------------------------------------------------------------------
 # Copy files from the sample test file directory.
 # -----------------------------------------------------------------------------
-@pytest.helpers.register  # type: ignore[attr-defined]
 def copy_files_4_pytest_2_dir(
     source_files: list[tuple[str, str | None]],
     target_path: pathlib.Path,
@@ -142,7 +142,6 @@ def copy_files_4_pytest_2_dir(
 # ------------------------------------------------------------------
 # Get the full name of a file from its components.
 # ------------------------------------------------------------------
-@pytest.helpers.register  # type: ignore[attr-defined]
 def get_full_name_from_components(
     directory_name: pathlib.Path | str,
     stem_name: str = "",
@@ -172,20 +171,18 @@ def get_full_name_from_components(
     if directory_name == "" and file_name_int == "":
         return ""
 
-    if isinstance(directory_name, pathlib.Path):
-        directory_name_int = str(directory_name)
-    else:
-        directory_name_int = directory_name
-
-    return get_os_independent_name(
-        str(os.path.join(directory_name_int, file_name_int)),  # noqa: PTH118
+    directory_name_int = (
+        str(directory_name)
+        if isinstance(directory_name, pathlib.Path)
+        else directory_name
     )
+
+    return get_os_independent_name(str(directory_name_int / file_name_int))
 
 
 # ------------------------------------------------------------------
 # Get the platform-independent name.
 # ------------------------------------------------------------------
-@pytest.helpers.register  # type: ignore[attr-defined]
 def get_os_independent_name(file_name: pathlib.Path | str) -> str:
     """Get the platform-independent name.
 
@@ -207,7 +204,6 @@ def get_os_independent_name(file_name: pathlib.Path | str) -> str:
 # -----------------------------------------------------------------------------
 # Provide the file directory name where the test files are located.
 # -----------------------------------------------------------------------------
-@pytest.helpers.register  # type: ignore[attr-defined]
 def get_test_files_source_directory_name() -> str:
     """Provide test file directory.
 

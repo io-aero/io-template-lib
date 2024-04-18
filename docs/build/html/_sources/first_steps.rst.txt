@@ -32,47 +32,65 @@ a. Grant Execute Permission to Installation Scripts
 
 Provide execute permissions to the installation scripts:
 
-.. code-block:: bash
+.. code-block:: zsh
 
     chmod +x scripts/*.zsh
 
-b. Install Python, pip, and pipenv
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+b. Install Python and pip
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Run the script to install Python, pip, and pipenv:
+Run the script to install Python and pip:
 
-.. code-block:: bash
+.. code-block:: zsh
 
     ./scripts/run_install_python.zsh
 
-c. Install Miniconda and the Correct Python Version
+c. Install AWS Command Line Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Execute the script to install the AWS CLI:
+
+.. code-block:: zsh
+
+    ./scripts/run_install_aws_cli.zsh
+
+d. Install Miniconda and the Correct Python Version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to install Miniconda and set the right Python version:
 
-.. code-block:: bash
+.. code-block:: zsh
 
     ./scripts/run_install_miniconda.zsh
 
-de. Install Docker Desktop
+e. Install Docker Desktop
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To install Docker Desktop, run:
 
-.. code-block:: bash
+.. code-block:: zsh
 
     ./scripts/run_install_docker.zsh
 
-e. Optionally Install DBeaver
+f. Install Terraform
+~~~~~~~~~~~~~~~~~~~~
+
+To install Docker Desktop, run:
+
+.. code-block:: zsh
+
+    ./scripts/run_install_terraform.zsh
+
+g. Optionally Install DBeaver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If needed, install DBeaver using the following script:
 
-.. code-block:: bash
+.. code-block:: zsh
 
     ./scripts/run_install_dbeaver.zsh
 
-f. Close the Terminal Window
+h. Close the Terminal Window
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all installations are complete, close the terminal window.
@@ -91,16 +109,25 @@ Provide execute permissions to the installation scripts:
 
     chmod +x scripts/*.sh
 
-b. Install Python, pip, and pipenv
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+b. Install Python and pip
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Run the script to install Python, pip, and pipenv:
+Run the script to install Python and pip:
 
 .. code-block:: bash
 
     ./scripts/run_install_python.sh
 
-c. Install Miniconda and the Correct Python Version
+c. Install AWS Command Line Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Execute the script to install the AWS CLI:
+
+.. code-block:: bash
+
+    ./scripts/run_install_aws_cli.sh
+
+d. Install Miniconda and the Correct Python Version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to install Miniconda and set the right Python version:
@@ -109,8 +136,10 @@ Use the following script to install Miniconda and set the right Python version:
 
     ./scripts/run_install_miniconda.sh
 
-d. Install Docker Desktop
+e. Install Docker Desktop
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This step is not required for WSL (Windows Subsystem for Linux) if Decker Desktop is installed in Windows and this is configured for WSL 2 based engine.
 
 To install Docker Desktop, run:
 
@@ -118,7 +147,16 @@ To install Docker Desktop, run:
 
     ./scripts/run_install_docker.sh
 
-e. Optionally Install DBeaver
+f. Install Terraform
+~~~~~~~~~~~~~~~~~~~~
+
+To install Docker Desktop, run:
+
+.. code-block:: bash
+
+    ./scripts/run_install_terraform.sh
+
+g. Optionally Install DBeaver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If needed, install DBeaver using the following script:
@@ -127,7 +165,7 @@ If needed, install DBeaver using the following script:
 
     ./scripts/run_install_dbeaver.sh
 
-f. Close the Terminal Window
+h. Close the Terminal Window
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all installations are complete, close the terminal window.
@@ -137,16 +175,25 @@ Windows 10/11
 
 To set up the project on a Windows 10/11 system, the following steps should be performed in a command prompt (cmd) within the repository directory:
 
-a. Install Python, pip, and pipenv
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a. Install Python and pip
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Run the script to install Python, pip, and pipenv:
+Run the script to install Python and pip:
 
 .. code-block:: bat
 
     scripts/run_install_python.bat
 
-b. Install Miniconda and the Correct Python Version
+b. Install AWS Command Line Interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Execute the script to install the AWS CLI:
+
+.. code-block:: bat
+
+    scripts/run_install_aws_cli.bat
+
+c. Install Miniconda and the Correct Python Version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to install Miniconda and set the right Python version:
@@ -155,12 +202,12 @@ Use the following script to install Miniconda and set the right Python version:
 
     scripts/run_install_miniconda.bat
 
-c. Close the Command Prompt
+d. Close the Command Prompt
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once all installations are complete, close the command prompt.
 
-d. Install Docker Desktop
+e. Install Docker Desktop
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To install Docker Desktop, download the software from here:
@@ -169,7 +216,16 @@ To install Docker Desktop, download the software from here:
 
 and follow the installation instructions.
 
-e. Optionally Install DBeaver
+f. Install Terraform
+~~~~~~~~~~~~~~~~~~~~
+
+To install Terraform, download the software from here:
+
+    https://developer.hashicorp.com/terraform/install?product_intent=terraform
+
+and follow the installation instructions.
+
+g. Optionally Install DBeaver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If needed, install DBeaver, download the software from here:
@@ -188,7 +244,7 @@ To perform the repository-specific installation, the following steps should be p
 Setting Up the Python Environment
 .................................
 
-To begin, you'll need to set up the Python environment using Miniconda and Pipenv, both of which are already pre-installed.
+To begin, you'll need to set up the Python environment using Miniconda, which is already pre-installed.
 You can use the provided Makefile for managing the environment.
 
 a. For **production** use, run the following command:
@@ -234,33 +290,3 @@ b. Review the Test Results:
 
 Running system tests using `make tests` is a valuable step to ensure that your installation is working correctly, and your environment is properly configured for your project.
 It helps identify and address any potential problems early in the development process.
-
-Creating the Docker Container with PostgreSQL DB
-.................................................
-
-To create the Docker container with PostgreSQL database software, you can use the provided `run_io_template_lib` script.
-Depending on your operating system, follow the relevant instructions below:
-
-a. macOS (zsh):
-~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-   ./scripts/run_io_template_lib.zsh s_d_c
-
-b. Ubuntu (sh):
-~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-   ./scripts/run_io_template_lib.sh s_d_c
-
-c. Windows 10/11 (cmd):
-~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: batch
-
-   scripts\run_io_template_lib.cmd s_d_c
-
-These commands will initiate the process of creating the Docker container with PostgreSQL database software.
-
