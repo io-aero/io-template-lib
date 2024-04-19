@@ -4,10 +4,10 @@ channels:
   - defaults
 dependencies:
   - python=3.12
-  - pip
   - pyyaml
+  - tomli
+  - tomli-w
+  - virtualenv
+  - pip
   - pip:
-      - git+https://IoAeroMachineUser:${PYPI_PAT}@github.com/io-aero/io-common.git
-      - tomli
-      - tomli-w
-      - virtualenv
+    - git+https://IoAeroMachineUser:${PYPI_PAT}@github.com/io-aero/io-common.git
