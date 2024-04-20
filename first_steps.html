@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Advanced Usage" href="advanced_usage.html" /><link rel="prev" title="Configuration Logging" href="configuration_logging.html" />
 
-    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.3.6 and Furo 2024.01.29 -->
+    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>First Steps - IO-TEMPLATE-LIB unknown documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -419,6 +419,35 @@ You can use the provided Makefile for managing the environment.</p>
 The virtual environment is automatically activated by the Makefile, so you don’t need to activate it manually.</p>
 </section>
 </section>
+<section id="minor-adjustments-for-gdal">
+<h3>Minor Adjustments for GDAL<a class="headerlink" href="#minor-adjustments-for-gdal" title="Link to this heading">¶</a></h3>
+<p>The installation of the GDAL library requires the following minor operating system-specific adjustments:</p>
+<section id="a-macos">
+<h4>a. macOS<a class="headerlink" href="#a-macos" title="Link to this heading">¶</a></h4>
+<p>In macOS, the GDAL library must be installed as follows:</p>
+<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>gdal
+</pre></div>
+</div>
+</section>
+<section id="b-ubuntu">
+<h4>b. Ubuntu<a class="headerlink" href="#b-ubuntu" title="Link to this heading">¶</a></h4>
+<p>In Ubuntu, the GDAL library must be installed as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gdal-bin<span class="w"> </span>libgdal-dev
+</pre></div>
+</div>
+</section>
+<section id="c-windows-10-11">
+<h4>c. Windows 10/11<a class="headerlink" href="#c-windows-10-11" title="Link to this heading">¶</a></h4>
+<p>Assuming that Miniconda is installed in the following file directory</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\ProgramData\miniconda3</span>
+</pre></div>
+</div>
+<p>then the following entry must then be added to the path variable:;</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\ProgramData\miniconda3\envs\iotemplatelib\Library\bin</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="system-testing-with-unit-tests">
 <h3>System Testing with Unit Tests<a class="headerlink" href="#system-testing-with-unit-tests" title="Link to this heading">¶</a></h3>
 <p>If you have previously executed <cite>make conda-dev</cite>, you can now perform a system test to verify the installation using <cite>make test</cite>.
@@ -542,6 +571,12 @@ It helps identify and address any potential problems early in the development pr
 <li><a class="reference internal" href="#setting-up-the-python-environment">Setting Up the Python Environment</a><ul>
 <li><a class="reference internal" href="#a-for-production-use-run-the-following-command">a. For <strong>production</strong> use, run the following command:</a></li>
 <li><a class="reference internal" href="#b-for-software-development-use-the-following-command">b. For <strong>software development</strong>, use the following command:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minor-adjustments-for-gdal">Minor Adjustments for GDAL</a><ul>
+<li><a class="reference internal" href="#a-macos">a. macOS</a></li>
+<li><a class="reference internal" href="#b-ubuntu">b. Ubuntu</a></li>
+<li><a class="reference internal" href="#c-windows-10-11">c. Windows 10/11</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#system-testing-with-unit-tests">System Testing with Unit Tests</a><ul>
