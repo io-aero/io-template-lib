@@ -264,6 +264,44 @@ b. For **software development**, use the following command:
 These commands will create and configure a virtual environment for your Python project, ensuring a clean and reproducible development or production environment.
 The virtual environment is automatically activated by the Makefile, so you don't need to activate it manually.
 
+Minor Adjustments for GDAL
+..........................
+
+The installation of the GDAL library requires the following minor operating system-specific adjustments:
+
+a. macOS
+~~~~~~~~
+
+In macOS, the GDAL library must be installed as follows:
+
+.. code-block:: zsh
+
+   brew install gdal
+
+b. Ubuntu
+~~~~~~~~~
+
+In Ubuntu, the GDAL library must be installed as follows:
+
+.. code-block:: bash
+
+   sudo apt-get install gdal-bin libgdal-dev
+
+c. Windows 10/11
+~~~~~~~~~~~~~~~~
+
+Assuming that Miniconda is installed in the following file directory
+
+.. code-block:: batch
+
+   C:\ProgramData\miniconda3
+
+then the following entry must then be added to the path variable:;
+
+.. code-block:: batch
+
+   C:\ProgramData\miniconda3\envs\iotemplatelib\Library\bin
+
 System Testing with Unit Tests
 ..............................
 
