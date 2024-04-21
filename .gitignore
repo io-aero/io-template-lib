@@ -11,6 +11,7 @@
 /docs/build/pdf/.doctrees
 /docs/build/pdf/manual.rtc
 /docs/build/pdf/manual.stylelog
+/temp/
 Pipfile.lock
 __pycache__
 coverage.lcov
