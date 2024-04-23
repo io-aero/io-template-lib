@@ -281,22 +281,24 @@ pytest-module:      ## Run test of a specific module with pytest.
 
 # https://github.com/astral-sh/ruff
 # Configuration file: pyproject.toml
-ruff:              ##  An extremely fast Python linter and code formatter.
+ruff:               ## An extremely fast Python linter and code formatter.
 	@echo Info **********  Start: ruff *****************************************
 	ruff --version
 	@echo ----------------------------------------------------------------------
 	ruff check --fix
 	@echo Info **********  End:   ruff *****************************************
 
-sphinx:            ##  Create the user documentation with Sphinx.
+sphinx:             ## Create the user documentation with Sphinx.
 	@echo Info **********  Start: sphinx ***************************************
 	@echo DELETE_SPHINX   =${DELETE_SPHINX}
 	@echo PIP             =${PIP}
 	@echo SPHINX_BUILDDIR =${SPHINX_BUILDDIR}
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
+	pip install -e .
+	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX}
-	sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
+	sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${MODULE}
 	sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
 	sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	@echo Info **********  End:   sphinx ***************************************
