@@ -125,7 +125,6 @@ conda-dev:          ## Create a new environment for development.
 	conda env create -f environment_dev.yml
 	@echo ----------------------------------------------------------------------
 	conda info --envs
-	conda install -c conda-forge gdal
 	conda list
 	@echo Info **********  End:   Miniconda create development environment *****
 conda-prod:         ## Create a new environment for production.
