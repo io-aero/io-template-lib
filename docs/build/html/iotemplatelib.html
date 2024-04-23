@@ -215,11 +215,113 @@
 </section>
 <section id="module-iotemplatelib.glob_local">
 <span id="iotemplatelib-glob-local-module"></span><h2>iotemplatelib.glob_local module<a class="headerlink" href="#module-iotemplatelib.glob_local" title="Link to this heading">¶</a></h2>
-<p>Global constants and variables.</p>
+<p>Global constants and variables for IO-Aero systems.</p>
+<p>This module defines a set of constants and variables that are globally
+used throughout the IO-Aero software projects. These include configuration
+parameters, error messages, and default settings that are essential for
+the operation and error handling within various components of the system.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.glob_local.ARG_TASK">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.glob_local.</span></span><span class="sig-name descname"><span class="pre">ARG_TASK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.glob_local.ARG_TASK" title="Link to this definition">¶</a></dt>
+<dd><p>in function calls and command line arguments throughout the software.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A constant key used to reference the ‘task’ argument</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.glob_local.ARG_TASK_CHOICE">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.glob_local.</span></span><span class="sig-name descname"><span class="pre">ARG_TASK_CHOICE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.glob_local.ARG_TASK_CHOICE" title="Link to this definition">¶</a></dt>
+<dd><p>is intended to hold the user’s choice of task once determined at runtime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Initially set to an empty string, this variable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.glob_local.ARG_TASK_VERSION">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.glob_local.</span></span><span class="sig-name descname"><span class="pre">ARG_TASK_VERSION</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.glob_local.ARG_TASK_VERSION" title="Link to this definition">¶</a></dt>
+<dd><p>argument for tasks, indicating the version of the task being used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A constant key used to reference the ‘version’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.glob_local.FATAL_00_908">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.glob_local.</span></span><span class="sig-name descname"><span class="pre">FATAL_00_908</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.glob_local.FATAL_00_908" title="Link to this definition">¶</a></dt>
+<dd><p>This message is formatted with the name of the OS when raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Error message template for unsupported operating systems.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.glob_local.IO_TEMPLATE_LIB_VERSION">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.glob_local.</span></span><span class="sig-name descname"><span class="pre">IO_TEMPLATE_LIB_VERSION</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.glob_local.IO_TEMPLATE_LIB_VERSION" title="Link to this definition">¶</a></dt>
+<dd><p>template library, indicating the version of the global constants and variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current version number of the IO-Aero</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.glob_local.LOCALE">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.glob_local.</span></span><span class="sig-name descname"><span class="pre">LOCALE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.glob_local.LOCALE" title="Link to this definition">¶</a></dt>
+<dd><p>ensuring consistent language and regional format settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Default locale setting for the system to ‘en_US.UTF-8’,</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-iotemplatelib.io_settings">
 <span id="iotemplatelib-io-settings-module"></span><h2>iotemplatelib.io_settings module<a class="headerlink" href="#module-iotemplatelib.io_settings" title="Link to this heading">¶</a></h2>
 <p>Managing the application configuration parameters.</p>
+<p>This module initializes and configures the settings for the IO-Aero application
+using the Dynaconf library. It allows for a flexible, environment-specific
+configuration that supports multiple file formats and environment variables.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.io_settings.settings">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.io_settings.</span></span><span class="sig-name descname"><span class="pre">settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dynaconf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#iotemplatelib.io_settings.settings" title="Link to this definition">¶</a></dt>
+<dd><p>settings. It is set to read configuration from TOML files specific to
+the IO-Aero project and environment variables with a specific prefix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A configuration object that handles the application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="iotemplatelib.io_settings.Usage">
+<span class="sig-prename descclassname"><span class="pre">iotemplatelib.io_settings.</span></span><span class="sig-name descname"><span class="pre">Usage</span></span><a class="headerlink" href="#iotemplatelib.io_settings.Usage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">This</span> <span class="pre">module</span> <span class="pre">should</span> <span class="pre">be</span> <span class="pre">imported</span> <span class="pre">to</span> <span class="pre">access</span> <span class="pre">the</span> <span class="pre">`settings`</span> <span class="pre">object</span> <span class="pre">which</span> <span class="pre">provides</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">the</span> <span class="pre">configuration</span> <span class="pre">parameters</span> <span class="pre">across</span> <span class="pre">the</span> <span class="pre">application.</span> <span class="pre">For</span> <span class="pre">example</span></span></dt>
+<dd><p>from config_module import settings
+print(settings.SOME_CONFIGURATION_KEY)</p>
+</dd></dl>
+
 </section>
 <section id="module-iotemplatelib">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-iotemplatelib" title="Link to this heading">¶</a></h2>
@@ -284,8 +386,20 @@
             <ul>
 <li><a class="reference internal" href="#">iotemplatelib package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-iotemplatelib.glob_local">iotemplatelib.glob_local module</a></li>
-<li><a class="reference internal" href="#module-iotemplatelib.io_settings">iotemplatelib.io_settings module</a></li>
+<li><a class="reference internal" href="#module-iotemplatelib.glob_local">iotemplatelib.glob_local module</a><ul>
+<li><a class="reference internal" href="#iotemplatelib.glob_local.ARG_TASK"><code class="docutils literal notranslate"><span class="pre">ARG_TASK</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.glob_local.ARG_TASK_CHOICE"><code class="docutils literal notranslate"><span class="pre">ARG_TASK_CHOICE</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.glob_local.ARG_TASK_VERSION"><code class="docutils literal notranslate"><span class="pre">ARG_TASK_VERSION</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.glob_local.FATAL_00_908"><code class="docutils literal notranslate"><span class="pre">FATAL_00_908</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.glob_local.IO_TEMPLATE_LIB_VERSION"><code class="docutils literal notranslate"><span class="pre">IO_TEMPLATE_LIB_VERSION</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.glob_local.LOCALE"><code class="docutils literal notranslate"><span class="pre">LOCALE</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-iotemplatelib.io_settings">iotemplatelib.io_settings module</a><ul>
+<li><a class="reference internal" href="#iotemplatelib.io_settings.settings"><code class="docutils literal notranslate"><span class="pre">settings</span></code></a></li>
+<li><a class="reference internal" href="#iotemplatelib.io_settings.Usage"><code class="docutils literal notranslate"><span class="pre">Usage</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-iotemplatelib">Module contents</a></li>
 </ul>
 </li>

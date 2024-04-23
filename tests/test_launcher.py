@@ -12,8 +12,6 @@ import pytest
 from iocommon import io_glob
 from iocommon.io_config import settings
 
-from iotemplatelib import glob_local
-
 # -----------------------------------------------------------------------------
 # Constants & Globals.
 # -----------------------------------------------------------------------------
@@ -73,6 +71,6 @@ def test_launcher_version() -> None:
     }
     command = commands.get(platform.system())
     if not command:
-        pytest.fail(glob_local.FATAL_00_908.replace("{os}", platform.system()))
+        pytest.fail(io_glob.FATAL_00_908.replace("{os}", platform.system()))
 
     _run_command(command)
