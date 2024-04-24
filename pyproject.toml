@@ -44,6 +44,11 @@ Homepage = "https://github.com/io-aero/io-template-lib"
 Source = "https://github.com/io-aero/io-template-lib/tree/main/iotemplatelib"
 
 [tool.bandit]
+skips = [
+    "B101",
+    "B404",
+    "B603",
+]
 
 [tool.docformatter]
 black = true

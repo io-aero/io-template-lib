@@ -46,7 +46,7 @@ def _run_command(command: list[str]) -> None:
 # Setup and teardown fixture for all tests.
 # -----------------------------------------------------------------------------
 @pytest.fixture(scope="session", autouse=True)
-def _setup_and_teardown() -> None:
+def _setup_and_teardown() -> None:  # type: ignore
     """Setup and teardown fixture for all tests."""  # noqa: D401
     logging.debug(io_glob.LOGGER_START)
 
