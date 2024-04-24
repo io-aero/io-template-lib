@@ -97,14 +97,16 @@ HTML_THEME_OPTIONS = {
 MASTER_DOC = "index"
 
 # -- Options for PDF output --------------------------------------------------
-rinoh_documents = {
-    "doc": "index",
-    "logo": "img/IO-Aero_1_Logo.png",
-    "subtitle": "Manual",
-    "target": "manual",
-    "title": "Template Library",
-    "toctree_only": False,
-}
+rinoh_documents = [
+    dict(  # pylint: disable=use-dict-literal
+        doc="index",
+        logo="img/IO-Aero_1_Logo.png",
+        subtitle="Manual",
+        target="manual",
+        title="Template Library",
+        toctree_only=False,
+    ),
+]
 
 # rst_epilog = f"""
 #             .. |version| replace:: {version}
