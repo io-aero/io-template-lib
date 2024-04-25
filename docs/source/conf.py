@@ -2,7 +2,7 @@
 
 import importlib.metadata
 import sys
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from rinoh.frontend.rst import DocutilsInlineNode  # type: ignore
@@ -35,7 +35,7 @@ except importlib.metadata.PackageNotFoundError:
 
 release = VERSION.replace(".", "-")
 
-todays_date = datetime.now(tz=UTC)
+todays_date = datetime.now(tz=timezone.utc)
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
