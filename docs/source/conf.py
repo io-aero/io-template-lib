@@ -2,40 +2,49 @@
 
 import importlib.metadata
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from rinoh.frontend.rst import DocutilsInlineNode  # type: ignore
+
+EXCLUDE_FROM_PDF: list[str] = []
+MODULE_NAME = "iotemplatelib"
+REPOSITORY_NAME = "io-template-lib"
+REPOSITORY_TITLE = "Template for Library Repositories"
 
 # Debug: Print the current working directory and sys.path
 print("==========>")  # noqa: T201
 print("==========> Current working directory:", Path.cwd())  # noqa: T201
 print("==========>")  # noqa: T201
-sys.path.insert(0, str(Path("../../iotemplatelib").resolve()))
+sys.path.insert(0, str(Path(f"../../{MODULE_NAME}").resolve()))
 print("==========>")  # noqa: T201
 print("==========> Updated sys.path:", sys.path)  # noqa: T201
 print("==========>")  # noqa: T201
 
 # -- Project information -----------------------------------------------------
 
-AUTHOR = "IO-Aero Team"
-COPYRIGHT: str = "2022 - 2024, IO-Aero"
-GITHUB_URL = "https://github.com/io-aero/io-template-lib"
-PROJECT = "IO-TEMPLATE-LIB"
+author = "IO-Aero Team"  # pylint: disable=invalid-name
+copyright: str = (  # pylint: disable=redefined-builtin # noqa: A001
+    "2022 - 2024, IO-Aero"  # pylint: disable=redefined-builtin
+)
+github_url = (  # pylint: disable=invalid-name
+    f"https://github.com/io-aero/{REPOSITORY_NAME}"
+)
+project = REPOSITORY_NAME.upper()  # pylint: disable=invalid-name
 
 try:
-    VERSION = importlib.metadata.version("iotemplatelib")
+    version = importlib.metadata.version(MODULE_NAME)
 except importlib.metadata.PackageNotFoundError:
-    VERSION = "unknown"
+    version = "unknown"  # pylint: disable=invalid-name
     print("==========>")  # noqa: T201
     print(  # noqa: T201
         "==========> Warning: Version not found, defaulting to 'unknown'.",
     )
     print("==========>")  # noqa: T201
 
-release = VERSION.replace(".", "-")
+release = version.replace(".", "-")
 
-todays_date = datetime.now(tz=timezone.utc)
+todays_date = datetime.now(tz=UTC)
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -51,12 +60,7 @@ exclude_patterns = [
 # Check if building with RinohType for PDF
 if "rinoh" in sys.argv:
     # Add the files you want to exclude specifically from PDF
-    exclude_patterns.extend(
-        [
-            "process_logs.rst",
-            "process_logs/*.md",
-        ],
-    )
+    exclude_patterns.extend(EXCLUDE_FROM_PDF)
 
 # pylint: disable=line-too-long
 extensions = [
@@ -77,24 +81,24 @@ autodoc_default_options = {
 }
 
 extlinks = {
-    "repo": ("https://github.com/io-aero/io-template-lib%s", "GitHub Repository"),
+    "repo": (f"https://github.com/io-aero/{MODULE_NAME}%s", "GitHub Repository"),
 }
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-HTML_FAVICON = "img/IO-Aero_1_Favicon.ico"
-HTML_LOGO = "img/IO-Aero_1_Logo.png"
-HTML_SHOW_SOURCELINK = False
+html_favicon = "img/IO-Aero_1_Favicon.ico"  # pylint: disable=invalid-name
+html_logo = "img/IO-Aero_1_Logo.png"  # pylint: disable=invalid-name
+html_show_sourcelink = False  # pylint: disable=invalid-name
 # pylint: disable=line-too-long
-HTML_THEME = "furo"  # Chosen for its clean and modern design that improves navigation and readability. # noqa: E501
+html_theme = "furo"  # Chosen for its clean and modern design that improves navigation and readability.  # pylint: disable=invalid-name # noqa: E501
 # pylint: enable=line-too-long
-HTML_THEME_OPTIONS = {
+html_theme_options = {
     "sidebar_hide_name": True,
 }
 
 # The master toctree document.
-MASTER_DOC = "index"
+master_doc = "index"  # pylint: disable=invalid-name
 
 # -- Options for PDF output --------------------------------------------------
 rinoh_documents = [
@@ -103,7 +107,7 @@ rinoh_documents = [
         logo="img/IO-Aero_1_Logo.png",
         subtitle="Manual",
         target="manual",
-        title="Template Library",
+        title=REPOSITORY_TITLE,
         toctree_only=False,
     ),
 ]
