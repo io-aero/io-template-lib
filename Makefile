@@ -97,7 +97,7 @@ black:              ## Format the code with Black.
 	@echo ----------------------------------------------------------------------
 	black --version
 	@echo ----------------------------------------------------------------------
-	black ${PYTHONPATH} tests
+	black ${PYTHONPATH}
 	@echo Info **********  End:   black ****************************************
 
 # Byte-compile Python libraries
@@ -215,7 +215,7 @@ pylint:             ## Lint the code with Pylint.
 	@echo ----------------------------------------------------------------------
 	pylint --version
 	@echo ----------------------------------------------------------------------
-	pylint ${PYTHONPATH} tests
+	pylint ${PYTHONPATH}
 	@echo Info **********  End:   Pylint ***************************************
 
 # pytest: helps you write better programs.
@@ -319,7 +319,7 @@ vulture:            ##  Find dead Python code.
 	@echo ----------------------------------------------------------------------
 	vulture --version
 	@echo ----------------------------------------------------------------------
-	vulture ${PYTHONPATH} tests
+	vulture ${PYTHONPATH}
 	@echo Info **********  End:   vulture **************************************
 
 ## =============================================================================
