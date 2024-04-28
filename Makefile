@@ -294,6 +294,8 @@ sphinx:             ## Create the user documentation with Sphinx.
 	@echo SPHINX_BUILDDIR =${SPHINX_BUILDDIR}
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
+	pip install -e .
+	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX}
 	sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${MODULE}
 	sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
