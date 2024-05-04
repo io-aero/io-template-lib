@@ -2,8 +2,8 @@
 
 MODULE=iotemplatelib
 
-ifeq ($(OS),Windows_NT)
-	COPY_MYPY_STUBGEN=xcopy /y out\\$(MODULE)\\*.* .\\$(MODULE)\\
+ifeq (${OS},Windows_NT)
+	COPY_MYPY_STUBGEN=xcopy /y out\\${MODULE}\\*.* .\\${MODULE}\\
 	CREATE_DIST=if not exist dist mkdir dist
 	DELETE_DIST=if exist dist rd /s /q dist
 	DELETE_MYPY_STUBGEN=if exist out rd /s /q out
@@ -12,9 +12,9 @@ ifeq ($(OS),Windows_NT)
 	PYTHON=py
 	SPHINX_BUILDDIR=docs\\build
 	SPHINX_SOURCEDIR=docs\\source
-	DELETE_SPHINX=del /f /q $(SPHINX_BUILDDIR)\\* $(SPHINX_SOURCEDIR)\\io*.rst $(SPHINX_SOURCEDIR)\\modules.rst
+	DELETE_SPHINX=del /f /q ${SPHINX_BUILDDIR}\\* ${SPHINX_SOURCEDIR}\\io*.rst ${SPHINX_SOURCEDIR}\\modules.rst
 else
-	COPY_MYPY_STUBGEN=cp -f out/$(MODULE)/* ./$(MODULE)/
+	COPY_MYPY_STUBGEN=cp -f out/${MODULE}/* ./${MODULE}/
 	CREATE_DIST=mkdir -p dist
 	DELETE_DIST=rm -rf dist
 	DELETE_MYPY_STUBGEN=rm -rf out
@@ -23,7 +23,7 @@ else
 	PYTHON=python3
 	SPHINX_BUILDDIR=docs/build
 	SPHINX_SOURCEDIR=docs/source
-	DELETE_SPHINX=rm -rf $(SPHINX_BUILDDIR)/* $(SPHINX_SOURCEDIR)/io*.rst $(SPHINX_SOURCEDIR)/modules.rs
+	DELETE_SPHINX=rm -rf ${SPHINX_BUILDDIR}/* ${SPHINX_SOURCEDIR}/io*.rst ${SPHINX_SOURCEDIR}/modules.rs
 endif
 
 COVERALLS_REPO_TOKEN=<see coveralls.io>
@@ -62,7 +62,7 @@ tests: pytest
 ## -----------------------------------------------------------------------------
 
 help:
-	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
+	@sed -ne '/@sed/!s/## //p' ${MAKEFILE_LIST}
 
 # Run the GitHub Actions locally.
 # https://github.com/nektos/act
@@ -221,7 +221,7 @@ pylint:             ## Lint the code with Pylint.
 # Configuration file: pyproject.toml
 pytest:             ## Run all tests with pytest.
 	@echo Info **********  Start: pytest ***************************************
-	@echo CONDA     =$(CONDA_PREFIX)
+	@echo CONDA     =${CONDA_PREFIX}
 	@echo PIP       =${PIP}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
@@ -232,11 +232,11 @@ pytest:             ## Run all tests with pytest.
 	@echo Info **********  End:   pytest ***************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest ***************************************
-	@echo CONDA     =$(CONDA_PREFIX)
+	@echo CONDA     =${CONDA_PREFIX}
 	@echo PIP       =${PIP}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
-	pip install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
+	${PIP} install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
 	@echo ----------------------------------------------------------------------
 	pytest --version
 	@echo ----------------------------------------------------------------------
@@ -245,7 +245,7 @@ pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  End:   pytest ***************************************
 pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo Info **********  Start: pytest ***************************************
-	@echo CONDA     =$(CONDA_PREFIX)
+	@echo CONDA     =${CONDA_PREFIX}
 	@echo PIP       =${PIP}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
@@ -255,7 +255,7 @@ pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo Info **********  End:   pytest ***************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
 	@echo Info **********  Start: pytest ***************************************
-	@echo CONDA     =$(CONDA_PREFIX)
+	@echo CONDA     =${CONDA_PREFIX}
 	@echo PIP       =${PIP}
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------
@@ -266,14 +266,14 @@ pytest-issue:       ## Run only the tests with pytest which are marked with 'iss
 	@echo Info **********  End:   pytest ***************************************
 pytest-module:      ## Run test of a specific module with pytest.
 	@echo Info **********  Start: pytest ***************************************
-	@echo CONDA     =$(CONDA_PREFIX)
+	@echo CONDA     =${CONDA_PREFIX}
 	@echo PIP       =${PIP}
 	@echo PYTHONPATH=${PYTHONPATH}
-	@echo TESTMODULE=tests/$(TEST-MODULE).py
+	@echo TESTMODULE=tests/${TEST-MODULE}.py
 	@echo ----------------------------------------------------------------------
 	pytest --version
 	@echo ----------------------------------------------------------------------
-	pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/$(TEST-MODULE).py
+	pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests/${TEST-MODULE}.py
 	@echo Info **********  End:   pytest ***************************************
 
 # https://github.com/astral-sh/ruff
@@ -292,7 +292,7 @@ sphinx:             ## Create the user documentation with Sphinx.
 	@echo SPHINX_BUILDDIR =${SPHINX_BUILDDIR}
 	@echo SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}
 	@echo ----------------------------------------------------------------------
-	pip install --no-deps -e .
+	${PIP} install --no-deps -e .
 	@echo ----------------------------------------------------------------------
 	${DELETE_SPHINX}
 	sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${MODULE}
@@ -305,7 +305,7 @@ version:            ## Show the installed software versions.
 	@echo PIP   =${PIP}
 	@echo PYTHON=${PYTHON}
 	@echo ----------------------------------------------------------------------
-	$(PIP) --version
+	${PIP} --version
 	@echo Info **********  End:   version **************************************
 
 # Find dead Python code
