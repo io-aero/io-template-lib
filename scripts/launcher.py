@@ -8,20 +8,14 @@ This is the entry point to the library IO-TEMPLATE-LIB.
 import locale
 import logging
 import sys
+import tomllib
 from pathlib import Path
 
-import tomli
-from iocommon import file, io_glob, io_logger
-
-from iotemplatelib import glob_local
+from iocommon import io_glob
 
 # -----------------------------------------------------------------------------
 # Global variables.
 # -----------------------------------------------------------------------------
-
-io_logger.initialise_logger()
-
-_LOCALE = "en_US.UTF-8"
 
 
 # -----------------------------------------------------------------------------
@@ -29,10 +23,17 @@ _LOCALE = "en_US.UTF-8"
 # -----------------------------------------------------------------------------
 def _print_project_version() -> None:
     """Print the version number from pyproject.toml."""
-    # Open the pyproject.toml file in read mode
-    with Path("pyproject.toml").open("rb") as toml_file:
-        # Use toml.load() to parse the file and store the data in a dictionary
-        pyproject = tomli.load(toml_file)
+    try:
+        # Open the pyproject.toml file in read mode
+        with Path("pyproject.toml").open("rb") as toml_file:
+            # Use tomllib.load() to parse the file and store the data in a dictionary
+            pyproject = tomllib.load(toml_file)
+    except FileNotFoundError:
+        logging.exception("pyproject.toml file not found")
+        return
+    except tomllib.TOMLDecodeError:
+        logging.exception("Error decoding TOML file: %s")
+        return
 
     # Extract the version information
     # This method safely handles cases where the key might not exist
@@ -64,15 +65,10 @@ def main(argv: list[str]) -> None:
 
     logging.info("Start launcher.py")
 
-    try:
-        locale.setlocale(locale.LC_ALL, glob_local.LOCALE)
-    except locale.Error:
-        locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+    locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
     logging.info("locale=%s", locale.getlocale())
 
-    file.print_version_pkg_struct("iotemplatelib")
-    file.print_pkg_structs(["iocommon"])
     _print_project_version()
 
     logging.info("End   launcher.py")
