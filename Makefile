@@ -2,33 +2,32 @@
 
 MODULE=iotemplatelib
 
-ifeq (${OS},Windows_NT)
-	COPY_MYPY_STUBGEN=xcopy /y out\\${MODULE}\\*.* .\\${MODULE}\\
+ifeq ($(OS),Windows_NT)
+	COPY_MYPY_STUBGEN=xcopy /y out\\$(MODULE)\\*.* .\\$(MODULE)\\
 	CREATE_DIST=if not exist dist mkdir dist
 	DELETE_DIST=if exist dist rd /s /q dist
 	DELETE_MYPY_STUBGEN=if exist out rd /s /q out
-	OPTION_NUITKA=
+    NUITKA_OPTION=
 	PIP=pip
-	PYTHON=py
+	PYTHON=python
 	SPHINX_BUILDDIR=docs\\build
 	SPHINX_SOURCEDIR=docs\\source
-	DELETE_SPHINX=del /f /q ${SPHINX_BUILDDIR}\\* ${SPHINX_SOURCEDIR}\\io*.rst ${SPHINX_SOURCEDIR}\\modules.rst
+	DELETE_SPHINX=del /f /q $(SPHINX_BUILDDIR)\\* $(SPHINX_SOURCEDIR)\\io*.rst $(SPHINX_SOURCEDIR)\\modules.rst
 else
-	COPY_MYPY_STUBGEN=cp -f out/${MODULE}/* ./${MODULE}/
+	COPY_MYPY_STUBGEN=cp -f out/$(MODULE)/* ./$(MODULE)/
 	CREATE_DIST=mkdir -p dist
 	DELETE_DIST=rm -rf dist
 	DELETE_MYPY_STUBGEN=rm -rf out
-	OPTION_NUITKA=--disable-ccache
+    NUITKA_OPTION=--disable-ccache
 	PIP=pip3
 	PYTHON=python3
 	SPHINX_BUILDDIR=docs/build
 	SPHINX_SOURCEDIR=docs/source
-	DELETE_SPHINX=rm -rf ${SPHINX_BUILDDIR}/* ${SPHINX_SOURCEDIR}/io*.rst ${SPHINX_SOURCEDIR}/modules.rs
+	DELETE_SPHINX=rm -rf $(SPHINX_BUILDDIR)/* $(SPHINX_SOURCEDIR)/io*.rst $(SPHINX_SOURCEDIR)/modules.rs
 endif
 
 COVERALLS_REPO_TOKEN=<see coveralls.io>
 PYTHONPATH=${MODULE} docs scripts tests
-VERSION_PYTHON=3.12
 
 export ENV_FOR_DYNACONF=test
 export LANG=en_US.UTF-8
@@ -54,27 +53,40 @@ everything: dev docs nuitka
 ## final:              Format, lint and test the code and create the documentation.
 final: format lint docs tests
 ## format:             Format the code with Black and docformatter.
-format: black docformatter
+format: isort black docformatter
 ## lint:               Lint the code with ruff, Bandit, vulture, Pylint and Mypy.
 lint: ruff bandit vulture pylint mypy
+## pre-push:           Preparatory work for the pushing process.
+pre-push: format lint tests next-version docs
 ## tests:              Run all tests with pytest.
 tests: pytest
 ## -----------------------------------------------------------------------------
 
 help:
-	@sed -ne '/@sed/!s/## //p' ${MAKEFILE_LIST}
+	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
 # Run the GitHub Actions locally.
 # https://github.com/nektos/act
 # Configuration files: .act_secrets & .act_vars
 action-std:         ## Run the GitHub Actions locally: standard.
-	@echo Info **********  Start: action ***************************************
-	@echo Copy your .aws/creedentials to .aws_secrets
-	@echo ----------------------------------------------------------------------
+	@echo "Info **********  Start: action ***************************************"
+	@echo "Copy your .aws/credentials to .aws_secrets"
+	@echo "----------------------------------------------------------------------"
 	act --version
-	@echo ----------------------------------------------------------------------
-	act --quiet --secret-file .act_secrets --var IO_LOCAL='true' --verbose -P ubuntu-latest=catthehacker/ubuntu:act-latest -W .github/workflows/standard.yml
-	@echo Info **********  End:   action ***************************************
+	@echo "----------------------------------------------------------------------"
+	act --quiet \
+        --secret-file .act_secrets \
+        --var IO_LOCAL='true' \
+        --verbose \
+        -P ubuntu-latest=catthehacker/ubuntu:act-latest \
+        -W .github/workflows/github_pages.yml
+	act --quiet \
+        --secret-file .act_secrets \
+        --var IO_LOCAL='true' \
+        --verbose \
+        -P ubuntu-latest=catthehacker/ubuntu:act-latest \
+        -W .github/workflows/standard.yml
+	@echo "Info **********  End:   action ***************************************"
 
 # Bandit is a tool designed to find common security issues in Python code.
 # https://github.com/PyCQA/bandit
@@ -163,6 +175,18 @@ docformatter:       ## Format the docstrings with docformatter.
 #	docformatter -r ${PYTHONPATH}
 	@echo Info **********  End:   docformatter *********************************
 
+# isort your imports, so you don't have to.
+# https://github.com/PyCQA/isort
+# Configuration file: pyproject.toml
+isort:              ## Edit and sort the imports with isort.
+	@echo "Info **********  Start: isort ****************************************"
+	@echo "PYTHONPATH=${PYTHONPATH}"
+	@echo "----------------------------------------------------------------------"
+	isort --version
+	@echo "----------------------------------------------------------------------"
+	isort ${PYTHONPATH}
+	@echo "Info **********  End:   isort ****************************************"
+
 # Mypy: Static Typing for Python
 # https://github.com/python/mypy
 # Configuration file: pyproject.toml
@@ -186,6 +210,14 @@ mypy-stubgen:       ## Autogenerate stub files.
 	${COPY_MYPY_STUBGEN}
 	${DELETE_MYPY_STUBGEN}
 	@echo Info **********  End:   Mypy *****************************************
+
+next-version:       ## Increment the version number.
+	@echo Info **********  Start: next_version *********************************
+	@echo PYTHON    =${PYTHON}
+	@echo PYTHONPATH=${PYTHONPATH}
+	@echo ----------------------------------------------------------------------
+	$(PYTHON) scripts/next_version.py
+	@echo Info **********  End:   next version *********************************
 
 # Nuitka: Python compiler written in Python
 # https://github.com/Nuitka/Nuitka
@@ -311,7 +343,7 @@ version:            ## Show the installed software versions.
 # Find dead Python code
 # https://github.com/jendrikseipp/vulture
 # Configuration file: pyproject.toml
-vulture:            ##  Find dead Python code.
+vulture:            ## Find dead Python code.
 	@echo Info **********  Start: vulture **************************************
 	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ----------------------------------------------------------------------

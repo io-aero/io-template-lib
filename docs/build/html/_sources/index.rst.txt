@@ -23,7 +23,7 @@ API Documentation
 Here, you will find detailed API documentation, which includes information about all modules within the IO-TEMPLATE-LIB, allowing developers to understand the functionalities available.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    modules
 

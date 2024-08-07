@@ -3,11 +3,11 @@ channels:
   - conda-forge
 dependencies:
   - python=3.12
+  - pip
+  - nuitka
   - pyyaml
-  - tomli
   - tomli-w
   - virtualenv
-  - pip
   - pip:
     - git+https://IoAeroMachineUser:${PYPI_PAT}@github.com/io-aero/io-common.git
     # Development dependencies
@@ -19,9 +19,9 @@ dependencies:
     - docformatter
     - furo
     - ipython
+    - isort
     - mypy
     - myst-parser
-    - nuitka
     - ordered-set
     - pylint
     - pytest
