@@ -6,6 +6,7 @@ dependencies:
   - pip
   - nuitka
   - pyyaml
+  - tomli
   - tomli-w
   - virtualenv
   - pip:
