@@ -145,7 +145,7 @@ conda-prod:         ## Create a new environment for production.
 	conda --version
 	@echo "----------------------------------------------------------------------"
 	conda env remove -n ${MODULE}
-	conda env create -f config/environment.yml
+	conda env create -f environment.yml
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
