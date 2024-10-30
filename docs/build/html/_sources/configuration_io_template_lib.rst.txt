@@ -15,7 +15,6 @@ The customisable entries are:
 Parameter               Description
 ======================= ======================================
 GLOBAL_USER_EMAIL       The global email address for GitHub
-PYPI_PAT                IO-Aero pypi access key
 ======================= ======================================
 
 **Examples**:
@@ -23,7 +22,6 @@ PYPI_PAT                IO-Aero pypi access key
 .. code-block::
 
     GLOBAL_USER_EMAIL=a@b.com
-    PYPI_PAT=<tbd>
 
 .settings.io_aero.toml
 ----------------------
@@ -49,6 +47,8 @@ environments (``default`` and ``test``).
 .. code-block::
 
     [default]
+    postgres_password = "..."
+    postgres_password_admin = "..."
 
     [test]
     postgres_password = "postgres_password"

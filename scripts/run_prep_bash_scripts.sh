@@ -25,12 +25,12 @@ else
 fi
 
 # Set execute permissions on .sh files
-chmod +x *.sh
-chmod +x */*.sh
+chmod +x ./*.sh
+chmod +x ./*/*.sh
 
 # Convert EOL characters from Windows to Unix style
-dos2unix *.sh
-dos2unix */*.sh
+dos2unix ./*.sh
+dos2unix ./*/*.sh
 
 echo "--------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

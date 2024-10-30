@@ -1,7 +1,6 @@
 # Copyright (c) 2022-2024 IO-Aero. All rights reserved.
 # Use of this source code is governed by the GNU LESSER GENERAL
 # PUBLIC LICENSE, that can be found in the LICENSE.md file.
-
 """Launcher: coverage testing."""
 import logging
 import os
@@ -65,9 +64,7 @@ def test_launcher_version() -> None:
     assert settings.check_value == "test", "Settings check_value is not 'test'"
 
     commands = {
-        "Darwin": ["./run_io_template_lib_pytest.zsh", "version"],
-        "Linux": ["./run_io_template_lib_pytest.sh", "version"],
-        "Windows": ["cmd.exe", "/c", "run_io_template_lib_pytest.bat", "version"],
+        "Linux": ["./run_io_template_lib_test.sh", "version"],
     }
     command = commands.get(platform.system())
     if not command:

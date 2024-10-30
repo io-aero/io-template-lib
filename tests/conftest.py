@@ -49,9 +49,7 @@ def _fxtr_before_any_test() -> None:
 # Copy files from the sample test file directory.
 # -----------------------------------------------------------------------------
 def copy_files_4_pytest(
-    file_list: list[
-        tuple[tuple[str, str | None], tuple[pathlib.Path, list[str], str | None]]
-    ],
+    file_list: list[tuple[tuple[str, str | None], tuple[pathlib.Path, list[str], str | None]]],
 ) -> None:
     """Copy files from the sample test file directory to a specified destination.
 
@@ -89,16 +87,12 @@ def copy_files_4_pytest(
         (source_stem, source_ext),
         (target_dir, target_file_comp, target_ext),
     ) in file_list:
-        source_file_name = (
-            source_stem if source_ext is None else source_stem + "." + source_ext
-        )
+        source_file_name = source_stem if source_ext is None else source_stem + "." + source_ext
         source_file = get_full_name_from_components(
             get_test_files_source_directory_name(),
             source_file_name,
         )
-        assert pathlib.Path(source_file).is_file(), (
-            "source file '" + str(source_file) + "' missing"
-        )
+        assert pathlib.Path(source_file).is_file(), "source file '" + str(source_file) + "' missing"
 
         assert pathlib.Path(get_os_independent_name(target_dir)).is_dir(), (
             "target directory '" + str(target_dir.absolute()) + "' missing"
@@ -164,17 +158,13 @@ def get_full_name_from_components(
         str: Full file name.
 
     """
-    file_name_int = (
-        stem_name if file_extension == "" else stem_name + "." + file_extension
-    )
+    file_name_int = stem_name if file_extension == "" else stem_name + "." + file_extension
 
     if directory_name == "" and file_name_int == "":
         return ""
 
     directory_name_int = (
-        str(directory_name)
-        if isinstance(directory_name, pathlib.Path)
-        else directory_name
+        str(directory_name) if isinstance(directory_name, pathlib.Path) else directory_name
     )
 
     return get_os_independent_name(

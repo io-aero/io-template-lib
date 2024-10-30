@@ -1,32 +1,6 @@
 .DEFAULT_GOAL := help
 
 MODULE=iotemplatelib
-
-ifeq ($(OS),Windows_NT)
-	COPY_MYPY_STUBGEN=xcopy /y out\\$(MODULE)\\*.* .\\$(MODULE)\\
-	CREATE_DIST=if not exist dist mkdir dist
-	DELETE_DIST=if exist dist rd /s /q dist
-	DELETE_MYPY_STUBGEN=if exist out rd /s /q out
-    NUITKA_OPTION=
-	PIP=pip
-	PYTHON=python
-	SPHINX_BUILDDIR=docs\\build
-	SPHINX_SOURCEDIR=docs\\source
-	DELETE_SPHINX=del /f /q $(SPHINX_BUILDDIR)\\* $(SPHINX_SOURCEDIR)\\io*.rst $(SPHINX_SOURCEDIR)\\modules.rst
-else
-	COPY_MYPY_STUBGEN=cp -f out/$(MODULE)/* ./$(MODULE)/
-	CREATE_DIST=mkdir -p dist
-	DELETE_DIST=rm -rf dist
-	DELETE_MYPY_STUBGEN=rm -rf out
-    NUITKA_OPTION=--disable-ccache
-	PIP=pip3
-	PYTHON=python3
-	SPHINX_BUILDDIR=docs/build
-	SPHINX_SOURCEDIR=docs/source
-	DELETE_SPHINX=rm -rf $(SPHINX_BUILDDIR)/* $(SPHINX_SOURCEDIR)/io*.rst $(SPHINX_SOURCEDIR)/modules.rs
-endif
-
-COVERALLS_REPO_TOKEN=<see coveralls.io>
 PYTHONPATH=${MODULE} docs scripts tests
 
 export ENV_FOR_DYNACONF=test
@@ -117,11 +91,9 @@ black:              ## Format the code with Black.
 # Configuration file: none
 compileall:         ## Byte-compile the Python libraries.
 	@echo "Info **********  Start: Compile All Python Scripts *******************"
-	@echo "PYTHON=${PYTHON}"
+	python3 --version
 	@echo "----------------------------------------------------------------------"
-	${PYTHON} --version
-	@echo "----------------------------------------------------------------------"
-	${PYTHON} -m compileall
+	python3 -m compileall
 	@echo "Info **********  End:   Compile All Python Scripts *******************"
 
 # Miniconda - Minimal installer for conda.
@@ -133,8 +105,8 @@ conda-dev:          ## Create a new environment for development.
 	conda --version
 	echo "PYPI_PAT=${PYPI_PAT}"
 	@echo "----------------------------------------------------------------------"
-	conda env remove -n ${MODULE}
-	conda env create -f environment_dev.yml
+	conda env remove -n ${MODULE} 2>/dev/null || echo "Environment '${MODULE}' does not exist."
+	conda env create -f config/environment_dev.yml
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
@@ -144,8 +116,8 @@ conda-prod:         ## Create a new environment for production.
 	conda config --set always_yes true
 	conda --version
 	@echo "----------------------------------------------------------------------"
-	conda env remove -n ${MODULE}
-	conda env create -f environment.yml
+	conda env remove -n ${MODULE} 2>/dev/null || echo "Environment '${MODULE}' does not exist."
+	conda env create -f config/environment.yml
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
@@ -201,39 +173,32 @@ mypy:               ## Find typing issues with Mypy.
 
 mypy-stubgen:       ## Autogenerate stub files.
 	@echo "Info **********  Start: Mypy *****************************************"
-	@echo "COPY_MYPY_STUBGEN  =${COPY_MYPY_STUBGEN}"
-	@echo "DELETE_MYPY_STUBGEN=${DELETE_MYPY_STUBGEN}"
-	@echo "MODULE             =${MODULE}"
+	@echo "MODULE=${MODULE}"
 	@echo "----------------------------------------------------------------------"
-	${DELETE_MYPY_STUBGEN}
+	rm -rf out
 	stubgen --package ${MODULE}
-	${COPY_MYPY_STUBGEN}
-	${DELETE_MYPY_STUBGEN}
+	cp -f out/${MODULE}/* ./${MODULE}/
+	rm -rf out
 	@echo "Info **********  End:   Mypy *****************************************"
 
 next-version:       ## Increment the version number.
 	@echo "Info **********  Start: next_version *********************************"
-	@echo "PYTHON    =${PYTHON}"
 	@echo "PYTHONPATH=${PYTHONPATH}"
 	@echo "----------------------------------------------------------------------"
-	${PYTHON} scripts/next_version.py
+	python3 --version
+	@echo "----------------------------------------------------------------------"
+	python3 scripts/next_version.py
 	@echo "Info **********  End:   next version *********************************"
 
 # Nuitka: Python compiler written in Python
 # https://github.com/Nuitka/Nuitka
 nuitka:             ## Create a dynamic link library.
 	@echo "Info **********  Start: nuitka ***************************************"
-	@echo "CREATE_DIST  =${CREATE_DIST}"
-	@echo "DELETE_DIST  =${DELETE_DIST}"
-	@echo "MODULE       =${MODULE}"
-	@echo "OPTION_NUITKA=${OPTION_NUITKA}"
-	@echo "PYTHON       =${PYTHON}"
-	@echo "----------------------------------------------------------------------"
 	python -m nuitka --version
 	@echo "----------------------------------------------------------------------"
-	${DELETE_DIST}
-	${CREATE_DIST}
-	python -m nuitka ${OPTION_NUITKA} --include-package=${MODULE} --module ${MODULE} --no-pyi-file --output-dir=dist --remove-output
+	rm -rf dist
+	mkdir -p dist
+	python -m nuitka --disable-ccache --include-package=${MODULE} --module ${MODULE} --no-pyi-file --output-dir=dist --remove-output
 	@echo "Info **********  End:   nuitka ***************************************"
 
 # Pylint is a tool that checks for errors in Python code.
@@ -264,10 +229,9 @@ pytest:             ## Run all tests with pytest.
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo "Info **********  Start: pytest ***************************************"
 	@echo "CONDA     =${CONDA_PREFIX}"
-	@echo "PIP       =${PIP}"
 	@echo "PYTHONPATH=${PYTHONPATH}"
 	@echo "----------------------------------------------------------------------"
-	${PIP} install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
+	pip3 install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
 	@echo "----------------------------------------------------------------------"
 	pytest --version
 	@echo "----------------------------------------------------------------------"
@@ -325,25 +289,19 @@ ruff:               ## An extremely fast Python linter and code formatter.
 
 sphinx:             ## Create the user documentation with Sphinx.
 	@echo "Info **********  Start: sphinx ***************************************"
-	@echo "DELETE_SPHINX   =${DELETE_SPHINX}"
-	@echo "PIP             =${PIP}"
-	@echo "SPHINX_BUILDDIR =${SPHINX_BUILDDIR}"
-	@echo "SPHINX_SOURCEDIR=${SPHINX_SOURCEDIR}"
+	sphinx-apidoc --version
+	sphinx-build --version
 	@echo "----------------------------------------------------------------------"
-	${PIP} install --no-deps -e .
-	@echo "----------------------------------------------------------------------"
-	${DELETE_SPHINX}
-	sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${MODULE}
-	sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
-	sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
+	sudo rm -rf docs/build/*
+	sphinx-apidoc -o docs/source ${MODULE}
+	sphinx-build -M html docs/source docs/build
+	sphinx-build -b rinoh docs/source docs/build/pdf
 	@echo "Info **********  End:   sphinx ***************************************"
 
 version:            ## Show the installed software versions.
 	@echo "Info **********  Start: version **************************************"
-	@echo "PIP   =${PIP}"
-	@echo "PYTHON=${PYTHON}"
-	@echo "----------------------------------------------------------------------"
-	${PIP} --version
+	python3 --version
+	pip3 --version
 	@echo "Info **********  End:   version **************************************"
 
 # Find dead Python code
