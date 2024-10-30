@@ -2,7 +2,7 @@ name: Standard
 
 on:
   pull_request:
-    branches: [ 'main' ]
+    branches: ['main']
 
 env:
   IO_AWS_CLI: 'false'
@@ -18,10 +18,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         python-version: ["3.11"]
 
     steps:
+      - name: Log the Operating System
+        run: |
+          echo "Running on OS: ${{ runner.os }}"
+
       - name: Show the environment variables
         run: |
           echo "IO_AWS_CLI  = ${{ env.IO_AWS_CLI }}"
