@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Advanced Usage" href="advanced_usage.html" /><link rel="prev" title="Configuration Logging" href="configuration_logging.html" />
 
-    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="_static/IO-Aero_1_Favicon.ico"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>First Steps - IO-TEMPLATE-LIB 1-3-36 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
@@ -269,254 +269,112 @@ Detailed instructions for each of these steps are provided below.</p>
 </section>
 <section id="install-foundational-software">
 <h2>Install Foundational Software<a class="headerlink" href="#install-foundational-software" title="Link to this heading">¶</a></h2>
-<p>Once you have successfully cloned the repository, navigate to the cloned directory.
-Within the <cite>scripts</cite> folder, you will find scripts tailored for various operating systems.
-Proceed with the subsection that corresponds to your operating system for further instructions.</p>
-<section id="macos">
-<h3>macOS<a class="headerlink" href="#macos" title="Link to this heading">¶</a></h3>
-<p>To set up the project on a macOS system, the following steps should be performed in a terminal window within the repository directory:</p>
-<section id="a-grant-execute-permission-to-installation-scripts">
-<h4>a. Grant Execute Permission to Installation Scripts<a class="headerlink" href="#a-grant-execute-permission-to-installation-scripts" title="Link to this heading">¶</a></h4>
-<p>Provide execute permissions to the installation scripts:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/*.zsh
-</pre></div>
-</div>
-</section>
-<section id="b-install-python-and-pip">
-<h4>b. Install Python and pip<a class="headerlink" href="#b-install-python-and-pip" title="Link to this heading">¶</a></h4>
-<p>Run the script to install Python and pip:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_python.zsh
-</pre></div>
-</div>
-</section>
-<section id="c-install-aws-command-line-interface">
-<h4>c. Install AWS Command Line Interface<a class="headerlink" href="#c-install-aws-command-line-interface" title="Link to this heading">¶</a></h4>
-<p>Execute the script to install the AWS CLI:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_aws_cli.zsh
-</pre></div>
-</div>
-</section>
-<section id="d-install-miniconda-and-the-correct-python-version">
-<h4>d. Install Miniconda and the Correct Python Version<a class="headerlink" href="#d-install-miniconda-and-the-correct-python-version" title="Link to this heading">¶</a></h4>
-<p>Use the following script to install Miniconda and set the right Python version:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_miniconda.zsh
-</pre></div>
-</div>
-</section>
-<section id="e-install-docker-desktop">
-<h4>e. Install Docker Desktop<a class="headerlink" href="#e-install-docker-desktop" title="Link to this heading">¶</a></h4>
-<p>To install Docker Desktop, run:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_docker.zsh
-</pre></div>
-</div>
-</section>
-<section id="f-install-terraform">
-<h4>f. Install Terraform<a class="headerlink" href="#f-install-terraform" title="Link to this heading">¶</a></h4>
-<p>To install Docker Desktop, run:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_terraform.zsh
-</pre></div>
-</div>
-</section>
-<section id="g-optionally-install-dbeaver">
-<h4>g. Optionally Install DBeaver<a class="headerlink" href="#g-optionally-install-dbeaver" title="Link to this heading">¶</a></h4>
-<p>If needed, install DBeaver using the following script:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_dbeaver.zsh
-</pre></div>
-</div>
-</section>
-<section id="h-close-the-terminal-window">
-<h4>h. Close the Terminal Window<a class="headerlink" href="#h-close-the-terminal-window" title="Link to this heading">¶</a></h4>
-<p>Once all installations are complete, close the terminal window.</p>
-</section>
-</section>
-<section id="ubuntu">
-<h3>Ubuntu<a class="headerlink" href="#ubuntu" title="Link to this heading">¶</a></h3>
+<p>Once you have successfully cloned the repository, navigate to the cloned directory.</p>
 <p>To set up the project on an Ubuntu system, the following steps should be performed in a terminal window within the repository directory:</p>
-<section id="id1">
-<h4>a. Grant Execute Permission to Installation Scripts<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<section id="a-grant-execute-permission-to-installation-scripts">
+<h3>a. Grant Execute Permission to Installation Scripts<a class="headerlink" href="#a-grant-execute-permission-to-installation-scripts" title="Link to this heading">¶</a></h3>
 <p>Provide execute permissions to the installation scripts:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/*.sh
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<h4>b. Install Python and pip<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
+<section id="b-install-python-and-pip">
+<h3>b. Install Python and pip<a class="headerlink" href="#b-install-python-and-pip" title="Link to this heading">¶</a></h3>
 <p>Run the script to install Python and pip:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_python.sh
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h4>c. Install AWS Command Line Interface<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h4>
+<section id="c-install-aws-command-line-interface">
+<h3>c. Install AWS Command Line Interface<a class="headerlink" href="#c-install-aws-command-line-interface" title="Link to this heading">¶</a></h3>
 <p>Execute the script to install the AWS CLI:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_aws_cli.sh
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h4>d. Install Miniconda and the Correct Python Version<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h4>
+<section id="d-install-miniconda-and-the-correct-python-version">
+<h3>d. Install Miniconda and the Correct Python Version<a class="headerlink" href="#d-install-miniconda-and-the-correct-python-version" title="Link to this heading">¶</a></h3>
 <p>Use the following script to install Miniconda and set the right Python version:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_miniconda.sh
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h4>e. Install Docker Desktop<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h4>
-<p>This step is not required for WSL (Windows Subsystem for Linux) if Decker Desktop is installed in Windows and this is configured for WSL 2 based engine.</p>
+<section id="e-install-docker-desktop">
+<h3>e. Install Docker Desktop<a class="headerlink" href="#e-install-docker-desktop" title="Link to this heading">¶</a></h3>
+<p>This step is not required for WSL (Windows Subsystem for Linux) if Docker Desktop is installed in Windows and is configured for WSL 2 based engine.</p>
 <p>To install Docker Desktop, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_docker.sh
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h4>f. Install Terraform<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h4>
-<p>To install Docker Desktop, run:</p>
+<section id="f-install-terraform">
+<h3>f. Install Terraform<a class="headerlink" href="#f-install-terraform" title="Link to this heading">¶</a></h3>
+<p>To install Terraform, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_terraform.sh
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h4>g. Optionally Install DBeaver<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
+<section id="g-optionally-install-dbeaver">
+<h3>g. Optionally Install DBeaver<a class="headerlink" href="#g-optionally-install-dbeaver" title="Link to this heading">¶</a></h3>
 <p>If needed, install DBeaver using the following script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/run_install_dbeaver.sh
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h4>h. Close the Terminal Window<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
+<section id="h-close-the-terminal-window">
+<h3>h. Close the Terminal Window<a class="headerlink" href="#h-close-the-terminal-window" title="Link to this heading">¶</a></h3>
 <p>Once all installations are complete, close the terminal window.</p>
-</section>
-</section>
-<section id="windows-10-11">
-<h3>Windows 10/11<a class="headerlink" href="#windows-10-11" title="Link to this heading">¶</a></h3>
-<p>To set up the project on a Windows 10/11 system, the following steps should be performed in a command prompt (cmd) within the repository directory:</p>
-<section id="a-install-python-and-pip">
-<h4>a. Install Python and pip<a class="headerlink" href="#a-install-python-and-pip" title="Link to this heading">¶</a></h4>
-<p>Run the script to install Python and pip:</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>scripts/run_install_python.bat
-</pre></div>
-</div>
-</section>
-<section id="b-install-aws-command-line-interface">
-<h4>b. Install AWS Command Line Interface<a class="headerlink" href="#b-install-aws-command-line-interface" title="Link to this heading">¶</a></h4>
-<p>Execute the script to install the AWS CLI:</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>scripts/run_install_aws_cli.bat
-</pre></div>
-</div>
-</section>
-<section id="c-install-miniconda-and-the-correct-python-version">
-<h4>c. Install Miniconda and the Correct Python Version<a class="headerlink" href="#c-install-miniconda-and-the-correct-python-version" title="Link to this heading">¶</a></h4>
-<p>Use the following script to install Miniconda and set the right Python version:</p>
-<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>scripts/run_install_miniconda.bat
-</pre></div>
-</div>
-</section>
-<section id="d-close-the-command-prompt">
-<h4>d. Close the Command Prompt<a class="headerlink" href="#d-close-the-command-prompt" title="Link to this heading">¶</a></h4>
-<p>Once all installations are complete, close the command prompt.</p>
-</section>
-<section id="id9">
-<h4>e. Install Docker Desktop<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
-<p>To install Docker Desktop, download the software from here:</p>
-<blockquote>
-<div><p><a class="reference external" href="https://www.docker.com/products/docker-desktop/">https://www.docker.com/products/docker-desktop/</a></p>
-</div></blockquote>
-<p>and follow the installation instructions.</p>
-</section>
-<section id="id10">
-<h4>f. Install Terraform<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
-<p>To install Terraform, download the software from here:</p>
-<blockquote>
-<div><p><a class="reference external" href="https://developer.hashicorp.com/terraform/install?product_intent=terraform">https://developer.hashicorp.com/terraform/install?product_intent=terraform</a></p>
-</div></blockquote>
-<p>and follow the installation instructions.</p>
-</section>
-<section id="id11">
-<h4>g. Optionally Install DBeaver<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
-<p>If needed, install DBeaver, download the software from here:</p>
-<blockquote>
-<div><p><a class="reference external" href="https://dbeaver.io/">https://dbeaver.io/</a></p>
-</div></blockquote>
-<p>and follow the installation instructions.</p>
-</section>
 </section>
 </section>
 <section id="repository-specific-installation">
 <h2>Repository-Specific Installation<a class="headerlink" href="#repository-specific-installation" title="Link to this heading">¶</a></h2>
 <p>After installing the basic software, you need to perform installation steps specific to the <cite>io-template-lib</cite> repository.
 This involves setting up project-specific dependencies and environment configurations.
-To perform the repository-specific installation, the following steps should be performed in a command prompt or a terminal window (depending on the operating system) the repository directory.</p>
+To perform the repository-specific installation, the following steps should be performed in a command prompt or a terminal window (depending on the operating system) in the repository directory.</p>
+</section>
 <section id="setting-up-the-python-environment">
-<h3>Setting Up the Python Environment<a class="headerlink" href="#setting-up-the-python-environment" title="Link to this heading">¶</a></h3>
+<h2>Setting Up the Python Environment<a class="headerlink" href="#setting-up-the-python-environment" title="Link to this heading">¶</a></h2>
 <p>To begin, you’ll need to set up the Python environment using Miniconda, which is already pre-installed.
 You can use the provided Makefile for managing the environment.</p>
 <section id="a-for-production-use-run-the-following-command">
-<h4>a. For <strong>production</strong> use, run the following command:<a class="headerlink" href="#a-for-production-use-run-the-following-command" title="Link to this heading">¶</a></h4>
+<h3>a. For <strong>production</strong> use, run the following command:<a class="headerlink" href="#a-for-production-use-run-the-following-command" title="Link to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>conda-prod
 </pre></div>
 </div>
 </section>
 <section id="b-for-software-development-use-the-following-command">
-<h4>b. For <strong>software development</strong>, use the following command:<a class="headerlink" href="#b-for-software-development-use-the-following-command" title="Link to this heading">¶</a></h4>
+<h3>b. For <strong>software development</strong>, use the following command:<a class="headerlink" href="#b-for-software-development-use-the-following-command" title="Link to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>conda-dev
 </pre></div>
 </div>
 <p>These commands will create and configure a virtual environment for your Python project, ensuring a clean and reproducible development or production environment.
 The virtual environment is automatically activated by the Makefile, so you don’t need to activate it manually.</p>
-</section>
-</section>
 <section id="minor-adjustments-for-gdal">
-<h3>Minor Adjustments for GDAL<a class="headerlink" href="#minor-adjustments-for-gdal" title="Link to this heading">¶</a></h3>
+<h4>Minor Adjustments for GDAL<a class="headerlink" href="#minor-adjustments-for-gdal" title="Link to this heading">¶</a></h4>
 <p>The installation of the GDAL library requires the following minor operating system-specific adjustments:</p>
-<section id="a-macos">
-<h4>a. macOS<a class="headerlink" href="#a-macos" title="Link to this heading">¶</a></h4>
-<p>In macOS, the GDAL library must be installed as follows:</p>
-<div class="highlight-zsh notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>gdal
-</pre></div>
-</div>
-</section>
-<section id="b-ubuntu">
-<h4>b. Ubuntu<a class="headerlink" href="#b-ubuntu" title="Link to this heading">¶</a></h4>
 <p>In Ubuntu, the GDAL library must be installed as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gdal-bin<span class="w"> </span>libgdal-dev
 </pre></div>
 </div>
 </section>
-<section id="c-windows-10-11">
-<h4>c. Windows 10/11<a class="headerlink" href="#c-windows-10-11" title="Link to this heading">¶</a></h4>
-<p>Assuming that Miniconda is installed in the following file directory</p>
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\ProgramData\miniconda3</span>
-</pre></div>
-</div>
-<p>then the following entry must then be added to the path variable:;</p>
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\ProgramData\miniconda3\envs\iotemplatelib\Library\bin</span>
-</pre></div>
-</div>
 </section>
 </section>
 <section id="system-testing-with-unit-tests">
-<h3>System Testing with Unit Tests<a class="headerlink" href="#system-testing-with-unit-tests" title="Link to this heading">¶</a></h3>
+<h2>System Testing with Unit Tests<a class="headerlink" href="#system-testing-with-unit-tests" title="Link to this heading">¶</a></h2>
 <p>If you have previously executed <cite>make conda-dev</cite>, you can now perform a system test to verify the installation using <cite>make test</cite>.
 Follow these steps:</p>
 <section id="a-run-the-system-test">
-<h4>a. Run the System Test:<a class="headerlink" href="#a-run-the-system-test" title="Link to this heading">¶</a></h4>
-<blockquote>
-<div><p>Execute the system test using the following command:</p>
+<h3>a. Run the System Test:<a class="headerlink" href="#a-run-the-system-test" title="Link to this heading">¶</a></h3>
+<p>Execute the system test using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>tests
 </pre></div>
 </div>
 <p>This command will initiate the system tests using the previously installed components to verify the correctness of your installation.</p>
-</div></blockquote>
 </section>
 <section id="b-review-the-test-results">
-<h4>b. Review the Test Results:<a class="headerlink" href="#b-review-the-test-results" title="Link to this heading">¶</a></h4>
-<blockquote>
-<div><p>After the tests are completed, review the test results in the terminal. Ensure that all tests pass without errors.</p>
+<h3>b. Review the Test Results:<a class="headerlink" href="#b-review-the-test-results" title="Link to this heading">¶</a></h3>
+<p>After the tests are completed, review the test results in the terminal. Ensure that all tests pass without errors.</p>
 <p>If any tests fail, review the error messages to identify and resolve any issues with your installation.</p>
-</div></blockquote>
-<p>Running system tests using <cite>make tests</cite> is a valuable step to ensure that your installation is working correctly, and your environment is properly configured for your project.
-It helps identify and address any potential problems early in the development process.</p>
-</section>
 </section>
 </section>
 </section>
@@ -579,7 +437,6 @@ It helps identify and address any potential problems early in the development pr
 <li><a class="reference internal" href="#">First Steps</a><ul>
 <li><a class="reference internal" href="#cloning-the-repository">Cloning the Repository</a></li>
 <li><a class="reference internal" href="#install-foundational-software">Install Foundational Software</a><ul>
-<li><a class="reference internal" href="#macos">macOS</a><ul>
 <li><a class="reference internal" href="#a-grant-execute-permission-to-installation-scripts">a. Grant Execute Permission to Installation Scripts</a></li>
 <li><a class="reference internal" href="#b-install-python-and-pip">b. Install Python and pip</a></li>
 <li><a class="reference internal" href="#c-install-aws-command-line-interface">c. Install AWS Command Line Interface</a></li>
@@ -590,46 +447,18 @@ It helps identify and address any potential problems early in the development pr
 <li><a class="reference internal" href="#h-close-the-terminal-window">h. Close the Terminal Window</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ubuntu">Ubuntu</a><ul>
-<li><a class="reference internal" href="#id1">a. Grant Execute Permission to Installation Scripts</a></li>
-<li><a class="reference internal" href="#id2">b. Install Python and pip</a></li>
-<li><a class="reference internal" href="#id3">c. Install AWS Command Line Interface</a></li>
-<li><a class="reference internal" href="#id4">d. Install Miniconda and the Correct Python Version</a></li>
-<li><a class="reference internal" href="#id5">e. Install Docker Desktop</a></li>
-<li><a class="reference internal" href="#id6">f. Install Terraform</a></li>
-<li><a class="reference internal" href="#id7">g. Optionally Install DBeaver</a></li>
-<li><a class="reference internal" href="#id8">h. Close the Terminal Window</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#windows-10-11">Windows 10/11</a><ul>
-<li><a class="reference internal" href="#a-install-python-and-pip">a. Install Python and pip</a></li>
-<li><a class="reference internal" href="#b-install-aws-command-line-interface">b. Install AWS Command Line Interface</a></li>
-<li><a class="reference internal" href="#c-install-miniconda-and-the-correct-python-version">c. Install Miniconda and the Correct Python Version</a></li>
-<li><a class="reference internal" href="#d-close-the-command-prompt">d. Close the Command Prompt</a></li>
-<li><a class="reference internal" href="#id9">e. Install Docker Desktop</a></li>
-<li><a class="reference internal" href="#id10">f. Install Terraform</a></li>
-<li><a class="reference internal" href="#id11">g. Optionally Install DBeaver</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#repository-specific-installation">Repository-Specific Installation</a><ul>
+<li><a class="reference internal" href="#repository-specific-installation">Repository-Specific Installation</a></li>
 <li><a class="reference internal" href="#setting-up-the-python-environment">Setting Up the Python Environment</a><ul>
 <li><a class="reference internal" href="#a-for-production-use-run-the-following-command">a. For <strong>production</strong> use, run the following command:</a></li>
-<li><a class="reference internal" href="#b-for-software-development-use-the-following-command">b. For <strong>software development</strong>, use the following command:</a></li>
+<li><a class="reference internal" href="#b-for-software-development-use-the-following-command">b. For <strong>software development</strong>, use the following command:</a><ul>
+<li><a class="reference internal" href="#minor-adjustments-for-gdal">Minor Adjustments for GDAL</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#minor-adjustments-for-gdal">Minor Adjustments for GDAL</a><ul>
-<li><a class="reference internal" href="#a-macos">a. macOS</a></li>
-<li><a class="reference internal" href="#b-ubuntu">b. Ubuntu</a></li>
-<li><a class="reference internal" href="#c-windows-10-11">c. Windows 10/11</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#system-testing-with-unit-tests">System Testing with Unit Tests</a><ul>
 <li><a class="reference internal" href="#a-run-the-system-test">a. Run the System Test:</a></li>
 <li><a class="reference internal" href="#b-review-the-test-results">b. Review the Test Results:</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -644,7 +473,7 @@ It helps identify and address any potential problems early in the development pr
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=e8c41fa2"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
     </body>

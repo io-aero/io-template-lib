@@ -1,4 +1,5 @@
 *.bak
+*.log
 .coverage
 .history/
 .idea/
@@ -16,6 +17,3 @@ Pipfile.lock
 __pycache__
 coverage.lcov
 iotemplatelib.egg-info/
-logging_*.log
-resources/Gammadyne/timer.txt
-run_*.log
