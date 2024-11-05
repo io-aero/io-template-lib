@@ -5,6 +5,7 @@ on:
     branches: [ 'main' ]
 
 env:
+  IO_CONDA: 'false'
   MODULE: 'iotemplatelib'
   PYPI_PAT: ${{ secrets.PYPI_PAT }}
 
@@ -19,10 +20,14 @@ jobs:
         python-version: ["3.12"]
 
     steps:
+      - name: Log the Operating System
+        run: |
+          echo "Running on OS: ${{ runner.os }}"
+
       - name: Show the environment variables
         run: |
-          echo "MODULE      = $MODULE"
-          echo "PYPI_PAT    = ${{ secrets.PYPI_PAT }}"
+          echo "IO_CONDA    = ${{ env.IO_CONDA }}"
+          echo "MODULE      = ${{ env.MODULE }}"
 
       - name: Set Timezone
         run: echo "TZ=UTC" >> $GITHUB_ENV
@@ -32,27 +37,67 @@ jobs:
         with:
           fetch-depth: 1  # no history, just HEAD
 
+      - name: Set Locale
+        run: |
+          echo "SHELL_CONFIG=.bashrc" >> $GITHUB_ENV
+          sudo apt-get update
+          sudo apt-get install -y locales
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Preparing scripts
+        run: |
+          sudo apt-get update && sudo apt-get install -y dos2unix
+          chmod +x scripts/run_prep_*.sh
+          dos2unix scripts/run_prep_*.sh
+          ./scripts/run_prep_bash_scripts.sh
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up Miniconda
+      - name: Set up Miniconda - Conda
+        if: ${{ env.IO_CONDA == 'true' }}
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
 
+      - name: Set up Micromamba - Mamba
+        if: ${{ env.IO_CONDA == 'false' }}
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          micromamba-version: 'latest'
+          environment-file: config/environment_dev.yml  # Ensure this file exists
+          init-shell: bash
+          cache-environment: true
+          post-cleanup: 'all'
+
       - name: Install dependencies - Conda - dev
+        if: ${{ env.IO_CONDA == 'true' }}
         run: make conda-dev
 
-      - name: Run docs - dev
+      - name: Install dependencies - Mamba - dev
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: make mamba-dev
+
+      - name: Run docs - Conda - dev
+        if: ${{ env.IO_CONDA == 'true' }}
         run: |
           conda init --all
           source ~/.bashrc
           conda activate $MODULE
           make black docs
+
+      - name: Run docs - Mamba - dev
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: |
+          eval "$(micromamba shell hook --shell bash)"
+          micromamba activate $MODULE
+          make black docs
+        shell: bash
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
