@@ -6,6 +6,7 @@ on:
 
 env:
   IO_AWS_CLI: 'false'
+  IO_CONDA: 'false'
   IO_COVERALLS: 'false'
   IO_DOCKER: 'false'
   MODULE: 'iotemplatelib'
@@ -19,7 +20,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.11"]
+        python-version: ["3.12"]
 
     steps:
       - name: Log the Operating System
@@ -30,10 +31,19 @@ jobs:
         run: |
           echo "IO_AWS_CLI  = ${{ env.IO_AWS_CLI }}"
           echo "IO_COVERALLS= ${{ env.IO_COVERALLS }}"
+          echo "IO_CONDA    = ${{ env.IO_CONDA }}"
           echo "IO_DOCKER   = ${{ env.IO_DOCKER }}"
           echo "IO_LOCAL    = ${{ vars.IO_LOCAL }}"
           echo "MODULE      = ${{ env.MODULE }}"
-          echo "PYPI_PAT    = ${{ secrets.PYPI_PAT }}"
+
+      - name: Verify PYPI_PAT is set
+        run: |
+          if [ -z "${{ secrets.PYPI_PAT }}" ]; then
+            echo "PYPI_PAT is not set."
+            exit 1
+          else
+            echo "PYPI_PAT is set."
+          fi
 
       - name: Set Timezone
         run: echo "TZ=UTC" >> $GITHUB_ENV
@@ -43,15 +53,7 @@ jobs:
         with:
           fetch-depth: 1  # no history, just HEAD
 
-      - name: Set Locale - macOS
-        if: runner.os == 'macOS'
-        run: |
-          echo "SHELL_CONFIG=.zshrc" >> $GITHUB_ENV
-          echo "LANG=en_US.UTF-8" >> $GITHUB_ENV
-          echo "LC_ALL=en_US.UTF-8" >> $GITHUB_ENV
-
-      - name: Set Locale - Ubuntu
-        if: runner.os == 'Linux'
+      - name: Set Locale
         run: |
           echo "SHELL_CONFIG=.bashrc" >> $GITHUB_ENV
           sudo apt-get update
@@ -59,16 +61,7 @@ jobs:
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
 
-      - name: Preparing scripts - macOS
-        if: runner.os == 'macOS'
-        run: |
-          brew install dos2unix || brew upgrade dos2unix
-          chmod +x scripts/run_prep_*.zsh
-          dos2unix scripts/run_prep_*.zsh
-          ./scripts/run_prep_zsh_scripts.zsh
-
-      - name: Preparing scripts - Ubuntu
-        if: runner.os == 'Linux'
+      - name: Preparing scripts
         run: |
           sudo apt-get update && sudo apt-get install -y dos2unix
           chmod +x scripts/run_prep_*.sh
@@ -88,8 +81,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: Install AWS CLI - Ubuntu
-        if: ${{ env.IO_AWS_CLI == 'true' && vars.IO_LOCAL == 'true' && runner.os == 'Linux' }}
+      - name: Install AWS CLI
+        if: ${{ env.IO_AWS_CLI == 'true' && vars.IO_LOCAL == 'true' }}
         run: |
           sudo apt-get update
           sudo apt-get install -y unzip
@@ -97,54 +90,96 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install
 
-      - name: Set up Miniconda
+      - name: Set up Miniconda - Conda
+        if: ${{ env.IO_CONDA == 'true' }}
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Docker - macOS
-        if: ${{ env.IO_DOCKER == 'true' && runner.os == 'macOS' }}
-        run: |
-          echo "=================================================="
-          echo "Docker Desktop for Mac is currently not supported."
-          echo "=================================================="
-          exit 1
+      - name: Set up Micromamba - Mamba
+        if: ${{ env.IO_CONDA == 'false' }}
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          micromamba-version: 'latest'
+          environment-file: config/environment_dev.yml  # Ensure this file exists
+          init-shell: bash
+          cache-environment: true
+          post-cleanup: 'all'
 
-      - name: Install Docker - Ubuntu
-        if: ${{ env.IO_DOCKER == 'true' && runner.os == 'Linux' }}
+      - name: Install Docker
+        if: ${{ env.IO_DOCKER == 'true' }}
         uses: docker/setup-buildx-action@v3
 
       - name: Install dependencies - Conda - prod
-        run: make conda-prod
+        if: ${{ env.IO_CONDA == 'true' }}
+        run: |
+          make conda-prod
 
-      - name: Compile the Python code - prod
+      - name: Install dependencies - Mamba - prod
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: |
+          make mamba-prod
+
+      - name: Compile the Python code - Conda - prod
+        if: ${{ env.IO_CONDA == 'true' }}
         run: |
           conda init --all
-          source ~/$SHELL_CONFIG
+          source ~/.bashrc
           conda activate $MODULE
           make compileall
 
-      - name: Run pytest - prod
+      - name: Compile the Python code - Mamba - prod
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: |
+          eval "$(micromamba shell hook --shell bash)"
+          micromamba activate $MODULE
+          make compileall
+        shell: bash
+
+      - name: Run pytest - Conda - prod
+        if: ${{ env.IO_CONDA == 'true' }}
         run: |
           conda init --all
-          source ~/$SHELL_CONFIG
+          source ~/.bashrc
           conda activate $MODULE
           make pytest-ci
 
+      - name: Run pytest - Mamba - prod
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: |
+          eval "$(micromamba shell hook --shell bash)"
+          micromamba activate $MODULE
+          make pytest-ci
+        shell: bash
+
       - name: Install dependencies - Conda - dev
+        if: ${{ env.IO_CONDA == 'true' }}
         run: make conda-dev
 
-      - name: Run pytest - dev
+      - name: Install dependencies - Mamba - dev
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: make mamba-dev
+
+      - name: Run pytest - Conda - dev
+        if: ${{ env.IO_CONDA == 'true' }}
         run: |
           conda init --all
-          source ~/$SHELL_CONFIG
+          source ~/.bashrc
           conda activate $MODULE
           make black lint docs tests
 
+      - name: Run pytest - Mamba - dev
+        if: ${{ env.IO_CONDA == 'false' }}
+        run: |
+          eval "$(micromamba shell hook --shell bash)"
+          micromamba activate $MODULE
+          make black lint docs tests
+        shell: bash
+
       - name: Coveralls
-        if: ${{ env.IO_COVERALLS == 'true' && runner.os == 'Linux' }}
+        if: ${{ env.IO_COVERALLS == 'true' }}
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
