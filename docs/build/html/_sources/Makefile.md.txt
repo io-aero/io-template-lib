@@ -29,7 +29,6 @@ Each target in the Makefile corresponds to a specific step or tool in the develo
 #### Code Formatting and Linting
 
 - **`format`**: Formats code using:
-  - **`isort`**: Organizes imports.
   - **`black`**: Formats code according to PEP 8.
   - **`docformatter`**: Formats docstrings per PEP 257.
 
@@ -60,6 +59,8 @@ Each target in the Makefile corresponds to a specific step or tool in the develo
 
 - **`conda-dev`**: Creates a Conda environment for development using a `config/environment_dev.yml` configuration file.
 - **`conda-prod`**: Creates a production-ready Conda environment using `config/environment.yml`.
+- **`mamba-dev`**: Creates a Mamba environment for development using a `config/environment_dev.yml` configuration file.
+- **`mamba-prod`**: Creates a production-ready Mamba environment using `config/environment.yml`.
 - **`next-version`**: Increments the version number using a custom `next_version.py` script.
 - **`version`**: Displays the current versions of Python and pip.
 
@@ -83,6 +84,7 @@ Each target in the Makefile corresponds to a specific step or tool in the develo
    - **`make everything`**: Runs a comprehensive pre-check workflow.
    - **`make pre-push`**: Prepares code for committing, including version increments.
    - **`make conda-dev`** / **`make conda-prod`**: Creates Conda environments based on project requirements.
+   - **`make mamba-dev`** / **`make mamba-prod`**: Creates Mamba environments based on project requirements.
 
 3. **Testing**:
    - **`make tests`**: Runs all tests.
@@ -113,7 +115,7 @@ This section reviews each tool in the Makefile and its purpose in the developmen
 
 7. **Docformatter**: Ensures docstrings adhere to PEP 257 standards, increasing documentation quality and readability.
 
-8. **Isort**: Organizes imports, which improves readability and ensures a consistent import structure.
+8. **Mamba**: Manages isolated environments with different dependencies, ensuring compatibility across development, testing, and production setups.
 
 9. **Mypy**: Enforces type hints across the codebase, reducing runtime errors and improving code clarity.
 
@@ -131,7 +133,7 @@ This section reviews each tool in the Makefile and its purpose in the developmen
 
 ### Necessity and Potential Redundancies
 
-- **Essential Tools**: The primary tools for formatting, testing, linting, and documentation (`black`, `isort`, `pytest`, `sphinx`) are essential for maintaining code quality and documentation standards.
+- **Essential Tools**: The primary tools for formatting, testing, linting, and documentation (`black`, `pytest`, `sphinx`) are essential for maintaining code quality and documentation standards.
   
 - **Redundancies**:
    - **`ruff` vs. `pylint`**: Both tools serve similar purposes for linting, with `ruff` being faster but less feature-rich. Using one might be sufficient.
@@ -144,9 +146,3 @@ This section reviews each tool in the Makefile and its purpose in the developmen
 1. **Optimize Linting**: Consider using only `ruff` if it meets your needs for linting and code formatting, as it covers a broad range of checks.
 2. **Assess Compilation Needs**: `Nuitka` can be excluded if the library does not require compilation into binary format for distribution.
 3. **Review Testing and Coverage**: Use `coveralls` and `pytest` if code coverage is an essential metric; otherwise, they can be excluded to streamline the process.
-
----
-
-## Conclusion
-
-This Makefile supports a wide range of functionalities tailored for Python library development, covering everything from formatting and testing to documentation and security checks. Each target and tool plays a role in ensuring code quality, maintainability, and documentation, supporting a structured and effective development workflow.

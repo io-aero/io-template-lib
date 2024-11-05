@@ -21,7 +21,7 @@ Detailed instructions can be found in the [documentation](https://io-aero.github
     export PYPI_PAT=<tbd>
 ```
 
-3. Install Python 3.11
+3. Install Python 3.12
 4. Install Conda or Miniconda
 5. Clone this repository:
 
@@ -60,50 +60,31 @@ Detailed instructions can be found in the [documentation](https://io-aero.github
 ```
 
 ```
-=============================================================================
-make Script       The purpose of this Makefile is to support the whole
-                  software development process for a library. It
-                  contains also the necessary tools for the CI activities.
-                  -----------------------------------------------------------
-                  The available make commands are:
------------------------------------------------------------------------------
-help:               Show this help.
------------------------------------------------------------------------------
-action:             Run the GitHub Actions locally.
-dev:                Format, lint and test the code.
-docs:               Check the API documentation, create and upload the user documentation.
-everything:         Do everything precheckin
-final:              Format, lint and test the code and create the documentation.
-format:             Format the code with Black and docformatter.
-lint:               Lint the code with ruff, Bandit, vulture, Pylint and Mypy.
-pre-push:           Preparatory work for the pushing process.
-tests:              Run all tests with pytest.
------------------------------------------------------------------------------
-action-std:         Run the GitHub Actions locally: standard.
-bandit:             Find common security issues with Bandit.
-black:              Format the code with Black.
-compileall:         Byte-compile the Python libraries.
-conda-dev:          Create a new environment for development.
-conda-prod:         Create a new environment for production.
-coveralls:          Run all the tests and upload the coverage data to coveralls.
-docformatter:       Format the docstrings with docformatter.
-isort:              Edit and sort the imports with isort.
-mypy:               Find typing issues with Mypy.
-mypy-stubgen:       Autogenerate stub files.
-next-version:       Increment the version number.
-nuitka:             Create a dynamic link library.
-pylint:             Lint the code with Pylint.
-pytest:             Run all tests with pytest.
-pytest-ci:          Run all tests with pytest after test tool installation.
-pytest-first-issue: Run all tests with pytest until the first issue occurs.
-pytest-ignore-mark: Run all tests without marker with pytest."
-pytest-issue:       Run only the tests with pytest which are marked with 'issue'.
-pytest-module:      Run test of a specific module with pytest.
-ruff:               An extremely fast Python linter and code formatter.
-sphinx:             Create the user documentation with Sphinx.
-version:            Show the installed software versions.
-vulture:            Find dead Python code.
-=============================================================================
+========================================================================
+Recommended Makefile Targets:
+------------------------------------------------------------------------
+action                    action: Run the GitHub Actions locally.
+conda-dev                 Create a new environment for development.
+conda-prod                Create a new environment for production.
+dev                       dev: Format, lint and test the code.
+docs                      docs: Create the user documentation.
+everything                everything: Do everything pre-checkin
+final                     final: Format, lint and test the code and create the documentation.
+format                    format: Format the code with Black and docformatter.
+lint                      lint: Lint the code with ruff, Bandit, Vulture, Pylint and Mypy.
+mamba-dev                 Create a new environment for development.
+mamba-prod                Create a new environment for production.
+mypy-stubgen              Autogenerate stub files.
+nuitka                    Create a dynamic link library.
+pre-push                  pre-push: Preparatory work for the pushing process.
+pytest-ci                 Run all tests with pytest after test tool installation.
+pytest-first-issue        Run all tests with pytest until the first issue occurs.
+pytest-ignore-mark        Run all tests without marker with pytest.
+pytest-issue              Run only the tests with pytest which are marked with 'issue'.
+pytest-module             Run test of a specific module with pytest.
+tests                     tests: Run all tests with pytest.
+version                   Show the installed software versions.
+========================================================================
 ```
 
 ## Documentation
@@ -136,36 +117,34 @@ Further IO-Aero software documentation can be found under the following links.
 
 ### 1. Directories
 
-| Directory         | Content                                                  |
-|-------------------|----------------------------------------------------------|
-| .github/workflows | GitHub Action workflows.                                 |
-| .vscode           | Visual Studio Code configuration files.                  |
+| Directory         | Content                                              |
+|-------------------|------------------------------------------------------|
+| .github/workflows | GitHub Action workflows.                             |
+| .vscode           | Visual Studio Code configuration files.              |
 | config            | Configuration files.                                 |
-| data              | Application data related files.                          |
-| dist              | Dynamic link library version of **IO-TEMPLATE-LIB**.     |
-| docs              | Documentation files.                                     |
-| examples          | Scripts for examples and special tests.                  |
-| iotemplatelib     | Python script files.                                     |
-| libs              | Contains libraries that are not used via pip.         |
-| resources         | Selected manuals and software.                           |
-| scripts           | Scripts supporting Ubuntu.                   |
-| tests             | Scripts and data for examples and tests.                 |
+| data              | Application data related files.                      |
+| dist              | Dynamic link library version of **IO-TEMPLATE-LIB**. |
+| docs              | Documentation files.                                 |
+| examples          | Scripts for examples and special tests.              |
+| iotemplatelib     | Python script files.                                 |
+| libs              | Contains libraries that are not used via pip.        |
+| resources         | Selected manuals and software.                       |
+| scripts           | Scripts supporting Ubuntu Bash.                      |
+| tests             | Scripts and data for examples and tests.             |
 
 ### 2. Files
 
-| File                            | Functionality                                                        |
-|---------------------------------|----------------------------------------------------------------------|
-| .act_secrets_template           | Template file for the configuration of ``make action``.              |
-| .gitattributes                  | Handling of the os-specific file properties.                         |
-| .gitignore                      | Configuration of files and folders to be ignored.                    |
-| .pylintrc                       | Pylint configuration file.                                           |
-| .settings.io_aero_template.toml | Template file for the secret configuration data.                     |
-| LICENSE.md                      | Text of the licence terms.                                           |
-| logging_cfg.yaml                | Configuration of the Logger functionality.                           |
-| Makefile                        | Tasks to be executed with the make command.                          |
-| Pipfile                         | Definition of the Python package requirements.                       |
-| pyproject.toml                  | Optional configuration data for the software quality tools.          |
-| README.md                       | This file.                                                           |
-| run_io_template_lib_pytest      | Main script for using the test functionality of **IO-TEMPLATE-LIB**. |
-| settings.io_aero.toml           | Configuration data.                                                  |
-| setup.cfg                       | Configuration data.                                       |
+| File                     | Functionality                                                  |
+|--------------------------|----------------------------------------------------------------|
+| .gitattributes           | Handling of the os-specific file properties.                   |
+| .gitignore               | Configuration of files and folders to be ignored.              |
+| .pylintrc                | Pylint configuration file.                                     |
+| LICENSE.md               | Text of the licence terms.                                     |
+| logging_cfg.yaml         | Configuration of the Logger functionality.                     |
+| Makefile                 | Tasks to be executed with the make command.                    |
+| pyproject.toml           | Optional configuration data for the software quality tools.    |
+| README.md                | This file.                                                     |
+| run_io_template_app      | Main script for using the functionality.                       |
+| run_io_template_app_test | Main script for using the functionality in a test environment. |
+| settings.io_aero.toml    | Configuration data.                                            |
+| setup.cfg                | Configuration data.                                            |
