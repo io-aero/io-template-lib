@@ -17,7 +17,7 @@ sudo update-locale LANG=en_US.UTF-8
 sudo apt install unzip
 
 # Set the Python version
-PYTHON_VERSION="3.11"
+PYTHON_VERSION="3.12"
 
 echo "=========================================================================="
 echo "Adding PPA for Python and updating package lists."
