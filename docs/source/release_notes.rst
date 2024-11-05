@@ -32,10 +32,6 @@ Applied Software
      - Version
      - Remark
      - Status
-   * - Mamba
-     - 1.5.9
-     -
-     -
    * - Miniconda
      - 24.9.2
      -
