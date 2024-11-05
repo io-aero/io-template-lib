@@ -185,7 +185,7 @@ docformatter:
 #	docformatter -r ${PYTHONPATH}
 	@echo "Info **********  End:   docformatter *********************************"
 
-docs: ## docs: Format and create the user documentation.
+docs: ## docs: Create the user documentation.
 docs: sphinx
 
 everything: ## everything: Do everything pre-checkin
