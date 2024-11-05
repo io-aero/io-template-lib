@@ -331,8 +331,6 @@
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">conda-dev</span></code></strong>: Creates a Conda environment for development using a <code class="docutils literal notranslate"><span class="pre">config/environment_dev.yml</span></code> configuration file.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">conda-prod</span></code></strong>: Creates a production-ready Conda environment using <code class="docutils literal notranslate"><span class="pre">config/environment.yml</span></code>.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">mamba-dev</span></code></strong>: Creates a Mamba environment for development using a <code class="docutils literal notranslate"><span class="pre">config/environment_dev.yml</span></code> configuration file.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">mamba-prod</span></code></strong>: Creates a production-ready Mamba environment using <code class="docutils literal notranslate"><span class="pre">config/environment.yml</span></code>.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">next-version</span></code></strong>: Increments the version number using a custom <code class="docutils literal notranslate"><span class="pre">next_version.py</span></code> script.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">version</span></code></strong>: Displays the current versions of Python and pip.</p></li>
 </ul>
@@ -363,7 +361,6 @@
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">everything</span></code></strong>: Runs a comprehensive pre-check workflow.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">pre-push</span></code></strong>: Prepares code for committing, including version increments.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">conda-dev</span></code></strong> / <strong><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">conda-prod</span></code></strong>: Creates Conda environments based on project requirements.</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">mamba-dev</span></code></strong> / <strong><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">mamba-prod</span></code></strong>: Creates Mamba environments based on project requirements.</p></li>
 </ul>
 </li>
 <li><p><strong>Testing</strong>:</p>
@@ -393,7 +390,6 @@
 <li><p><strong>Conda</strong>: Creates isolated environments for development and production with specific dependencies, ensuring reproducibility across setups.</p></li>
 <li><p><strong>Coveralls</strong>: Tracks code coverage and uploads results to <code class="docutils literal notranslate"><span class="pre">coveralls.io</span></code>. Useful if coverage metrics are essential to the project’s CI/CD goals.</p></li>
 <li><p><strong>Docformatter</strong>: Ensures docstrings adhere to PEP 257 standards, increasing documentation quality and readability.</p></li>
-<li><p><strong>Mamba</strong>: Manages isolated environments with different dependencies, ensuring compatibility across development, testing, and production setups.</p></li>
 <li><p><strong>Mypy</strong>: Enforces type hints across the codebase, reducing runtime errors and improving code clarity.</p></li>
 <li><p><strong>Nuitka</strong>: Compiles the codebase to C, creating optimized binaries. While helpful, it may be optional depending on the library’s distribution needs.</p></li>
 <li><p><strong>Pylint</strong>: A linter for enforcing coding standards and detecting potential issues in the code. It complements <code class="docutils literal notranslate"><span class="pre">ruff</span></code> but may be redundant if <code class="docutils literal notranslate"><span class="pre">ruff</span></code> alone meets project needs.</p></li>

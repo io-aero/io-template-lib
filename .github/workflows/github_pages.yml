@@ -5,7 +5,6 @@ on:
     branches: [ 'main' ]
 
 env:
-  IO_CONDA: 'false'
   MODULE: 'iotemplatelib'
   PYPI_PAT: ${{ secrets.PYPI_PAT }}
 
@@ -26,7 +25,6 @@ jobs:
 
       - name: Show the environment variables
         run: |
-          echo "IO_CONDA    = ${{ env.IO_CONDA }}"
           echo "MODULE      = ${{ env.MODULE }}"
 
       - name: Set Timezone
@@ -57,47 +55,22 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up Miniconda - Conda
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up Micromamba - Mamba
-        if: ${{ env.IO_CONDA == 'false' }}
-        uses: mamba-org/setup-micromamba@v1
-        with:
-          micromamba-version: 'latest'
-          environment-file: config/environment_dev.yml  # Ensure this file exists
-          init-shell: bash
-          cache-environment: true
-          post-cleanup: 'all'
-
-      - name: Install dependencies - Conda - dev
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Install dependencies - dev
         run: make conda-dev
 
-      - name: Install dependencies - Mamba - dev
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: make mamba-dev
-
-      - name: Run docs - Conda - dev
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Run docs - dev
         run: |
           conda init --all
           source ~/.bashrc
           conda activate $MODULE
           make black docs
-
-      - name: Run docs - Mamba - dev
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: |
-          eval "$(micromamba shell hook --shell bash)"
-          micromamba activate $MODULE
-          make black docs
-        shell: bash
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

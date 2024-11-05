@@ -6,7 +6,6 @@ on:
 
 env:
   IO_AWS_CLI: 'false'
-  IO_CONDA: 'false'
   IO_COVERALLS: 'false'
   IO_DOCKER: 'false'
   MODULE: 'iotemplatelib'
@@ -31,7 +30,6 @@ jobs:
         run: |
           echo "IO_AWS_CLI  = ${{ env.IO_AWS_CLI }}"
           echo "IO_COVERALLS= ${{ env.IO_COVERALLS }}"
-          echo "IO_CONDA    = ${{ env.IO_CONDA }}"
           echo "IO_DOCKER   = ${{ env.IO_DOCKER }}"
           echo "IO_LOCAL    = ${{ vars.IO_LOCAL }}"
           echo "MODULE      = ${{ env.MODULE }}"
@@ -90,93 +88,43 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install
 
-      - name: Set up Miniconda - Conda
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up Micromamba - Mamba
-        if: ${{ env.IO_CONDA == 'false' }}
-        uses: mamba-org/setup-micromamba@v1
-        with:
-          micromamba-version: 'latest'
-          environment-file: config/environment_dev.yml  # Ensure this file exists
-          init-shell: bash
-          cache-environment: true
-          post-cleanup: 'all'
-
       - name: Install Docker
         if: ${{ env.IO_DOCKER == 'true' }}
         uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies - Conda - prod
-        if: ${{ env.IO_CONDA == 'true' }}
-        run: |
-          make conda-prod
+      - name: Install dependencies - prod
+        run: make conda-prod
 
-      - name: Install dependencies - Mamba - prod
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: |
-          make mamba-prod
-
-      - name: Compile the Python code - Conda - prod
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Compile the Python code - prod
         run: |
           conda init --all
           source ~/.bashrc
           conda activate $MODULE
           make compileall
 
-      - name: Compile the Python code - Mamba - prod
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: |
-          eval "$(micromamba shell hook --shell bash)"
-          micromamba activate $MODULE
-          make compileall
-        shell: bash
-
-      - name: Run pytest - Conda - prod
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Run pytest - prod
         run: |
           conda init --all
           source ~/.bashrc
           conda activate $MODULE
           make pytest-ci
 
-      - name: Run pytest - Mamba - prod
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: |
-          eval "$(micromamba shell hook --shell bash)"
-          micromamba activate $MODULE
-          make pytest-ci
-        shell: bash
-
-      - name: Install dependencies - Conda - dev
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Install dependencies - dev
         run: make conda-dev
 
-      - name: Install dependencies - Mamba - dev
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: make mamba-dev
-
-      - name: Run pytest - Conda - dev
-        if: ${{ env.IO_CONDA == 'true' }}
+      - name: Run pytest - dev
         run: |
           conda init --all
           source ~/.bashrc
           conda activate $MODULE
           make black lint docs tests
-
-      - name: Run pytest - Mamba - dev
-        if: ${{ env.IO_CONDA == 'false' }}
-        run: |
-          eval "$(micromamba shell hook --shell bash)"
-          micromamba activate $MODULE
-          make black lint docs tests
-        shell: bash
 
       - name: Coveralls
         if: ${{ env.IO_COVERALLS == 'true' }}

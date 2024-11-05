@@ -59,8 +59,6 @@ Each target in the Makefile corresponds to a specific step or tool in the develo
 
 - **`conda-dev`**: Creates a Conda environment for development using a `config/environment_dev.yml` configuration file.
 - **`conda-prod`**: Creates a production-ready Conda environment using `config/environment.yml`.
-- **`mamba-dev`**: Creates a Mamba environment for development using a `config/environment_dev.yml` configuration file.
-- **`mamba-prod`**: Creates a production-ready Mamba environment using `config/environment.yml`.
 - **`next-version`**: Increments the version number using a custom `next_version.py` script.
 - **`version`**: Displays the current versions of Python and pip.
 
@@ -84,7 +82,6 @@ Each target in the Makefile corresponds to a specific step or tool in the develo
    - **`make everything`**: Runs a comprehensive pre-check workflow.
    - **`make pre-push`**: Prepares code for committing, including version increments.
    - **`make conda-dev`** / **`make conda-prod`**: Creates Conda environments based on project requirements.
-   - **`make mamba-dev`** / **`make mamba-prod`**: Creates Mamba environments based on project requirements.
 
 3. **Testing**:
    - **`make tests`**: Runs all tests.
@@ -115,21 +112,19 @@ This section reviews each tool in the Makefile and its purpose in the developmen
 
 7. **Docformatter**: Ensures docstrings adhere to PEP 257 standards, increasing documentation quality and readability.
 
-8. **Mamba**: Manages isolated environments with different dependencies, ensuring compatibility across development, testing, and production setups.
+8. **Mypy**: Enforces type hints across the codebase, reducing runtime errors and improving code clarity.
 
-9. **Mypy**: Enforces type hints across the codebase, reducing runtime errors and improving code clarity.
+9. **Nuitka**: Compiles the codebase to C, creating optimized binaries. While helpful, it may be optional depending on the library’s distribution needs.
 
-10. **Nuitka**: Compiles the codebase to C, creating optimized binaries. While helpful, it may be optional depending on the library’s distribution needs.
+10. **Pylint**: A linter for enforcing coding standards and detecting potential issues in the code. It complements `ruff` but may be redundant if `ruff` alone meets project needs.
 
-11. **Pylint**: A linter for enforcing coding standards and detecting potential issues in the code. It complements `ruff` but may be redundant if `ruff` alone meets project needs.
+11. **Pytest**: The primary testing tool, with flexible configurations for unit and integration testing.
 
-12. **Pytest**: The primary testing tool, with flexible configurations for unit and integration testing.
+12. **Ruff**: A high-performance linter that can serve as a faster alternative to `Pylint` for common linting tasks.
 
-13. **Ruff**: A high-performance linter that can serve as a faster alternative to `Pylint` for common linting tasks.
+13. **Sphinx**: Generates high-quality documentation from code and docstrings, ideal for library documentation.
 
-14. **Sphinx**: Generates high-quality documentation from code and docstrings, ideal for library documentation.
-
-15. **Vulture**: Detects unused code, keeping the codebase lean by identifying and flagging dead code.
+14. **Vulture**: Detects unused code, keeping the codebase lean by identifying and flagging dead code.
 
 ### Necessity and Potential Redundancies
 

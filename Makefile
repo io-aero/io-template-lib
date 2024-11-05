@@ -30,7 +30,6 @@ MODULE=iotemplatelib
 PYTHONPATH=${MODULE} docs scripts tests
 
 ARCH:=$(shell uname -m)
-MAMBA_EXE ?= mamba
 OS:=$(shell uname -s)
 
 export ENV_FOR_DYNACONF=test
@@ -141,8 +140,10 @@ compileall:
 	python3 -m compileall ${PYTHONPATH}
 	@echo "Info **********  End:   Compile All Python Scripts *******************"
 
+.ONESHELL:
 conda-dev: ## Create a new environment for development.
 	@echo "Info **********  Start: Miniconda create development environment *****"
+	@start_time=$$(date +%s) # Capture start time in seconds since epoch
 	conda config --set always_yes true
 	conda --version
 	@echo "----------------------------------------------------------------------"
@@ -151,10 +152,15 @@ conda-dev: ## Create a new environment for development.
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
+	@end_time=$$(date +%s) # Capture end time
+	@elapsed_time=$$((end_time - start_time)) # Calculate elapsed time
+	@echo "Total time consumed: $$elapsed_time seconds"
 	@echo "Info **********  End:   Miniconda create development environment *****"
 
+.ONESHELL:
 conda-prod: ## Create a new environment for production.
 	@echo "Info **********  Start: Miniconda create production environment ******"
+	@start_time=$$(date +%s) # Capture start time in seconds since epoch
 	conda config --set always_yes true
 	conda --version
 	@echo "----------------------------------------------------------------------"
@@ -163,6 +169,9 @@ conda-prod: ## Create a new environment for production.
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
+	@end_time=$$(date +%s) # Capture end time
+	@elapsed_time=$$((end_time - start_time)) # Calculate elapsed time
+	@echo "Total time consumed: $$elapsed_time seconds"
 	@echo "Info **********  End:   Miniconda create production environment ******"
 
 ## Run all the tests and upload the coverage data to coveralls.
@@ -199,36 +208,6 @@ format: black docformatter
 
 lint: ## lint: Lint the code with ruff, Bandit, Vulture, Pylint and Mypy.
 lint: ruff bandit vulture pylint mypy
-
-mamba-dev: ## Create a new environment for development.
-	@echo "Info **********  Start: Miniforge create development environment *****"
-	${MAMBA_EXE} --version
-	@echo "----------------------------------------------------------------------"
-	${MAMBA_EXE} env remove -n ${MODULE} >/dev/null 2>&1 || echo "Environment '${MODULE}' does not exist."
-	${MAMBA_EXE} env create -f config/environment_dev.yml
-	@echo "----------------------------------------------------------------------"
-ifeq ($(MAMBA_EXE), /home/runner/micromamba-bin/micromamba)
-	$(MAMBA_EXE) env list
-else
-	$(MAMBA_EXE) info --envs
-endif
-	${MAMBA_EXE} list
-	@echo "Info **********  End:   Miniforge create development environment *****"
-
-mamba-prod: ## Create a new environment for production.
-	@echo "Info **********  Start: Miniforge create production environment ******"
-	${MAMBA_EXE} --version
-	@echo "----------------------------------------------------------------------"
-	${MAMBA_EXE} env remove -n ${MODULE} >/dev/null 2>&1 || echo "Environment '${MODULE}' does not exist."
-	${MAMBA_EXE} env create -f config/environment.yml
-	@echo "----------------------------------------------------------------------"
-ifeq ($(MAMBA_EXE), /home/runner/micromamba-bin/micromamba)
-	$(MAMBA_EXE) env list
-else
-	$(MAMBA_EXE) info --envs
-endif
-	$(MAMBA_EXE) list
-	@echo "Info **********  End:   Miniforge create production environment ******"
 
 ## Find typing issues with Mypy.
 mypy:
