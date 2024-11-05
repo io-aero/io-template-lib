@@ -186,7 +186,7 @@ docformatter:
 	@echo "Info **********  End:   docformatter *********************************"
 
 docs: ## docs: Format and create the user documentation.
-docs: docformatter sphinx
+docs: sphinx
 
 everything: ## everything: Do everything pre-checkin
 everything: check-tools dev docs nuitka
