@@ -1,13 +1,13 @@
 *.bak
 *.log
-.coverage
+.coverage*
 .history/
 .idea/
 .mypy_cache/
 .pytest_cache/
 .settings.io_aero.toml
-/.act_secrets
 /build/
+/config/.act_secrets
 /docs/build/doctrees/
 /docs/build/pdf/.doctrees
 /docs/build/pdf/manual.rtc

@@ -27,13 +27,12 @@ maintainers = [
 name = "iotemplatelib"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "2.0.4"
+version = "2.0.6"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/io-aero/io-template-lib/issues"
 Documentation = "https://io-aero.github.io/io-template-lib/"
 Homepage = "https://github.com/io-aero/io-template-lib"
-"Release History" = "https://io-aero.github.io/io-template-lib/release_history/"
 "Release Notes" = "https://io-aero.github.io/io-template-lib/release_notes/"
 Source = "https://github.com/io-aero/io-template-lib/tree/main/iotemplatelib"
 
@@ -42,16 +41,6 @@ skips = [
     "B101",
     "B404",
     "B603",
-]
-
-[tool.black]
-include = "\\.pyi?$"
-line-length = 100
-target-version = [
-    "py310",
-    "py311",
-    "py312",
-    "py313",
 ]
 
 [tool.docformatter]
@@ -85,6 +74,17 @@ exclude = [
 line-length = 100
 indent-width = 4
 target-version = "py313"
+extend-ignore = [
+    "E501",
+]
+
+[tool.ruff.format]
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
 
 [tool.ruff.lint]
 select = [
@@ -103,14 +103,6 @@ fixable = [
 ]
 unfixable = []
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-line-ending = "auto"
-docstring-code-format = false
-docstring-code-line-length = "dynamic"
 
 [tool.vulture]
 make_whitelist = true
