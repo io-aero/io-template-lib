@@ -1,8 +1,11 @@
 [default]
 check_value = "default"
+
 is_verbose = true
+
+[dev]
+
+[prod]
 
 [test]
 check_value = "test"
-postgres_password = "postgres_password"
-postgres_password_admin = "postgres_password_admin"

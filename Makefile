@@ -27,10 +27,8 @@
         version
 
 MODULE=iotemplatelib
-PYTHONPATH=${MODULE} docs scripts tests
 
-ARCH:=$(shell uname -m)
-OS:=$(shell uname -s)
+PYTHONPATH=${MODULE} docs scripts tests
 
 export ENV_FOR_DYNACONF=test
 export LANG=en_US.UTF-8
@@ -68,7 +66,6 @@ help:
 ## Ensure all required tools are installed.
 check-tools:
 	$(call CHECK_TOOL,bandit)
-	$(call CHECK_TOOL,black)
 	$(call CHECK_TOOL,coveralls)
 	$(call CHECK_TOOL,docformatter)
 	$(call CHECK_TOOL,mypy)
@@ -105,12 +102,12 @@ action-std:
 	bin/act.exe --version
 	@echo "----------------------------------------------------------------------"
 	bin/act.exe --quiet \
-				--secret-file .act_secrets \
+				--secret-file ./config/.act_secrets \
 				--var IO_LOCAL='true' \
 				-P ubuntu-latest=catthehacker/ubuntu:act-latest \
 				-W .github/workflows/github_pages.yml
 	bin/act.exe --quiet \
-				--secret-file .act_secrets \
+				--secret-file ./config/.act_secrets \
 				--var IO_LOCAL='true' \
 				-P ubuntu-latest=catthehacker/ubuntu:act-latest \
 				-W .github/workflows/standard.yml
@@ -124,14 +121,6 @@ bandit:
 	bandit -c pyproject.toml -r ${PYTHONPATH} --severity-level high --severity-level medium
 	@echo "Info **********  End:   Bandit ***************************************"
 
-## Format the code with Black.
-black:
-	@echo "Info **********  Start: black ****************************************"
-	black --version
-	@echo "----------------------------------------------------------------------"
-	black ${PYTHONPATH}
-	@echo "Info **********  End:   black ****************************************"
-
 ## Byte-compile the Python libraries.
 compileall:
 	@echo "Info **********  Start: Compile All Python Scripts *******************"
@@ -140,38 +129,26 @@ compileall:
 	python3 -m compileall ${PYTHONPATH}
 	@echo "Info **********  End:   Compile All Python Scripts *******************"
 
-.ONESHELL:
 conda-dev: ## Create a new environment for development.
 	@echo "Info **********  Start: Miniconda create development environment *****"
-	@start_time=$$(date +%s) # Capture start time in seconds since epoch
-	conda config --set always_yes true
 	conda --version
 	@echo "----------------------------------------------------------------------"
-	conda env remove -n ${MODULE} >/dev/null 2>&1 || echo "Environment '${MODULE}' does not exist."
-	conda env create -f config/environment_dev.yml
+	conda config --set always_yes true
+	conda env create -f ./config/environment_dev.yml || conda env update --prune -f ./config/environment_dev.yml
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
-	@end_time=$$(date +%s) # Capture end time
-	@elapsed_time=$$((end_time - start_time)) # Calculate elapsed time
-	@echo "Total time consumed: $$elapsed_time seconds"
 	@echo "Info **********  End:   Miniconda create development environment *****"
 
-.ONESHELL:
 conda-prod: ## Create a new environment for production.
 	@echo "Info **********  Start: Miniconda create production environment ******"
-	@start_time=$$(date +%s) # Capture start time in seconds since epoch
-	conda config --set always_yes true
 	conda --version
 	@echo "----------------------------------------------------------------------"
-	conda env remove -n ${MODULE} >/dev/null 2>&1 || echo "Environment '${MODULE}' does not exist."
-	conda env create -f config/environment.yml
+	conda config --set always_yes true
+	conda env create -f ./config/environment.yml || conda env update --prune -f ./config/environment.yml
 	@echo "----------------------------------------------------------------------"
 	conda info --envs
 	conda list
-	@end_time=$$(date +%s) # Capture end time
-	@elapsed_time=$$((end_time - start_time)) # Calculate elapsed time
-	@echo "Total time consumed: $$elapsed_time seconds"
 	@echo "Info **********  End:   Miniconda create production environment ******"
 
 ## Run all the tests and upload the coverage data to coveralls.
@@ -203,8 +180,8 @@ everything: check-tools dev docs nuitka
 final: ## final: Format, lint and test the code and create the documentation.
 final: check-tools format lint docs tests
 
-format: ## format: Format the code with Black and docformatter.
-format: black docformatter
+format: ## format: Format the code with docformatter.
+format: docformatter
 
 lint: ## lint: Lint the code with ruff, Bandit, Vulture, Pylint and Mypy.
 lint: ruff bandit vulture pylint mypy
@@ -252,7 +229,7 @@ pylint:
 	@echo "Info **********  Start: Pylint ***************************************"
 	pylint --version
 	@echo "----------------------------------------------------------------------"
-	pylint --rcfile=.pylintrc ${PYTHONPATH}
+	pylint --rcfile=./config/.pylintrc ${PYTHONPATH}
 	@echo "Info **********  End:   Pylint ***************************************"
 
 ## Run all tests with pytest.
@@ -264,7 +241,7 @@ pytest:
 	pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -v tests
 	@echo "Info **********  End:   pytest ***************************************"
 
-pytest-ci: ## Run all tests with pytest after test tool installation.
+pytest-ci: ## Run all tests after test tool installation.
 	@echo "Info **********  Start: pytest-ci *************************************"
 	pip3 install pytest pytest-cov pytest-deadfixtures pytest-helpers-namespace pytest-random-order
 	@echo "----------------------------------------------------------------------"
@@ -274,14 +251,14 @@ pytest-ci: ## Run all tests with pytest after test tool installation.
 	pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -v tests
 	@echo "Info **********  End:   pytest-ci *************************************"
 
-pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
+pytest-first-issue: ## Run all tests until the first issue occurs.
 	@echo "Info **********  Start: pytest-first-issue ****************************"
 	pytest --version
 	@echo "----------------------------------------------------------------------"
 	pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo "Info **********  End:   pytest-first-issue ****************************"
 
-pytest-ignore-mark: ## Run all tests without marker with pytest.
+pytest-ignore-mark: ## Run all tests without marker.
 	@echo "Info **********  Start: pytest-ignore-mark ***************************"
 	pytest --version
 	@echo "----------------------------------------------------------------------"
@@ -289,7 +266,7 @@ pytest-ignore-mark: ## Run all tests without marker with pytest.
 	pytest --cache-clear --cov=${MODULE} --cov-report term-missing:skip-covered --cov-report=lcov -m "not no_ci" -v tests
 	@echo "Info **********  End:   pytest-ignore-mark ***************************"
 
-pytest-issue: ## Run only the tests with pytest which are marked with 'issue'.
+pytest-issue: ## Run only the tests which are marked with 'issue'.
 	@echo "Info **********  Start: pytest-issue *********************************"
 	pytest --version
 	@echo "----------------------------------------------------------------------"
@@ -297,7 +274,7 @@ pytest-issue: ## Run only the tests with pytest which are marked with 'issue'.
 	pytest --cache-clear --capture=no --cov=${MODULE} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo "Info **********  End:   pytest-issue *********************************"
 
-pytest-module: ## Run test of a specific module with pytest.
+pytest-module: ## Run the tests of a specific module.
 	@echo "Info **********  Start: pytest-module ********************************"
 	@echo "TESTMODULE=tests/${TEST-MODULE}.py"
 	@echo "----------------------------------------------------------------------"
@@ -327,7 +304,7 @@ sphinx:
 	sphinx-build -b rinoh docs/source docs/build/pdf
 	@echo "Info **********  End:   sphinx ***************************************"
 
-tests: ## tests: Run all tests with pytest.
+tests: ## tests: Run all tests.
 tests: pytest
 
 version: ## Show the installed software versions.
