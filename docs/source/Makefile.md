@@ -36,7 +36,6 @@ Each target in the Makefile corresponds to a specific step or tool in the develo
   - **`ruff`**: A high-performance Python linter.
   - **`bandit`**: Analyzes code for common security issues.
   - **`vulture`**: Identifies and flags unused code.
-  - **`pylint`**: Checks for potential code issues and enforces Python coding standards.
   - **`mypy`**: Enforces type checking.
 
 #### Testing

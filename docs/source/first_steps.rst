@@ -136,7 +136,7 @@ In Ubuntu, the GDAL library must be installed as follows:
 System Testing with Unit Tests
 ------------------------------
 
-If you have previously executed `make conda-dev`, you can now perform a system test to verify the installation using `make test`.
+If you have previously executed `make conda-dev`, you can now perform a system test to verify the installation using `make tests`.
 Follow these steps:
 
 a. Run the System Test:

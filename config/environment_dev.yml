@@ -22,7 +22,6 @@ dependencies:
     - mypy
     - myst-parser
     - ordered-set
-    - pylint
     - pytest
     - pytest-cov
     - pytest-deadfixtures

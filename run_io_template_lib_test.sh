@@ -66,9 +66,9 @@ log_message() {
 [ -f "${log_file}" ] && rm -f "${log_file}"
 
 # ------------------------------------------------------------------------
-# Redirect standard output and error to log file
+# Redirect stdout and stderr to both terminal and log file
 # ------------------------------------------------------------------------
-exec > >(while read -r line; do log_message "$line"; done) 2> >(while read -r line; do log_message "$line"; done)
+exec > >(tee -a "$log_file") 2> >(tee -a "$log_file" >&2)
 
 echo "==================================================================="
 echo "Start $0"
