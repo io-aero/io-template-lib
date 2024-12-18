@@ -64,6 +64,7 @@ def test_launcher_version() -> None:
     assert settings.check_value == "test", "Settings check_value is not 'test'"
 
     commands = {
+        "Darwin": ["./run_io_template_lib_test.sh", "version"],
         "Linux": ["./run_io_template_lib_test.sh", "version"],
     }
     command = commands.get(platform.system())

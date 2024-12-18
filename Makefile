@@ -6,8 +6,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: action \
-        conda-dev \
+.PHONY: conda-dev \
         conda-prod \
         dev \
         docs \
@@ -70,7 +69,6 @@ check-tools:
 	$(call CHECK_TOOL,docformatter)
 	$(call CHECK_TOOL,mypy)
 	$(call CHECK_TOOL,nuitka)
-	$(call CHECK_TOOL,pylint)
 	$(call CHECK_TOOL,pytest)
 	$(call CHECK_TOOL,ruff)
 	$(call CHECK_TOOL,sphinx-apidoc)
@@ -90,28 +88,6 @@ clean:
 # =============================================================================
 # Tool Targets
 # =============================================================================
-
-action: ## action: Run the GitHub Actions locally.
-action: action-std
-
-## Run the GitHub Actions locally: standard.
-action-std:
-	@echo "Info **********  Start: action ***************************************"
-	@echo "Copy your .aws/credentials to .aws_secrets"
-	@echo "----------------------------------------------------------------------"
-	bin/act.exe --version
-	@echo "----------------------------------------------------------------------"
-	bin/act.exe --quiet \
-				--secret-file ./config/.act_secrets \
-				--var IO_LOCAL='true' \
-				-P ubuntu-latest=catthehacker/ubuntu:act-latest \
-				-W .github/workflows/github_pages.yml
-	bin/act.exe --quiet \
-				--secret-file ./config/.act_secrets \
-				--var IO_LOCAL='true' \
-				-P ubuntu-latest=catthehacker/ubuntu:act-latest \
-				-W .github/workflows/standard.yml
-	@echo "Info **********  End:   action ***************************************"
 
 ## Find common security issues with Bandit.
 bandit:
@@ -184,7 +160,7 @@ format: ## format: Format the code with docformatter.
 format: docformatter
 
 lint: ## lint: Lint the code with ruff, Bandit, Vulture, Pylint and Mypy.
-lint: ruff bandit vulture pylint mypy
+lint: ruff bandit vulture mypy
 
 ## Find typing issues with Mypy.
 mypy:
@@ -223,14 +199,6 @@ nuitka: ## Create a dynamic link library.
 
 pre-push: ## pre-push: Preparatory work for the pushing process.
 pre-push: check-tools format lint tests next-version docs
-
-## Lint the code with Pylint.
-pylint:
-	@echo "Info **********  Start: Pylint ***************************************"
-	pylint --version
-	@echo "----------------------------------------------------------------------"
-	pylint --rcfile=./config/.pylintrc ${PYTHONPATH}
-	@echo "Info **********  End:   Pylint ***************************************"
 
 ## Run all tests with pytest.
 pytest:

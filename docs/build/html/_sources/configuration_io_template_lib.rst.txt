@@ -2,27 +2,6 @@
 Configuration IO-TEMPLATE-LIB
 =============================
 
-.act_secrets
-------------
-
-This file controls the secrets of the ``make action`` functionality.
-This file is not included in the repository.
-The file ``.act_secrets_template`` can be used as a template.
-
-The customisable entries are:
-
-======================= ======================================
-Parameter               Description
-======================= ======================================
-GLOBAL_USER_EMAIL       The global email address for GitHub
-======================= ======================================
-
-**Examples**:
-
-.. code-block::
-
-    GLOBAL_USER_EMAIL=a@b.com
-
 .settings.io_aero.toml
 ----------------------
 

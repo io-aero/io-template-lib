@@ -63,7 +63,6 @@ Detailed instructions can be found in the [documentation](https://io-aero.github
 ========================================================================
 Recommended Makefile Targets:
 ------------------------------------------------------------------------
-action                    action: Run the GitHub Actions locally.
 conda-dev                 Create a new environment for development.
 conda-prod                Create a new environment for production.
 dev                       dev: Format, lint and test the code.
@@ -138,13 +137,11 @@ Further IO-Aero software documentation can be found under the following links.
 |--------------------------|----------------------------------------------------------------|
 | .gitattributes           | Handling of the os-specific file properties.                   |
 | .gitignore               | Configuration of files and folders to be ignored.              |
-| .pylintrc                | Pylint configuration file.                                     |
 | LICENSE.md               | Text of the licence terms.                                     |
 | logging_cfg.yaml         | Configuration of the Logger functionality.                     |
 | Makefile                 | Tasks to be executed with the make command.                    |
 | pyproject.toml           | Optional configuration data for the software quality tools.    |
 | README.md                | This file.                                                     |
-| run_io_template_app      | Main script for using the functionality.                       |
 | run_io_template_app_test | Main script for using the functionality in a test environment. |
 | settings.io_aero.toml    | Configuration data.                                            |
 | setup.cfg                | Configuration data.                                            |

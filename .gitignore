@@ -7,7 +7,6 @@
 .pytest_cache/
 .settings.io_aero.toml
 /build/
-/config/.act_secrets
 /docs/build/doctrees/
 /docs/build/pdf/.doctrees
 /docs/build/pdf/manual.rtc
